@@ -84,14 +84,11 @@ header.top .wrap { display: flex; align-items: center; gap: 20px; padding-block:
 .brand { font-family: var(--f-display); font-weight: 700; font-size: var(--s-4); text-decoration: none; white-space: nowrap; }
 nav.menu { display: flex; gap: 2px; overflow-x: auto; margin-left: auto; scrollbar-width: none; }
 nav.menu::-webkit-scrollbar { display: none; }
-nav.menu a { position: relative; text-decoration: none; padding: 8px 12px; color: var(--ink-soft); white-space: nowrap; font-weight: 500; font-size: 0.9375rem; border-radius: 6px; transition: color .2s, background-color .2s; }
-nav.menu a::after { content: ""; position: absolute; left: 12px; right: 12px; bottom: 2px; height: 2px; border-radius: 2px; background: var(--accent); transform: scaleX(0); transition: transform .3s var(--ease); }
-nav.menu a:hover { color: var(--ink); }
-nav.menu a[aria-current="page"] { color: var(--ink); }
-nav.menu a[aria-current="page"]::after { transform: scaleX(1); }
-nav.menu a.cta { color: var(--accent-ink); background: var(--accent); margin-right: 6px; }
-nav.menu a.cta::after { display: none; }
-nav.menu a.cta:hover { background: var(--accent-strong); }
+nav.menu a { text-decoration: none; padding: 7px 14px; color: var(--ink-soft); white-space: nowrap; font-weight: 500; font-size: 0.9375rem; border-radius: 999px; transition: color .2s, background-color .25s var(--ease), transform .15s var(--ease); -webkit-tap-highlight-color: transparent; }
+nav.menu a:hover { color: var(--ink); background: var(--accent-weak); }
+nav.menu a:active { transform: scale(.94); background: var(--accent); color: var(--accent-ink); }
+nav.menu a[aria-current="page"] { color: var(--accent-ink); background: var(--accent); }
+nav.menu a[aria-current="page"]:hover { background: var(--accent-strong); }
 @media (max-width: 640px) { header.top .wrap { flex-direction: column; align-items: stretch; gap: 4px; padding-block: 10px 6px; } nav.menu { margin-left: 0; } }
 
 main { padding-block: 48px 80px; }
@@ -301,7 +298,7 @@ footer { border-top: 1px solid var(--line); padding-block: 26px; color: var(--in
   <div class="wrap">
     <a class="brand" href="#home">북크북크</a>
     <nav class="menu" aria-label="주요 메뉴">
-      <a href="#test" class="cta" data-v="test">테스트</a>
+      <a href="#test" data-v="test">테스트</a>
       <a href="#magazine" data-v="magazine">매거진</a>
       <a href="#writers" data-v="writers">작가</a>
       <a href="#shops" data-v="shops">서점</a>
