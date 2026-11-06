@@ -1,0 +1,739 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="9개 질문으로 나의 독서 유형을 알아보고, 같은 결의 신생 작가와 독립서점을 만나는 곳">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font-size:14px;font-family:system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<title>북크북크</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@400;600;800&family=IBM+Plex+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: 도서관 목록카드(청구기호·대출카드)를 닮은 서가형 사이트. 형광펜 밑줄 하나만 강조로 쓴다. */
+:root {
+  --paper: #F1F3EE;
+  --paper-2: #E6E9E2;
+  --card: #FBFCF9;
+  --ink: #1C2420;
+  --ink-soft: #55615A;
+  --line: #C9CFC6;
+  --accent: #2C6A4E;
+  --accent-ink: #FBFCF9;
+  --marker: #F2D54B;
+  --on-swatch: #1C2420;
+  --t-damyo: #F0E3C4;
+  --t-pyeonji: #F3CFD3;
+  --t-memo: #BFE3D3;
+  --t-window: #AFC0E0;
+  --t-compass: #F6C493;
+  --t-fire: #F2A58F;
+  --t-lens: #B9CBD3;
+  --t-mirror: #D3D6DA;
+  --f-display: "Hahmlet", "Nanum Myeongjo", "Apple SD Gothic Neo", serif;
+  --f-body: "IBM Plex Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --s-1: 0.8125rem; --s-2: 0.9375rem; --s-3: 1.0625rem; --s-4: 1.375rem; --s-5: 1.875rem; --s-6: clamp(2.1rem, 5.2vw, 3.6rem);
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --paper: #141917; --paper-2: #1C2320; --card: #1F2724; --ink: #E7ECE7; --ink-soft: #A3AFA8; --line: #36413C;
+  --accent: #7FC4A2; --accent-ink: #10201A; --marker: #8A7520; --on-swatch: #1C2420; color-scheme: dark;
+}}
+:root[data-theme="dark"] {
+  --paper: #141917; --paper-2: #1C2320; --card: #1F2724; --ink: #E7ECE7; --ink-soft: #A3AFA8; --line: #36413C;
+  --accent: #7FC4A2; --accent-ink: #10201A; --marker: #8A7520; --on-swatch: #1C2420; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--paper); color: var(--ink); font-family: var(--f-body); font-size: var(--s-2); line-height: 1.7; word-break: keep-all; overflow-wrap: break-word; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--paper); }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; line-height: 1.3; margin: 0; letter-spacing: -0.01em; }
+p { margin: 0; }
+.wrap { max-width: 1080px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.mono { font-family: var(--f-mono); font-size: var(--s-1); letter-spacing: 0.04em; }
+.eyebrow { font-family: var(--f-mono); font-size: var(--s-1); letter-spacing: 0.08em; color: var(--ink-soft); text-transform: uppercase; }
+.hl { background: linear-gradient(transparent 58%, var(--marker) 58%, var(--marker) 92%, transparent 92%); padding: 0 2px; }
+
+/* header */
+header.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 9; background: var(--paper); border-bottom: 1px solid var(--line); }
+header.top .wrap { display: flex; align-items: center; gap: 20px; padding-block: 12px; }
+.brand { font-family: var(--f-display); font-weight: 800; font-size: var(--s-4); text-decoration: none; white-space: nowrap; }
+.brand small { font-family: var(--f-mono); font-weight: 400; font-size: 0.7rem; color: var(--ink-soft); margin-left: 6px; letter-spacing: 0.06em; }
+nav.menu { display: flex; gap: 4px; overflow-x: auto; margin-left: auto; scrollbar-width: none; }
+nav.menu::-webkit-scrollbar { display: none; }
+nav.menu a { text-decoration: none; padding: 6px 10px; border-radius: 4px; color: var(--ink-soft); white-space: nowrap; font-weight: 500; }
+nav.menu a:hover { color: var(--ink); background: var(--paper-2); }
+nav.menu a[aria-current="page"] { color: var(--ink); background: var(--paper-2); }
+nav.menu a.cta { color: var(--accent-ink); background: var(--accent); }
+@media (max-width: 640px) { header.top .wrap { flex-direction: column; align-items: stretch; gap: 6px; padding-block: 10px 8px; } nav.menu { margin-left: 0; } }
+
+main { padding-block: 40px 72px; }
+section + section { margin-top: 72px; }
+.btn { display: inline-flex; align-items: center; gap: 8px; font: inherit; font-weight: 700; border: 0; cursor: pointer; text-decoration: none; padding: 12px 20px; border-radius: 4px; background: var(--accent); color: var(--accent-ink); }
+.btn:hover { filter: brightness(1.08); }
+.btn.ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1px var(--line); }
+.sec-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 20px; }
+.sec-head h2 { font-size: var(--s-5); }
+.sec-head a { color: var(--ink-soft); font-weight: 500; }
+
+/* hero */
+.hero { display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; align-items: center; }
+.hero > * { min-width: 0; }
+.hero h1 { font-size: var(--s-6); font-weight: 800; margin: 14px 0 20px; }
+.hero p.lead { font-size: var(--s-3); color: var(--ink-soft); max-width: 34em; margin-bottom: 28px; }
+.hero .actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.last { margin-top: 20px; font-size: var(--s-1); color: var(--ink-soft); }
+.fan { position: relative; height: 340px; }
+.fan .tcard { position: absolute; width: 58%; left: 21%; top: 30px; transition: transform .4s ease; }
+@media (prefers-reduced-motion: reduce) { .fan .tcard { transition: none; } }
+@media (max-width: 820px) { .hero { grid-template-columns: 1fr; gap: 24px; } .fan { height: 280px; } }
+
+/* catalog card */
+.tcard { background: var(--card); border: 1px solid var(--line); border-radius: 3px; padding: 16px 16px 14px; display: grid; gap: 8px; box-shadow: 0 1px 0 var(--line); text-decoration: none; color: var(--ink); }
+.tcard .row { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.tcard .swatch { width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; color: var(--on-swatch); flex: none; }
+.tcard .swatch svg { width: 30px; height: 30px; }
+.tcard h3 { font-size: var(--s-4); }
+.tcard .copy { font-size: var(--s-1); color: var(--ink-soft); }
+.tcard .call { border-top: 1px dashed var(--line); padding-top: 8px; display: flex; justify-content: space-between; gap: 8px; color: var(--ink-soft); }
+.types-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+@media (max-width: 860px) { .types-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+a.tcard:hover { border-color: var(--ink-soft); }
+
+/* magazine */
+.issue { display: grid; grid-template-columns: 0.9fr 1.1fr; border: 1px solid var(--line); border-radius: 3px; background: var(--card); overflow: hidden; }
+.issue > * { min-width: 0; }
+.issue .cover { background: var(--accent); color: var(--accent-ink); padding: 32px; display: grid; align-content: space-between; gap: 40px; min-height: 280px; }
+.issue .cover h3 { font-size: clamp(1.9rem, 4vw, 2.8rem); font-weight: 800; }
+.issue .toc { padding: 12px 28px; display: grid; }
+.toc-item { display: grid; grid-template-columns: 7.5em 1fr; gap: 12px; padding-block: 16px; border-bottom: 1px solid var(--line); }
+.toc-item:last-child { border-bottom: 0; }
+.toc-item h4 { margin: 0 0 4px; font-size: var(--s-3); font-family: var(--f-display); }
+.toc-item p { color: var(--ink-soft); font-size: var(--s-2); }
+@media (max-width: 760px) { .issue { grid-template-columns: 1fr; } .issue .cover { min-height: 0; } .toc-item { grid-template-columns: 1fr; gap: 2px; } .issue .toc { padding: 4px 18px; } }
+
+/* writers */
+.writers { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 900px) { .writers { grid-template-columns: 1fr; } }
+.writer { background: var(--card); border: 1px solid var(--line); border-radius: 3px; padding: 22px; display: grid; gap: 14px; align-content: start; }
+.first { font-family: var(--f-display); font-size: var(--s-3); line-height: 1.85; border-left: 3px solid var(--marker); padding-left: 14px; }
+.meta { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; color: var(--ink-soft); font-size: var(--s-1); }
+.chip { display: inline-flex; align-items: center; gap: 6px; padding: 2px 9px; border-radius: 99px; font-size: var(--s-1); font-weight: 500; color: var(--on-swatch); }
+.tag-ex { font-family: var(--f-mono); font-size: 0.72rem; border: 1px solid var(--line); border-radius: 3px; padding: 1px 6px; color: var(--ink-soft); letter-spacing: 0.04em; }
+.writer .buy { border-top: 1px solid var(--line); padding-top: 12px; font-size: var(--s-1); color: var(--ink-soft); }
+
+/* shops */
+.shops { display: grid; gap: 16px; }
+.shop { display: grid; grid-template-columns: 15em 1fr; gap: 24px; background: var(--card); border: 1px solid var(--line); border-radius: 3px; padding: 22px; }
+.shop > * { min-width: 0; }
+.shop h3 { font-size: var(--s-4); margin-bottom: 4px; }
+.shelf { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.spine { border: 1px solid var(--line); border-radius: 2px; padding: 12px; background: var(--paper); display: grid; gap: 4px; align-content: start; }
+.spine b { font-family: var(--f-display); font-weight: 600; }
+.spine span { font-size: var(--s-1); color: var(--ink-soft); }
+@media (max-width: 760px) { .shop { grid-template-columns: 1fr; gap: 14px; } .shelf { grid-template-columns: 1fr; } }
+
+/* test */
+.quiz { max-width: 640px; margin: 0 auto; }
+.progress { height: 6px; background: var(--paper-2); border-radius: 99px; overflow: hidden; margin: 14px 0 32px; }
+.progress i { display: block; height: 100%; background: var(--accent); transition: width .3s ease; }
+.qnum { display: flex; justify-content: space-between; color: var(--ink-soft); }
+.q { font-size: var(--s-5); margin-bottom: 24px; }
+.opts { display: grid; gap: 12px; }
+.opt { text-align: left; font: inherit; font-size: var(--s-3); color: var(--ink); background: var(--card); border: 1px solid var(--line); border-radius: 3px; padding: 18px 20px; cursor: pointer; display: grid; grid-template-columns: 2em 1fr; gap: 8px; align-items: baseline; }
+.opt:hover { border-color: var(--accent); }
+.opt .k { font-family: var(--f-mono); color: var(--ink-soft); }
+.quiz .back { margin-top: 20px; background: none; border: 0; color: var(--ink-soft); font: inherit; cursor: pointer; padding: 4px 0; text-decoration: underline; }
+.intro-list { display: grid; gap: 6px; margin: 20px 0 28px; padding-left: 1.2em; color: var(--ink-soft); }
+
+/* result */
+.result { display: grid; grid-template-columns: minmax(0, 380px) minmax(0, 1fr); gap: 40px; align-items: start; }
+@media (max-width: 820px) { .result { grid-template-columns: 1fr; } }
+.rcard { border-radius: 4px; padding: 26px; color: var(--on-swatch); display: grid; gap: 14px; aspect-ratio: 9 / 14; max-width: 100%; align-content: space-between; }
+.rcard .swatch { width: 84px; height: 84px; border-radius: 50%; background: rgba(255,255,255,.55); display: grid; place-items: center; }
+.rcard .swatch svg { width: 50px; height: 50px; }
+.rcard h2 { font-size: 2.3rem; font-weight: 800; }
+.rcard .copy { font-family: var(--f-display); font-size: var(--s-4); line-height: 1.45; }
+.rcard .foot { display: flex; justify-content: space-between; gap: 8px; border-top: 1px solid rgba(28,36,32,.3); padding-top: 10px; font-family: var(--f-mono); font-size: var(--s-1); }
+.rbody { display: grid; gap: 22px; }
+.rbody .intro { font-size: var(--s-3); }
+.axes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.axis { border: 1px solid var(--line); border-radius: 3px; padding: 10px 12px; background: var(--card); }
+.axis b { display: block; font-family: var(--f-display); font-size: var(--s-3); }
+.axis span { font-size: var(--s-1); color: var(--ink-soft); }
+.pick { border: 1px solid var(--line); background: var(--card); border-radius: 3px; padding: 18px; display: grid; gap: 6px; }
+.pick .label { font-size: var(--s-1); color: var(--ink-soft); font-weight: 500; }
+.pick .title { font-family: var(--f-display); font-size: var(--s-4); font-weight: 600; }
+.share-row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.toast { font-size: var(--s-1); color: var(--accent); }
+
+/* about */
+.about { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+.about > * { min-width: 0; }
+.about h1 { font-size: var(--s-6); font-weight: 800; }
+.about p { margin-bottom: 14px; max-width: 34em; }
+.steps { display: grid; gap: 14px; counter-reset: s; padding: 0; margin: 0; list-style: none; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 2.4em 1fr; gap: 10px; background: var(--card); border: 1px solid var(--line); border-radius: 3px; padding: 16px; }
+.steps li::before { content: counter(s); font-family: var(--f-mono); color: var(--accent); font-weight: 500; }
+@media (max-width: 760px) { .about { grid-template-columns: 1fr; } }
+.page-title { font-size: var(--s-6); font-weight: 800; margin: 10px 0 14px; }
+.page-lead { color: var(--ink-soft); font-size: var(--s-3); max-width: 38em; margin-bottom: 32px; }
+/* feedback */
+.fb { border: 1px dashed var(--line); border-radius: 3px; padding: 18px; display: grid; gap: 12px; }
+.fb h3 { font-size: var(--s-3); }
+.fb .row { display: flex; gap: 8px; flex-wrap: wrap; }
+.pill { font: inherit; font-size: var(--s-1); font-weight: 500; color: var(--ink); background: var(--card); border: 1px solid var(--line); border-radius: 99px; padding: 6px 14px; cursor: pointer; }
+.pill:hover { border-color: var(--accent); }
+.pill[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.fb .sub { font-size: var(--s-1); color: var(--ink-soft); }
+.privacy { font-size: var(--s-1); color: var(--ink-soft); margin-top: 14px; }
+
+/* stats */
+.kpis { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-bottom: 28px; }
+.kpi { background: var(--card); border: 1px solid var(--line); border-radius: 3px; padding: 16px; }
+.kpi b { display: block; font-family: var(--f-display); font-size: var(--s-5); font-variant-numeric: tabular-nums; }
+.kpi span { font-size: var(--s-1); color: var(--ink-soft); }
+@media (max-width: 600px) { .kpis { grid-template-columns: 1fr; } }
+.bars { display: grid; gap: 10px; position: relative; }
+.bar { display: grid; grid-template-columns: 6.5em minmax(0, 1fr) 7.5em; gap: 12px; align-items: center; font-size: var(--s-2); }
+.bar .track { position: relative; height: 22px; background: var(--paper-2); border-radius: 2px; }
+.bar .fill { position: absolute; inset: 0 auto 0 0; border-radius: 2px; }
+.bar .limit { position: absolute; top: -4px; bottom: -4px; left: 25%; border-left: 2px dashed var(--ink-soft); }
+.bar .num { font-variant-numeric: tabular-nums; color: var(--ink-soft); font-size: var(--s-1); text-align: right; }
+.bar.over .num { color: var(--ink); font-weight: 700; }
+.note { font-size: var(--s-1); color: var(--ink-soft); margin-top: 10px; }
+.stat-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 28px; align-items: start; }
+.stat-grid > * { min-width: 0; }
+@media (max-width: 820px) { .stat-grid { grid-template-columns: 1fr; } }
+.panel { background: var(--card); border: 1px solid var(--line); border-radius: 3px; padding: 20px; }
+.panel h2 { font-size: var(--s-4); margin-bottom: 14px; }
+.tbl { width: 100%; border-collapse: collapse; font-size: var(--s-1); font-variant-numeric: tabular-nums; }
+.tbl th, .tbl td { text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--line); }
+.tbl td.r, .tbl th.r { text-align: right; }
+
+footer { border-top: 1px solid var(--line); padding-block: 28px; color: var(--ink-soft); font-size: var(--s-1); }
+footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#home">북크북크<small>BOOKK·BOOKK</small></a>
+    <nav class="menu" aria-label="주요 메뉴">
+      <a href="#test" class="cta" data-v="test">테스트</a>
+      <a href="#magazine" data-v="magazine">매거진</a>
+      <a href="#writers" data-v="writers">작가</a>
+      <a href="#shops" data-v="shops">서점</a>
+      <a href="#types" data-v="types">8가지 유형</a>
+      <a href="#about" data-v="about">소개</a>
+      <a href="#stats" data-v="stats" id="statsLink" hidden>응답 통계</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <!-- HOME -->
+  <div id="v-home" data-view>
+    <section class="hero">
+      <div>
+        <p class="eyebrow">독서 성향 매칭 · 웹 매거진</p>
+        <h1>아직 아무도 모르는,<br><span class="hl">나와 같은 결</span>의 문장을 쓰는 작가</h1>
+        <p class="lead">9개 질문에 답하면 당신의 독서 유형을 알려드려요. 익숙한 대표작 한 권, 그리고 같은 결의 신생 작가와 그 책을 파는 독립서점까지 이어드립니다.</p>
+        <div class="actions">
+          <a class="btn" href="#test">2분 테스트 시작하기</a>
+          <a class="btn ghost" href="#types">8가지 유형 보기</a>
+        </div>
+        <p class="last" id="lastResult" hidden></p>
+      </div>
+      <div class="fan" id="fan" aria-hidden="true"></div>
+    </section>
+
+    <section>
+      <div class="sec-head"><h2>이번 달 매거진</h2><a href="#magazine">창간호 전체 보기</a></div>
+      <div id="issueHome"></div>
+    </section>
+
+    <section>
+      <div class="sec-head"><h2>첫 문단으로 만나는 작가</h2><a href="#writers">작가 전체 보기</a></div>
+      <div class="writers" id="writersHome"></div>
+    </section>
+  </div>
+
+  <!-- TEST -->
+  <div id="v-test" data-view hidden>
+    <div class="quiz" id="quiz"></div>
+  </div>
+
+  <!-- TYPES -->
+  <div id="v-types" data-view hidden>
+    <p class="eyebrow">읽는 이유 × 온도 × 여운</p>
+    <h1 class="page-title">8가지 독서 유형</h1>
+    <p class="page-lead">책을 펴는 이유(쉼·깸), 마음이 열리는 말투(온·냉), 다 읽고 갖고 싶은 것(답·물음). 세 가지를 조합하면 여덟 유형이 나와요. 카드를 누르면 그 유형의 결과를 볼 수 있어요.</p>
+    <div class="types-grid" id="typesGrid"></div>
+  </div>
+
+  <!-- MAGAZINE -->
+  <div id="v-magazine" data-view hidden>
+    <p class="eyebrow">월간 · 매달 하나의 테마</p>
+    <h1 class="page-title">매거진</h1>
+    <p class="page-lead">매달 하나의 테마로 작가 인터뷰, 서점 탐방, 유형별 큐레이션을 싣습니다.</p>
+    <div id="issueFull"></div>
+    <section>
+      <div class="sec-head"><h2>다음 호 예고</h2></div>
+      <div class="types-grid" style="grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));">
+        <div class="tcard"><span class="mono">VOL.02</span><h3>겨울을 버티는 문장들</h3><p class="copy">추운 계절, 곁에 두고 싶은 한 문장을 모읍니다.</p></div>
+        <div class="tcard"><span class="mono">VOL.03</span><h3>다시 시작하는 사람에게</h3><p class="copy">새해, 두 번째 시작을 응원하는 책들.</p></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- WRITERS -->
+  <div id="v-writers" data-view hidden>
+    <p class="eyebrow">약력보다 첫 문단</p>
+    <h1 class="page-title">작가</h1>
+    <p class="page-lead">신생 작가는 이름보다 글로 먼저 만나는 게 좋다고 믿어요. 첫 문단을 읽고 끌리면, 아래 서점에서 책을 만날 수 있어요.</p>
+    <div class="writers" id="writersFull"></div>
+  </div>
+
+  <!-- SHOPS -->
+  <div id="v-shops" data-view hidden>
+    <p class="eyebrow">책방지기의 서가</p>
+    <h1 class="page-title">독립서점</h1>
+    <p class="page-lead">독립서점은 주인의 취향이 곧 정체성이에요. 서점 소개보다 책방지기가 직접 고른 세 권을 먼저 보여드립니다.</p>
+    <div class="shops" id="shopsFull"></div>
+  </div>
+
+  <!-- STATS (운영자 전용) -->
+  <div id="v-stats" data-view hidden>
+    <p class="eyebrow">운영자 전용 · 테스트 검증</p>
+    <h1 class="page-title">응답 통계</h1>
+    <p class="page-lead">유형 분포와 결과 피드백을 모아 봅니다. 한 유형이 25%를 넘으면 문항 조정이 필요하다는 신호예요.</p>
+    <div id="statsBody"><p class="note">응답을 불러오는 중이에요…</p></div>
+  </div>
+
+  <!-- ABOUT -->
+  <div id="v-about" data-view hidden>
+    <div class="about">
+      <div>
+        <p class="eyebrow">ABOUT</p>
+        <h1>유명하지 않음을<br>발견의 재미로</h1>
+      </div>
+      <div>
+        <p>북크북크는 독서모임에서 시작해 책 기부와 교환으로 뻗어 나간 사람들이 만드는 플랫폼입니다. 베스트셀러 추천은 어디에나 있으니, 여기서는 아직 알려지지 않은 작가와 동네 독립서점을 소개합니다.</p>
+        <ol class="steps">
+          <li><span><b>테스트로 들어와요.</b> 9개 질문으로 나의 독서 유형을 알아봐요.</span></li>
+          <li><span><b>익숙한 책으로 공감해요.</b> 유형마다 누구나 아는 대표작을 보여드려요.</span></li>
+          <li><span><b>같은 결의 신생 작가를 만나요.</b> 그 책을 파는 독립서점으로 이어드려요.</span></li>
+          <li><span><b>매거진으로 머물러요.</b> 매달 한 가지 테마로 작가와 서점 이야기를 전해요.</span></li>
+        </ol>
+        <p style="margin-top:20px">입점 문의와 소식은 인스타그램 <b>@bookk__book</b>에서 받고 있어요.</p>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer><div class="wrap"><span>북크북크 · 신생 작가와 독립서점을 잇는 곳</span><span>작가·서점 정보는 입점 전 예시입니다</span></div></footer>
+
+<script>
+const ICONS = {
+  damyo: '<rect x="8" y="12" width="32" height="22" rx="3"/><path d="M8 20h32M8 27h32M13 34v5M19 34v5M25 34v5M31 34v5M37 34v5"/>',
+  pyeonji: '<rect x="6" y="12" width="36" height="24" rx="2"/><path d="M6 14l18 13 18-13"/>',
+  memo: '<rect x="11" y="8" width="26" height="34" rx="2"/><path d="M17 18h14M17 24h14M17 30h9"/><path d="M16 5v6M24 5v6M32 5v6"/>',
+  window: '<rect x="10" y="7" width="28" height="34" rx="1"/><path d="M24 7v34M10 24h28"/><path d="M30 12a4 4 0 1 0 4 5 3 3 0 0 1-4-5z"/>',
+  compass: '<circle cx="24" cy="24" r="16"/><path d="M24 11l4.5 13L24 37l-4.5-13z"/><circle cx="24" cy="24" r="1.5"/>',
+  fire: '<path d="M24 7c6 8 10 12 10 19a10 10 0 0 1-20 0c0-5 3-8 5-11 1 4 3 5 5 6 0-5-1-9 0-14z"/><path d="M11 42l26-5M11 37l26 5"/>',
+  lens: '<circle cx="21" cy="21" r="11"/><path d="M29 29l11 11"/><path d="M15 18a7 7 0 0 1 5-4"/>',
+  mirror: '<ellipse cx="24" cy="19" rx="11" ry="14"/><path d="M24 33v9M17 42h14M19 13l7-5"/>'
+};
+const svg = k => `<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[k]}</svg>`;
+
+const TYPES = [
+  { k:'damyo', name:'담요', animal:'담요를 두른 곰', code:'쉼·온·답', copy:'오늘은 그냥 덮여 있어도 돼',
+    intro:'당신은 책에서 쉼을 찾는 사람. 다정한 문장 속에 몸을 묻고, 다 읽고 나면 마음이 한결 정리돼요. 남을 챙기느라 바빴다면, 오늘은 책이 당신을 챙길 차례예요.',
+    line:'따뜻하게 감싸고, 괜찮다고 말해주는 책을 골랐어요.', books:[['불편한 편의점','김호연'],['달러구트 꿈 백화점','이미예'],['나는 나로 살기로 했다','김수현']] },
+  { k:'pyeonji', name:'손편지', animal:'손편지를 쓰는 사슴', code:'쉼·온·물음', copy:'답장은 천천히 써도 괜찮아',
+    intro:'당신은 위로를 받되, 답은 스스로 찾고 싶은 사람. 다정한 문장 끝에 남은 작은 질문을 오래 품고 다녀요. 당신에게 책은 천천히 읽는 편지예요.',
+    line:'따뜻하지만 끝에 조용한 질문을 남기는 책을 골랐어요.', books:[['어린 왕자','생텍쥐페리'],['긴긴밤','루리']] },
+  { k:'memo', name:'메모장', animal:'메모장을 든 다람쥐', code:'쉼·냉·답', copy:'감동보다 정리가 필요한 날',
+    intro:'당신은 감성적인 말보다 담백한 정리가 위로가 되는 사람. 복잡한 마음도 몇 줄로 적고 나면 가벼워져요. 겉은 건조해 보여도, 누구보다 자기를 잘 챙길 줄 알아요.',
+    line:'군더더기 없이 핵심을 짚어주는 책을 골랐어요.', books:[['미움받을 용기','기시미 이치로·고가 후미타케'],['명상록','마르쿠스 아우렐리우스']] },
+  { k:'window', name:'새벽 창문', animal:'창가에 앉은 고양이', code:'쉼·냉·물음', copy:'조용해야 들리는 생각이 있어',
+    intro:'당신은 혼자만의 시간에 충전되는 사람. 담담한 문장을 창밖 풍경처럼 바라보다가, 문득 오래 남는 생각을 만나요. 시끄러운 하루 끝, 당신에게 필요한 건 조용한 한 페이지예요.',
+    line:'담담하게 흘러가다 오래 곱씹게 되는 책을 골랐어요.', books:[['스토너','존 윌리엄스'],['시와 산책','한정원'],['바깥은 여름','김애란']] },
+  { k:'compass', name:'나침반', animal:'나침반을 든 강아지', code:'깸·온·답', copy:'길을 잃어도, 방향은 있어',
+    intro:'당신은 새로운 자극을 원하지만, 누군가 함께 걸어주길 바라는 사람. 읽고 나면 \'해볼까?\' 하는 마음이 생겨요. 당신은 책에서 다음 걸음을 찾는 독자예요.',
+    line:'다정한 말투로 앞으로 나아갈 힘을 주는 책을 골랐어요.', books:[['연금술사','파울로 코엘료'],['아몬드','손원평']] },
+  { k:'fire', name:'모닥불', animal:'모닥불 앞의 수달', code:'깸·온·물음', copy:'다 읽으면 누군가와 얘기하고 싶어져',
+    intro:'당신은 책을 덮자마자 "이거 들어봐!" 하고 싶어지는 사람. 따뜻한 이야기 속 생각할 거리를 함께 나눌 때 독서가 완성돼요. 당신 곁엔 늘 이야기가 모여요.',
+    line:'함께 이야기 나누고 싶어지는 책을 골랐어요.', books:[['우리가 빛의 속도로 갈 수 없다면','김초엽'],['클라라와 태양','가즈오 이시구로'],['페인트','이희영']] },
+  { k:'lens', name:'돋보기', animal:'돋보기를 든 부엉이', code:'깸·냉·답', copy:'대충 아는 건 모르는 거야',
+    intro:'당신은 "근데 왜?"를 멈추지 않는 사람. 감정보다 근거, 막연함보다 명확함을 좋아해요. 다 읽고 세상이 한 칸 더 선명해지는 순간을 즐겨요.',
+    line:'날카롭게 파고들어 확실한 답을 주는 책을 골랐어요.', books:[['사피엔스','유발 하라리'],['총, 균, 쇠','재레드 다이아몬드'],['팩트풀니스','한스 로슬링']] },
+  { k:'mirror', name:'거울', animal:'거울을 든 까마귀', code:'깸·냉·물음', copy:'불편한 질문이 나를 바꿔',
+    intro:'당신은 편안한 이야기보다 나를 흔드는 글에 끌리는 사람. 차갑게 비친 내 모습이 불편해도, 그 질문 덕분에 한 뼘 자라요. 당신은 책과 정면으로 마주하는 독자예요.',
+    line:'차갑게 비추고 오래 남는 질문을 던지는 책을 골랐어요.', books:[['채식주의자','한강'],['이방인','알베르 카뮈'],['데미안','헤르만 헤세']] }
+];
+const byKey = Object.fromEntries(TYPES.map(t => [t.k, t]));
+const colorOf = k => `var(--t-${k})`;
+
+const QUESTIONS = [
+  { ax:0, q:'금요일 밤, 아무 계획 없는 저녁. 가장 끌리는 건?', a:'이불 속에서 좋아하는 걸 틀어놓고 늘어지기', b:'처음 보는 다큐나 전시처럼 새로운 걸 보기' },
+  { ax:1, q:'친구에게 고민을 털어놨을 때 더 고마운 반응은?', a:'"많이 힘들었겠다, 고생했어"', b:'"솔직하게 말해도 돼? 내가 보기엔…"' },
+  { ax:2, q:'영화가 끝났는데 결말이 열려 있다면?', a:'찝찝하다, 확실히 끝내줬으면', b:'좋다, 계속 곱씹게 된다' },
+  { ax:0, q:'우연히 펼친 책, 계속 읽고 싶은 첫 문장은?', a:'"괜찮다는 말이 필요한 날이 있다."', b:'"우리가 당연하다고 믿는 것들은 언제부터였을까."' },
+  { ax:1, q:'더 마음이 가는 문장은?', a:'"당신의 오늘이 조금은 따뜻했으면 좋겠어요."', b:'"비가 왔다. 나는 우산을 쓰지 않았다."' },
+  { ax:2, q:'고민 상담을 받는다면 더 원하는 건?', a:'"이렇게 해보세요" 하는 구체적인 방법', b:'"왜 그게 고민인가요?" 하는 질문' },
+  { ax:0, q:'요즘 나에게 더 필요한 건?', a:'충전, 잠시 멈추고 숨 고르기', b:'자극, 새로운 생각으로 깨어나기' },
+  { ax:1, q:'더 끌리는 선배 스타일은?', a:'칭찬을 아끼지 않고 다정하게 챙겨주는 사람', b:'말수는 적지만 필요한 순간 정확히 말해주는 사람' },
+  { ax:2, q:'글 한 편을 다 읽고 나서 남았으면 하는 건?', a:'밑줄 긋고 싶은, 정리된 한 문장', b:'한동안 머릿속을 맴도는 질문 하나' }
+];
+const AXES = [['쉼','깸','읽는 이유'],['온','냉','온도'],['답','물음','여운']];
+const LOOKUP = { 'AAA':'damyo','AAB':'pyeonji','ABA':'memo','ABB':'window','BAA':'compass','BAB':'fire','BBA':'lens','BBB':'mirror' };
+
+const WRITERS = [
+  { name:'한서윤', book:'밤 열한 시의 세탁소', genre:'에세이', type:'window', shop:'책방 모퉁이',
+    first:'세탁기가 돌아가는 사십 분 동안 나는 아무것도 하지 않기로 했다. 동전을 넣고, 플라스틱 의자에 앉아, 둥근 창 안에서 엉키는 남의 셔츠를 본다. 이상하게도 그 시간이 하루 중 가장 조용했다.' },
+  { name:'도윤재', book:'지도에 없는 길', genre:'소설', type:'fire', shop:'바다서가',
+    first:'할머니는 지도에 없는 길을 세 개 알고 있었다. 그중 하나는 시장 뒤편 담벼락 사이로 나 있었고, 어른 한 명이 겨우 지나갈 만큼 좁았다. 내가 열한 살이 되던 해, 할머니는 그 길을 나에게만 알려주었다.' },
+  { name:'이마루', book:'월급날의 산수', genre:'에세이', type:'memo', shop:'느린 오후',
+    first:'통장에 돈이 들어오는 날, 나는 노트를 편다. 고정비, 저축, 나에게 주는 몫. 세 줄을 적고 나면 이번 달이 조금 덜 무섭다.' }
+];
+const SHOPS = [
+  { name:'책방 모퉁이', area:'서울 마포', note:'골목 모퉁이 2층, 창가 자리가 두 개뿐인 작은 서점.', picks:[['시와 산책','한정원'],['스토너','존 윌리엄스'],['밤 열한 시의 세탁소','한서윤']] },
+  { name:'바다서가', area:'부산 영도', note:'바다가 보이는 창고를 고친 서점. 여름엔 밤 열 시까지 문을 열어요.', picks:[['연금술사','파울로 코엘료'],['지도에 없는 길','도윤재'],['우리가 빛의 속도로 갈 수 없다면','김초엽']] },
+  { name:'느린 오후', area:'전주 서학동', note:'오후 한 시에 문을 여는 서점. 손님 한 명에 차 한 잔을 내어줘요.', picks:[['명상록','마르쿠스 아우렐리우스'],['월급날의 산수','이마루'],['바깥은 여름','김애란']] }
+];
+
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+function typeCard(t, asLink) {
+  const tag = asLink ? 'a' : 'div';
+  const href = asLink ? ` href="#types" data-type="${t.k}"` : '';
+  return `<${tag} class="tcard"${href}>
+    <div class="row"><span class="mono">${esc(t.code)}</span><span class="swatch" style="background:${colorOf(t.k)}">${svg(t.k)}</span></div>
+    <h3>${esc(t.name)}</h3>
+    <p class="copy">${esc(t.copy)}</p>
+    <div class="call mono"><span>${esc(t.animal)}</span></div>
+  </${tag}>`;
+}
+
+function writerCard(w) {
+  const t = byKey[w.type];
+  return `<article class="writer">
+    <div class="meta"><span class="tag-ex">예시</span><span class="chip" style="background:${colorOf(t.k)}">${esc(t.name)}</span><span>${esc(w.genre)}</span></div>
+    <p class="first">${esc(w.first)}</p>
+    <div><h3 style="font-size:var(--s-3)">『${esc(w.book)}』</h3><p class="meta">${esc(w.name)} 지음</p></div>
+    <p class="buy">이 책을 파는 곳 · <b>${esc(w.shop)}</b></p>
+  </article>`;
+}
+
+function issueBlock() {
+  return `<div class="issue">
+    <div class="cover"><span class="mono">VOL.01 · 창간호</span><h3>처음의<br>문장들</h3><span class="mono">첫 책을 낸 작가, 문을 연 지 얼마 안 된 서점, 처음 열리는 플랫폼</span></div>
+    <div class="toc">
+      <div class="toc-item"><span class="eyebrow">작가 인터뷰</span><div><h4>첫 문장을 어떻게 썼나요?</h4><p>첫 책을 낸 신생 작가에게 묻고, 작가의 독서 유형과 글의 유형을 나란히 비교해요.</p></div></div>
+      <div class="toc-item"><span class="eyebrow">서점 탐방</span><div><h4>처음 들인 세 권</h4><p>책방지기가 서점을 열며 가장 먼저 서가에 꽂은 책 이야기.</p></div></div>
+      <div class="toc-item"><span class="eyebrow">큐레이션</span><div><h4>유형별 첫 책</h4><p>여덟 유형마다, 이 결의 독서를 시작하기 좋은 첫 책 한 권씩.</p></div></div>
+      <div class="toc-item"><span class="eyebrow">독자 참여</span><div><h4>내가 기억하는 첫 문장</h4><p>인스타그램 댓글로 받은 첫 문장을 다음 호에 소개해요.</p></div></div>
+    </div>
+  </div>`;
+}
+
+function shopCard(s) {
+  return `<article class="shop">
+    <div><div class="meta" style="margin-bottom:8px"><span class="tag-ex">예시</span><span>${esc(s.area)}</span></div><h3>${esc(s.name)}</h3><p style="color:var(--ink-soft)">${esc(s.note)}</p></div>
+    <div><p class="eyebrow" style="margin-bottom:8px">책방지기가 고른 세 권</p><div class="shelf">${s.picks.map(p => `<div class="spine"><b>『${esc(p[0])}』</b><span>${esc(p[1])}</span></div>`).join('')}</div></div>
+  </article>`;
+}
+
+// static renders
+const fan = document.getElementById('fan');
+const fanTypes = ['window','damyo','fire'];
+fan.innerHTML = fanTypes.map(k => typeCard(byKey[k], false)).join('');
+const tf = [['-9deg','-30px','8px'],['2deg','0','0'],['11deg','34px','14px']];
+[...fan.children].forEach((c, i) => { c.style.transform = `translate(${tf[i][1]}, ${tf[i][2]}) rotate(${tf[i][0]})`; c.style.zIndex = i === 1 ? 3 : 1; });
+document.getElementById('issueHome').innerHTML = issueBlock();
+document.getElementById('issueFull').innerHTML = issueBlock();
+document.getElementById('writersHome').innerHTML = WRITERS.map(writerCard).join('');
+document.getElementById('writersFull').innerHTML = WRITERS.map(writerCard).join('');
+document.getElementById('shopsFull').innerHTML = SHOPS.map(shopCard).join('');
+const typesGrid = document.getElementById('typesGrid');
+typesGrid.innerHTML = TYPES.map(t => typeCard(t, true)).join('');
+typesGrid.addEventListener('click', e => {
+  const a = e.target.closest('[data-type]'); if (!a) return;
+  e.preventDefault(); showResult(a.dataset.type, null, true); location.hash = 'test';
+});
+
+// quiz
+const quiz = document.getElementById('quiz');
+let answers = [];
+let pendingResult = null;
+
+function renderIntro() {
+  quiz.innerHTML = `<p class="eyebrow">독서 성향테스트 · 9문항 · 약 2분</p>
+    <h1 class="page-title">나는 어떤 결의 독자일까?</h1>
+    <p class="page-lead" style="margin-bottom:0">책을 자주 읽지 않아도 괜찮아요. 일상에서 끌리는 쪽을 고르면 돼요.</p>
+    <ul class="intro-list"><li>책을 펴는 이유: 쉼 또는 깸</li><li>마음이 열리는 말투: 온 또는 냉</li><li>다 읽고 갖고 싶은 것: 답 또는 물음</li></ul>
+    <button class="btn" id="startBtn" type="button">시작하기</button>
+    <p class="privacy">이름 없이 유형과 응답만 익명 통계로 저장돼요. 테스트를 더 정확하게 다듬는 데 써요.</p>`;
+  document.getElementById('startBtn').addEventListener('click', () => { answers = []; renderQ(); });
+}
+function renderQ() {
+  const i = answers.length, Q = QUESTIONS[i];
+  quiz.innerHTML = `<div class="qnum mono"><span>Q${i + 1} / ${QUESTIONS.length}</span><span>${AXES[Q.ax][2]}</span></div>
+    <div class="progress" aria-hidden="true"><i style="width:${(i / QUESTIONS.length) * 100}%"></i></div>
+    <h2 class="q">${esc(Q.q)}</h2>
+    <div class="opts">
+      <button class="opt" type="button" data-a="A"><span class="k">A</span><span>${esc(Q.a)}</span></button>
+      <button class="opt" type="button" data-a="B"><span class="k">B</span><span>${esc(Q.b)}</span></button>
+    </div>
+    ${i > 0 ? '<button class="back" type="button" id="backBtn">이전 질문</button>' : ''}`;
+  quiz.querySelectorAll('.opt').forEach(b => b.addEventListener('click', () => {
+    answers.push(b.dataset.a);
+    if (answers.length === QUESTIONS.length) finish(); else renderQ();
+  }));
+  const back = document.getElementById('backBtn');
+  if (back) back.addEventListener('click', () => { answers.pop(); renderQ(); });
+  quiz.querySelector('.opt').focus({ preventScroll: true });
+}
+function score(ans) {
+  const cnt = [0,0,0];
+  ans.forEach((a, i) => { if (a === 'A') cnt[QUESTIONS[i].ax]++; });
+  const code = cnt.map(c => c >= 2 ? 'A' : 'B').join('');
+  return { key: LOOKUP[code], cnt };
+}
+function finish() {
+  const r = score(answers);
+  try { localStorage.setItem('bk-last', r.key); } catch (e) {}
+  current = makeRecord(r.key, r.cnt);
+  saveRecord(current);
+  showResult(r.key, r.cnt, false);
+  updateLast();
+  window.scrollTo(0, 0);
+}
+function showResult(key, cnt, fromBrowse) {
+  const t = byKey[key];
+  const w = WRITERS.find(x => x.type === key);
+  const parts = t.code.split('·');
+  const axesHtml = AXES.map((ax, i) => {
+    const detail = cnt ? `${cnt[i] >= 2 ? cnt[i] : 3 - cnt[i]} / 3` : '';
+    return `<div class="axis"><span>${ax[2]}</span><b>${parts[i]}</b>${detail ? `<span class="mono">${detail}</span>` : ''}</div>`;
+  }).join('');
+  quiz.parentElement.querySelector('.quiz').style.maxWidth = '1080px';
+  quiz.innerHTML = `<p class="eyebrow">${fromBrowse ? '유형 둘러보기' : '테스트 결과'}</p>
+    <div class="result" style="margin-top:14px">
+      <div class="rcard" style="background:${colorOf(t.k)}">
+        <div style="display:flex;justify-content:space-between;align-items:start;gap:12px"><span class="swatch">${svg(t.k)}</span><span class="mono">${esc(t.code)}</span></div>
+        <div><p class="mono" style="margin-bottom:6px">당신은</p><h2>${esc(t.name)}형 독자</h2><p class="copy" style="margin-top:12px">${esc(t.copy)}</p></div>
+        <div class="foot"><span>${esc(t.animal)}</span><span>북크북크</span></div>
+      </div>
+      <div class="rbody">
+        <p class="intro">${esc(t.intro)}</p>
+        <div class="axes">${axesHtml}</div>
+        <p style="color:var(--ink-soft)">${esc(t.line)}</p>
+        <div class="pick"><span class="label">이 결의 대표작</span><span class="title">『${esc(t.books[0][0])}』</span><span class="meta">${esc(t.books[0][1])}${t.books[1] ? ` · 함께 읽기: 『${esc(t.books[1][0])}』` : ''}</span></div>
+        <div class="pick"><span class="label">이 책을 좋아했다면, 아직 모르는 이 작가를</span>
+          ${w ? `<span class="title">『${esc(w.book)}』 <span class="tag-ex">예시</span></span><span class="meta">${esc(w.name)} · ${esc(w.genre)} · 판매: ${esc(w.shop)}</span><p class="first" style="font-size:var(--s-2);margin-top:6px">${esc(w.first)}</p>`
+              : `<span class="title" style="color:var(--ink-soft)">이 자리에 곧 신생 작가가 소개돼요</span><span class="meta">이 결의 글을 쓰는 작가를 찾고 있어요. 추천은 @bookk__book으로 보내주세요.</span>`}
+        </div>
+        ${fromBrowse ? '' : feedbackBlock(key)}
+        <div class="share-row">
+          <button class="btn" type="button" id="copyBtn">결과 공유 문구 복사</button>
+          <button class="btn ghost" type="button" id="retryBtn">${fromBrowse ? '테스트 해보기' : '다시 하기'}</button>
+          <span class="toast" id="toast" role="status"></span>
+        </div>
+      </div>
+    </div>`;
+  document.getElementById('retryBtn').addEventListener('click', () => { answers = []; quiz.style.maxWidth = ''; renderQ(); });
+  document.getElementById('copyBtn').addEventListener('click', () => {
+    const text = `나는 ${t.name}형 독자! "${t.copy}" 너는 어떤 결의 독자야? 북크북크 독서 성향테스트`;
+    const toast = document.getElementById('toast');
+    const done = () => { toast.textContent = '복사했어요. 친구에게 붙여넣어 보세요.'; };
+    try {
+      navigator.clipboard.writeText(text).then(done, () => { toast.textContent = text; });
+    } catch (e) { toast.textContent = text; }
+  });
+  if (fromBrowse) pendingResult = key;
+  const fb = document.getElementById('fb');
+  if (fb) fb.addEventListener('click', onFeedback);
+}
+
+// ===== 결과 피드백 =====
+const READING = ['한 달 1권 이상', '가끔 읽어요', '거의 안 읽어요'];
+function feedbackBlock(key) {
+  const others = TYPES.filter(x => x.k !== key);
+  return `<div class="fb" id="fb">
+    <h3>이 결과, 나와 맞나요?</h3>
+    <div class="row" data-group="feedback"><button class="pill" type="button" data-v="yes" aria-pressed="false">맞았어요</button><button class="pill" type="button" data-v="no" aria-pressed="false">아니었어요</button></div>
+    <div id="betterBox" hidden><p class="sub" style="margin-bottom:8px">그럼 어느 쪽이 더 나 같아요?</p><div class="row" data-group="better">${others.map(x => `<button class="pill" type="button" data-v="${x.k}" aria-pressed="false">${esc(x.name)}</button>`).join('')}</div></div>
+    <p class="sub">평소에 책을 얼마나 읽나요?</p>
+    <div class="row" data-group="reading">${READING.map((r, i) => `<button class="pill" type="button" data-v="${i}" aria-pressed="false">${esc(r)}</button>`).join('')}</div>
+    <p class="sub" id="fbThanks" role="status"></p>
+  </div>`;
+}
+function onFeedback(e) {
+  const b = e.target.closest('.pill'); if (!b || !current) return;
+  const group = b.parentElement.dataset.group, v = b.dataset.v;
+  b.parentElement.querySelectorAll('.pill').forEach(p => p.setAttribute('aria-pressed', String(p === b)));
+  if (group === 'feedback') {
+    current.feedback = v;
+    document.getElementById('betterBox').hidden = v !== 'no';
+    if (v === 'yes') { current.better = null; current.betterName = null; document.querySelectorAll('[data-group="better"] .pill').forEach(p => p.setAttribute('aria-pressed', 'false')); }
+  } else if (group === 'better') {
+    current.better = v; current.betterName = byKey[v].name;
+  } else if (group === 'reading') {
+    current.reading = READING[Number(v)];
+  }
+  saveRecord(current);
+  document.getElementById('fbThanks').textContent = '고마워요. 테스트를 다듬는 데 쓸게요.';
+}
+
+// ===== 응답 저장 =====
+// 공개 사이트로 옮긴 뒤, 구글 Apps Script 웹 앱 주소를 아래에 넣으면 응답이 구글 시트에 쌓여요.
+const SHEET_ENDPOINT = ''; // ← 여기 따옴표 안에 Apps Script 웹 앱 주소(https://script.google.com/macros/s/.../exec)를 붙여넣으세요
+let current = null;
+let capsP = null;
+function getCap(name) {
+  if (!window.claude || typeof window.claude.use !== 'function') return Promise.resolve(null);
+  return Promise.resolve(window.claude.use(name)).catch(() => null);
+}
+function caps() { if (!capsP) capsP = Promise.all([getCap('db'), getCap('user')]); return capsP; }
+function newId() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 8); }
+function makeRecord(key, cnt) {
+  return { id: newId(), ts: new Date().toISOString(), type: key, typeName: byKey[key].name, cnt: cnt.slice(), answers: answers.join(''), feedback: null, better: null, betterName: null, reading: null };
+}
+let writeChain = Promise.resolve();
+function saveRecord(rec) {
+  const copy = JSON.parse(JSON.stringify(rec));
+  if (SHEET_ENDPOINT) {
+    try {
+      fetch(SHEET_ENDPOINT, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(copy) }).catch(() => {});
+    } catch (e) {}
+  }
+  writeChain = writeChain.then(async () => {
+    const [db, user] = await caps();
+    if (!db || !user) return;
+    const uid = await user.id();
+    if (!uid) return;
+    const ref = db.doc('responses/' + uid);
+    const snap = await ref.get();
+    const prev = snap.exists && Array.isArray(snap.data().runs) ? snap.data().runs : [];
+    const runs = prev.map(r => (r.id === copy.id ? copy : r));
+    if (!prev.some(r => r.id === copy.id)) runs.push(copy);
+    await ref.set({ runs: runs.slice(-30), updatedAt: copy.ts });
+  }).catch(() => {});
+}
+
+// ===== 운영자 통계 =====
+let statsUnsub = null;
+async function initOwner() {
+  const [, user] = await caps();
+  let owner = false;
+  try { owner = user ? await user.isOwner() : false; } catch (e) {}
+  if (owner) document.getElementById('statsLink').hidden = false;
+}
+async function loadStats() {
+  const body = document.getElementById('statsBody');
+  const [db, user] = await caps();
+  let owner = false;
+  try { owner = user ? await user.isOwner() : false; } catch (e) {}
+  if (!db || !owner) {
+    body.innerHTML = `<div class="panel"><p>이 화면은 운영자만 볼 수 있어요.</p><p class="note">공개 사이트에서는 응답이 구글 시트에 쌓이고, 시트의 '요약' 탭에서 같은 통계를 볼 수 있어요.</p></div>`;
+    return;
+  }
+  if (statsUnsub) return;
+  let loaded = false;
+  const timer = setTimeout(() => { if (!loaded) body.innerHTML = '<p class="note">응답을 아직 불러오지 못했어요. 연결이 돌아오면 자동으로 채워져요.</p>'; }, 10000);
+  statsUnsub = db.collection('responses').onSnapshot(snap => {
+    if (!snap.metadata.fromCache) { loaded = true; clearTimeout(timer); }
+    const runs = [];
+    snap.docs.forEach(d => { const r = d.data() && d.data().runs; if (Array.isArray(r)) runs.push(...r); });
+    drawStats(runs, snap.metadata.fromCache);
+  }, err => {
+    clearTimeout(timer);
+    body.innerHTML = `<p class="note">응답을 불러오지 못했어요 (${esc(err.code)}). 페이지를 다시 열어 주세요.</p>`;
+  });
+}
+function pct(n, d) { return d ? Math.round((n / d) * 100) : 0; }
+function drawStats(runs, fromCache) {
+  const body = document.getElementById('statsBody');
+  const N = runs.length;
+  if (!N) {
+    body.innerHTML = `<div class="panel"><h2>아직 응답이 없어요</h2><p>테스트를 끝까지 풀면 여기에 첫 응답이 나타나요. 피드백 버튼과 독서량 선택도 함께 모여요.</p></div>`;
+    return;
+  }
+  const by = {}; TYPES.forEach(t => { by[t.k] = { n: 0, yes: 0, no: 0, better: {} }; });
+  const reading = {}; READING.forEach(r => { reading[r] = 0; });
+  let yes = 0, no = 0, readAns = 0;
+  runs.forEach(r => {
+    const s = by[r.type]; if (!s) return;
+    s.n++;
+    if (r.feedback === 'yes') { s.yes++; yes++; }
+    if (r.feedback === 'no') { s.no++; no++; if (r.better) s.better[r.better] = (s.better[r.better] || 0) + 1; }
+    if (r.reading && reading[r.reading] !== undefined) { reading[r.reading]++; readAns++; }
+  });
+  const maxPct = Math.max(...TYPES.map(t => pct(by[t.k].n, N)));
+  const scaleMax = Math.max(50, Math.ceil(maxPct / 10) * 10);
+  const over = TYPES.filter(t => pct(by[t.k].n, N) > 25);
+  const bars = TYPES.map(t => {
+    const p = pct(by[t.k].n, N);
+    return `<div class="bar${p > 25 ? ' over' : ''}"><span>${esc(t.name)}</span>
+      <span class="track"><span class="fill" style="width:${(p / scaleMax) * 100}%;background:${colorOf(t.k)}"></span><span class="limit" style="left:${(25 / scaleMax) * 100}%"></span></span>
+      <span class="num">${by[t.k].n}명 · ${p}%</span></div>`;
+  }).join('');
+  const rows = TYPES.map(t => {
+    const s = by[t.k];
+    const top = Object.entries(s.better).sort((a, b) => b[1] - a[1])[0];
+    return `<tr><td>${esc(t.name)}</td><td class="r">${s.yes}</td><td class="r">${s.no}</td><td>${top ? esc(byKey[top[0]].name) + ' (' + top[1] + ')' : '-'}</td></tr>`;
+  }).join('');
+  const readRows = READING.map(r => `<tr><td>${esc(r)}</td><td class="r">${reading[r]}</td><td class="r">${pct(reading[r], readAns)}%</td></tr>`).join('');
+  body.innerHTML = `
+    <div class="kpis">
+      <div class="kpi"><span>총 응답</span><b>${N}</b></div>
+      <div class="kpi"><span>"맞았어요" 비율</span><b>${yes + no ? pct(yes, yes + no) + '%' : '-'}</b><span>피드백 ${yes + no}건</span></div>
+      <div class="kpi"><span>"거의 안 읽어요" 비율</span><b>${readAns ? pct(reading[READING[2]], readAns) + '%' : '-'}</b><span>응답 ${readAns}건</span></div>
+    </div>
+    <div class="stat-grid">
+      <div class="panel"><h2>유형 분포</h2><div class="bars">${bars}</div>
+        <p class="note">점선은 25% 기준선이에요. 막대 축은 0~${scaleMax}%예요.</p>
+        <p class="note">${over.length ? `<b>${over.map(t => esc(t.name)).join(', ')}</b> 유형이 25%를 넘었어요. 해당 축의 문항을 점검해 보세요.` : (N < 20 ? '응답이 20명을 넘으면 분포를 판단하기 시작해도 좋아요.' : '한쪽으로 크게 쏠린 유형은 없어요.')}</p>
+      </div>
+      <div style="display:grid;gap:20px;align-content:start">
+        <div class="panel"><h2>결과 피드백</h2><div style="overflow-x:auto"><table class="tbl"><thead><tr><th>유형</th><th class="r">맞았어요</th><th class="r">아니었어요</th><th>대신 고른 유형</th></tr></thead><tbody>${rows}</tbody></table></div></div>
+        <div class="panel"><h2>평소 독서량</h2><table class="tbl"><tbody>${readRows}</tbody></table></div>
+      </div>
+    </div>
+    ${fromCache ? '<p class="note">저장소와 다시 맞추는 중이라 최신 응답이 빠졌을 수 있어요.</p>' : ''}`;
+}
+
+function updateLast() {
+  let k = null; try { k = localStorage.getItem('bk-last'); } catch (e) {}
+  const el = document.getElementById('lastResult');
+  if (k && byKey[k]) { el.hidden = false; el.textContent = `지난번 결과: ${byKey[k].name}형 독자 · ${byKey[k].copy}`; }
+}
+
+// routing
+const VIEWS = ['home','test','types','magazine','writers','shops','about','stats'];
+function route() {
+  let v = location.hash.replace('#', '');
+  if (!VIEWS.includes(v)) v = 'home';
+  document.querySelectorAll('[data-view]').forEach(el => { el.hidden = el.id !== 'v-' + v; });
+  document.querySelectorAll('nav.menu a').forEach(a => { if (a.dataset.v === v) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
+  if (v === 'test') {
+    if (pendingResult) { pendingResult = null; }
+    else { quiz.style.maxWidth = ''; renderIntro(); }
+  }
+  if (v === 'stats') loadStats();
+  window.scrollTo(0, 0);
+}
+window.addEventListener('hashchange', route);
+updateLast();
+route();
+initOwner();
+</script>
+
+</body>
+</html>
