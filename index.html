@@ -201,8 +201,10 @@ dialog.book::backdrop { background: rgba(10, 14, 12, .5); backdrop-filter: blur(
 .book-body .kind { font-size: var(--s-1); font-weight: 500; color: var(--ink-soft); margin-bottom: 8px; }
 .book-quote { font-family: var(--f-display); font-size: 1.0625rem; line-height: 1.95; border-left: 3px solid var(--marker); padding-left: 16px; }
 .book-scene { font-size: var(--s-2); line-height: 1.8; }
-.book-hook { background: var(--paper-2); border-radius: 14px; padding: 16px 18px; }
-.book-hook p:last-child { font-size: var(--s-3); line-height: 1.7; }
+.book-body > div:not(.book-hook) + div:not(.book-hook) { border-top: 1px solid var(--line); padding-top: 16px; }
+.book-hook { background: var(--accent-weak); border-radius: 12px; padding: 12px 16px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; }
+.book-hook .kind { margin: 0; font-size: 0.75rem; color: var(--accent); font-weight: 700; }
+.book-hook b { font-size: 0.9375rem; line-height: 1.6; color: var(--ink); }
 .book-foot { padding: 14px 24px 22px; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; font-size: var(--s-1); color: var(--ink-soft); }
 .book-foot b { color: var(--ink); }
 .book-close { position: absolute; top: 14px; right: 14px; width: 36px; height: 36px; border-radius: 50%; border: 0; background: rgba(255,255,255,.6); color: var(--on-swatch); font: inherit; font-size: 1.25rem; line-height: 1; cursor: pointer; transition: transform .2s var(--ease), background-color .2s; }
@@ -535,33 +537,46 @@ function shopCard(s) {
 // quote: 책 속 글귀(저작권이 없거나 허락받은 글만), scene: 저작권 있는 책은 인용 대신 장면 소개
 const BOOKS = {
   '시와 산책': { author: '한정원', genre: '에세이', type: 'window',
-    scene: '혼자 걷는 산책길에서 마주친 풍경과, 그 순간 떠오른 시 한 편을 나란히 놓은 산문집이에요. 겨울 길, 오래된 동네, 지나간 사람들이 조용히 지나가요.',
-    hook: '빨리 읽으면 아까운 책이에요. 한 꼭지 읽고 창밖을 한 번 보세요. 다음 산책이 조금 달라져요.' },
+    scene: '혼자 걷는 산책길에서 마주친 풍경과 사람, 그리고 그때 떠오른 시 한 편을 나란히 놓은 산문집이에요. 눈 내린 길, 오래된 동네, 이제는 곁에 없는 사람들이 짧은 꼭지마다 조용히 지나가요. 시를 잘 몰라도 괜찮아요. 시는 산책길에 우연히 주운 돌처럼 툭 놓여 있을 뿐이에요.',
+    feel: '문장이 느리고 고요해서 읽는 동안 숨이 저절로 길어져요. 다 읽고 나면 늘 걷던 길에서 못 보던 것들이 눈에 들어와요.',
+    hook: '한 꼭지 읽고, 산책 한 번.' },
   '스토너': { author: '존 윌리엄스', genre: '소설', type: 'window',
-    scene: '미주리의 가난한 농가에서 자란 청년이 농학을 배우러 대학에 갔다가 영문학에 빠지고, 평생 그 대학에서 가르치며 살아가는 이야기예요. 큰 사건 없이 한 사람의 일생이 담담하게 흘러가요.',
-    hook: '아무 일도 일어나지 않는 것 같은데, 덮고 나면 한동안 말이 없어지는 소설이에요. 손님들이 가장 많이 다시 찾아오는 책이에요.' },
+    scene: '미주리의 가난한 농가에서 자란 윌리엄 스토너는 농학을 배우러 대학에 갔다가 영문학 수업에서 인생이 바뀌어요. 그 뒤로 평생 같은 대학에서 가르치며 살아요. 행복하지 않은 결혼, 동료와의 오랜 갈등, 늦게 찾아온 짧은 사랑까지, 한 사람의 일생이 처음부터 끝까지 담담하게 흘러가요. 1965년에 나왔다가 50년 가까이 지나 전 세계에서 다시 읽히기 시작한 소설이에요.',
+    feel: '큰 사건이 없는데도 이상하게 손을 놓을 수 없어요. 덮고 나면 \'잘 산 삶이란 뭘까\' 하는 질문이 오래 남아요.',
+    hook: '조용한데, 오래 울려요.' },
   '밤 열한 시의 세탁소': { author: '한서윤', genre: '에세이', type: 'window', example: true,
     quote: '세탁기가 돌아가는 사십 분 동안 나는 아무것도 하지 않기로 했다. 동전을 넣고, 플라스틱 의자에 앉아, 둥근 창 안에서 엉키는 남의 셔츠를 본다. 이상하게도 그 시간이 하루 중 가장 조용했다.',
-    hook: '하루가 너무 시끄러웠던 날에 권해요. 다 읽으면 동네 빨래방에 한 번 가보고 싶어질 거예요.' },
+    scene: '야근이 끝나면 동네 무인 빨래방에 들르는 작가의 1년을 담은 에세이예요. 빨래가 돌아가는 사십 분 동안 만난 사람들, 남의 빨랫감에서 짐작해 본 삶들, 아무것도 하지 않는 연습에 대한 짧은 글들이 이어져요.',
+    feel: '바쁜 하루 끝에 숨 돌릴 틈을 만들어 주는 책이에요. 읽고 나면 나만의 사십 분이 어디 있는지 찾아보고 싶어져요.',
+    hook: '시끄러운 하루 끝에 딱.' },
   '연금술사': { author: '파울로 코엘료', genre: '소설', type: 'compass',
-    scene: '안달루시아의 양치기 산티아고가 꿈에서 본 보물을 찾아 사막을 건너 이집트 피라미드로 떠나요. 길에서 만난 왕, 상인, 연금술사가 그에게 저마다의 가르침을 건네요.',
-    hook: '지금 망설이는 일이 있다면 이 책이 살며시 등을 떠밀어 줄 거예요. 바닷가에서 읽기 좋은 두께예요.' },
+    scene: '안달루시아의 양치기 산티아고는 이집트 피라미드에 보물이 묻혀 있다는 꿈을 되풀이해 꿔요. 그는 양 떼를 팔고 길을 떠나요. 탕헤르의 크리스털 가게, 사하라를 건너는 대상 행렬, 오아시스에서 만난 사랑, 그리고 연금술사가 차례로 그를 시험하고 가르쳐요. 보물은 생각지 못한 곳에서 기다리고 있어요.',
+    feel: '우화처럼 쉽게 읽히는데, 밑줄 긋고 싶은 문장이 자꾸 나와요. 다 읽으면 미뤄둔 일을 하나 시작하고 싶어져요.',
+    hook: '망설일 때 등 떠미는 책.' },
   '지도에 없는 길': { author: '도윤재', genre: '소설', type: 'fire', example: true,
     quote: '할머니는 지도에 없는 길을 세 개 알고 있었다. 그중 하나는 시장 뒤편 담벼락 사이로 나 있었고, 어른 한 명이 겨우 지나갈 만큼 좁았다. 내가 열한 살이 되던 해, 할머니는 그 길을 나에게만 알려주었다.',
-    hook: '나머지 두 길이 어디로 이어지는지는 직접 확인해 보세요. 다 읽은 손님들이 꼭 누군가에게 줄거리를 이야기하고 싶어 해요.' },
+    scene: '재개발을 앞둔 동네에서, 할머니가 남긴 세 개의 길을 따라가는 손녀의 이야기예요. 길 끝마다 할머니가 젊은 시절 지켜 온 사람과 비밀이 하나씩 기다리고 있어요.',
+    feel: '따뜻한데 마지막 장에서 마음이 쿵 내려앉아요. 다 읽고 나면 누군가와 우리 동네 이야기를 하고 싶어져요.',
+    hook: '읽고 나면 꼭 누군가에게 말하고 싶어요.' },
   '우리가 빛의 속도로 갈 수 없다면': { author: '김초엽', genre: 'SF 소설', type: 'fire',
-    scene: '먼 행성에 있는 가족에게 가는 배를 오래도록 기다리는 사람의 이야기가 표제작이에요. 우주와 기술을 다루지만, 결국 떨어진 사람들 사이의 거리에 대해 묻는 단편들이 모여 있어요.',
-    hook: 'SF를 어려워하는 분께 가장 먼저 권하는 책이에요. 한 편씩 읽고 친구와 이야기 나누기 좋아요.' },
+    scene: '단편 일곱 편이 담긴 SF 소설집이에요. 표제작에서는 오래전 떠나보낸 가족이 있는 먼 행성으로 가는 배를, 문을 닫은 우주 정거장에서 기다리는 노과학자가 나와요. 「관내분실」에서는 죽은 사람의 기억을 보관하는 도서관에서 엄마의 기록을 찾아 나서요. 우주와 기술을 다루지만, 이야기의 중심에는 늘 떨어져 있는 사람들이 있어요.',
+    feel: 'SF인데 차갑지 않고 다정해요. 한 편 끝날 때마다 \'나라면 어떻게 했을까\' 이야기 나누고 싶은 질문이 남아요.',
+    hook: 'SF 입문으로 이만한 책이 없어요.' },
   '명상록': { author: '마르쿠스 아우렐리우스', genre: '인문', type: 'memo',
     quote: '아침마다 스스로에게 말하라. 오늘 나는 참견하는 사람, 고마워할 줄 모르는 사람, 오만한 사람, 속이는 사람을 만날 것이다.',
     note: '2권 첫머리, 원문을 북크북크가 옮김',
-    hook: '로마 황제가 전쟁터 막사에서 자기 자신에게 쓴 메모예요. 출근길에 한 쪽씩 펼쳐 보세요. 오늘 만날 사람들이 조금 덜 버거워져요.' },
+    scene: '로마 황제 마르쿠스 아우렐리우스가 전쟁터의 막사에서 자기 자신에게 쓴 메모 모음이에요. 남에게 보이려고 쓴 글이 아니라서, 화를 다스리는 법, 죽음을 대하는 법, 오늘 할 일을 해내는 법을 스스로에게 짧고 단단하게 타일러요. 열두 권으로 되어 있고, 어디를 펼쳐 읽어도 괜찮아요.',
+    feel: '2천 년 전 사람이 지금 내 고민에 답해 주는 것 같아요. 마음이 흔들리는 날, 짧은 한 문장이 생각을 정리해 줘요.',
+    hook: '출근길 한 쪽이면 충분해요.' },
   '월급날의 산수': { author: '이마루', genre: '에세이', type: 'memo', example: true,
     quote: '통장에 돈이 들어오는 날, 나는 노트를 편다. 고정비, 저축, 나에게 주는 몫. 세 줄을 적고 나면 이번 달이 조금 덜 무섭다.',
-    hook: '돈 이야기인데 이상하게 위로가 돼요. 다 읽으면 나만의 세 줄을 적어보고 싶어질 거예요.' },
+    scene: '사회초년생 작가가 월급날마다 쓴 가계부 옆 메모를 모은 에세이예요. 돈을 아끼는 법보다, 숫자 앞에서 불안해지는 마음을 정리하는 법에 대한 이야기예요.',
+    feel: '숫자로 시작하는데 끝은 이상하게 따뜻해요. 읽고 나면 나도 나만의 세 줄을 적어 보고 싶어져요.',
+    hook: '돈 이야기인데, 위로가 돼요.' },
   '바깥은 여름': { author: '김애란', genre: '소설', type: 'window',
-    scene: '아이를, 사람을, 익숙했던 관계를 잃은 뒤의 계절을 살아가는 사람들의 단편이 모여 있어요. 슬픔을 크게 말하지 않고, 일상의 작은 장면으로 보여줘요.',
-    hook: '한 번에 다 읽기보다 한 편 읽고 쉬어 가세요. 마음이 무거운 날보다 조용한 날에 권해요.' }
+    scene: '단편 일곱 편이 담긴 소설집이에요. 「입동」에서는 어린 아들을 잃은 부부가 오래 미뤄 둔 도배를 하고, 「노찬성과 에반」에서는 할머니와 사는 소년이 늙은 개와 이별을 준비해요. 아이를, 사람을, 익숙했던 관계를 잃은 뒤에도 계속되는 일상을 크게 말하지 않고 작은 장면으로 보여줘요.',
+    feel: '읽는 내내 마음 한쪽이 저려요. 그런데 다 읽고 나면 내 곁의 사람들이 조금 더 소중해져요.',
+    hook: '한 편 읽고, 쉬어 가세요.' }
 };
 const bookDlg = document.createElement('dialog');
 bookDlg.className = 'book';
@@ -570,9 +585,11 @@ document.body.appendChild(bookDlg);
 function openBook(title, shop) {
   const b = BOOKS[title]; if (!b) return;
   const t = byKey[b.type];
-  const excerpt = b.quote
+  const excerpt = (b.quote
     ? `<div><p class="kind">${b.example ? '첫 문단' : '책 속 한 구절'}</p><p class="book-quote">${esc(b.quote)}</p>${b.note ? `<p class="note">${esc(b.note)}</p>` : ''}</div>`
-    : `<div><p class="kind">이런 이야기예요</p><p class="book-scene">${esc(b.scene)}</p></div>`;
+    : '') +
+    `<div><p class="kind">이런 이야기예요</p><p class="book-scene">${esc(b.scene)}</p></div>` +
+    `<div><p class="kind">읽고 나면</p><p class="book-scene">${esc(b.feel)}</p></div>`;
   bookDlg.innerHTML = `<div class="book-top" style="background:${colorOf(t.k)}">
       <span class="swatch">${svg(t.k)}</span>
       <div><h3 id="bookTitle">『${esc(title)}』</h3><p>${esc(b.author)} · ${esc(b.genre)} · ${esc(t.name)}형에게 추천</p></div>
@@ -580,7 +597,7 @@ function openBook(title, shop) {
     <button class="book-close" type="button" aria-label="닫기">×</button>
     <div class="book-body">
       ${excerpt}
-      <div class="book-hook"><p class="kind">책방지기의 한마디</p><p>${esc(b.hook)}</p></div>
+      <div class="book-hook"><span class="kind">책방지기의 한마디</span><b>${esc(b.hook)}</b></div>
     </div>
     <div class="book-foot"><span>파는 곳 · <b>${esc(shop)}</b>${b.example ? ' <span class="tag-ex">예시</span>' : ''}</span><button class="btn ghost" type="button" data-close>닫기</button></div>`;
   bookDlg.querySelectorAll('.book-close, [data-close]').forEach(x => x.addEventListener('click', () => bookDlg.close()));
