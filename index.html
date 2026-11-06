@@ -11,223 +11,301 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@400;600;800&family=IBM+Plex+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@400;500;700&display=swap">
 <style>
-/* Layout: 도서관 목록카드(청구기호·대출카드)를 닮은 서가형 사이트. 형광펜 밑줄 하나만 강조로 쓴다. */
+/* Layout: 책갈피처럼 가벼운 서가형 사이트. 강조는 형광펜 밑줄과 초록 잉크 하나뿐, 움직임은 종이가 넘어가듯 짧고 부드럽게. */
 :root {
-  --paper: #F1F3EE;
-  --paper-2: #E6E9E2;
-  --card: #FBFCF9;
-  --ink: #1C2420;
-  --ink-soft: #55615A;
-  --line: #C9CFC6;
-  --accent: #2C6A4E;
-  --accent-ink: #FBFCF9;
-  --marker: #F2D54B;
-  --on-swatch: #1C2420;
-  --t-damyo: #F0E3C4;
-  --t-pyeonji: #F3CFD3;
-  --t-memo: #BFE3D3;
-  --t-window: #AFC0E0;
-  --t-compass: #F6C493;
-  --t-fire: #F2A58F;
-  --t-lens: #B9CBD3;
-  --t-mirror: #D3D6DA;
-  --f-display: "Hahmlet", "Nanum Myeongjo", "Apple SD Gothic Neo", serif;
-  --f-body: "IBM Plex Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
-  --f-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
-  --s-1: 0.8125rem; --s-2: 0.9375rem; --s-3: 1.0625rem; --s-4: 1.375rem; --s-5: 1.875rem; --s-6: clamp(2.1rem, 5.2vw, 3.6rem);
+  --paper: #F5F6F2;
+  --paper-2: #EBEEE7;
+  --card: #FFFFFF;
+  --ink: #18201C;
+  --ink-soft: #4E5A53;
+  --line: #DCE1D8;
+  --accent: #276749;
+  --accent-strong: #1D5139;
+  --accent-weak: #E3EFE8;
+  --accent-ink: #FFFFFF;
+  --marker: #F6DA52;
+  --on-swatch: #18201C;
+  --shadow: 0 1px 2px rgba(24, 32, 28, .06), 0 6px 18px rgba(24, 32, 28, .06);
+  --shadow-lift: 0 2px 4px rgba(24, 32, 28, .08), 0 14px 32px rgba(24, 32, 28, .10);
+  --t-damyo: #F1E1BC;
+  --t-pyeonji: #F4C9CF;
+  --t-memo: #B9E2CF;
+  --t-window: #AABEE3;
+  --t-compass: #F7C08B;
+  --t-fire: #F3A28B;
+  --t-lens: #B3C9D4;
+  --t-mirror: #D2D6DC;
+  --f-display: "Gowun Batang", "Nanum Myeongjo", "AppleMyungjo", serif;
+  --f-body: "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+  --s-1: 0.8125rem; --s-2: 1rem; --s-3: 1.125rem; --s-4: 1.375rem; --s-5: 1.875rem; --s-6: clamp(2.1rem, 5.4vw, 3.5rem);
+  --ease: cubic-bezier(.2, .8, .2, 1);
 }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
-  --paper: #141917; --paper-2: #1C2320; --card: #1F2724; --ink: #E7ECE7; --ink-soft: #A3AFA8; --line: #36413C;
-  --accent: #7FC4A2; --accent-ink: #10201A; --marker: #8A7520; --on-swatch: #1C2420; color-scheme: dark;
+  --paper: #121715; --paper-2: #1A211E; --card: #1D2522; --ink: #E9EEEA; --ink-soft: #A9B4AD; --line: #2F3934;
+  --accent: #86CDA8; --accent-strong: #A6DFC1; --accent-weak: #1F3429; --accent-ink: #0E1A14; --marker: #6E5F1C;
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 18px rgba(0,0,0,.25); --shadow-lift: 0 2px 4px rgba(0,0,0,.35), 0 14px 32px rgba(0,0,0,.35);
+  color-scheme: dark;
 }}
 :root[data-theme="dark"] {
-  --paper: #141917; --paper-2: #1C2320; --card: #1F2724; --ink: #E7ECE7; --ink-soft: #A3AFA8; --line: #36413C;
-  --accent: #7FC4A2; --accent-ink: #10201A; --marker: #8A7520; --on-swatch: #1C2420; color-scheme: dark;
+  --paper: #121715; --paper-2: #1A211E; --card: #1D2522; --ink: #E9EEEA; --ink-soft: #A9B4AD; --line: #2F3934;
+  --accent: #86CDA8; --accent-strong: #A6DFC1; --accent-weak: #1F3429; --accent-ink: #0E1A14; --marker: #6E5F1C;
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 18px rgba(0,0,0,.25); --shadow-lift: 0 2px 4px rgba(0,0,0,.35), 0 14px 32px rgba(0,0,0,.35);
+  color-scheme: dark;
 }
 * { box-sizing: border-box; }
-body { background: var(--paper); color: var(--ink); font-family: var(--f-body); font-size: var(--s-2); line-height: 1.7; word-break: keep-all; overflow-wrap: break-word; }
+body { background: var(--paper); color: var(--ink); font-family: var(--f-body); font-size: var(--s-2); line-height: 1.75; word-break: keep-all; overflow-wrap: break-word; -webkit-font-smoothing: antialiased; }
 body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--paper); }
 a { color: inherit; }
-:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; line-height: 1.3; margin: 0; letter-spacing: -0.01em; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+h1, h2, h3, h4 { font-family: var(--f-display); font-weight: 700; text-wrap: balance; line-height: 1.35; margin: 0; }
 p { margin: 0; }
 .wrap { max-width: 1080px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
-.mono { font-family: var(--f-mono); font-size: var(--s-1); letter-spacing: 0.04em; }
-.eyebrow { font-family: var(--f-mono); font-size: var(--s-1); letter-spacing: 0.08em; color: var(--ink-soft); text-transform: uppercase; }
-.hl { background: linear-gradient(transparent 58%, var(--marker) 58%, var(--marker) 92%, transparent 92%); padding: 0 2px; }
+.label { font-size: var(--s-1); font-weight: 500; color: var(--ink-soft); }
+.hl { background-image: linear-gradient(var(--marker), var(--marker)); background-repeat: no-repeat; background-position: 0 88%; background-size: 100% 38%; padding: 0 3px; animation: draw 900ms var(--ease) 250ms both; }
+@keyframes draw { from { background-size: 0% 38%; } }
+
+/* motion */
+@keyframes rise { from { opacity: .35; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+@keyframes inRight { from { opacity: .2; transform: translateX(28px); } to { opacity: 1; transform: none; } }
+@keyframes inLeft { from { opacity: .2; transform: translateX(-28px); } to { opacity: 1; transform: none; } }
+@keyframes settle { 0% { opacity: .3; transform: translateY(24px) rotate(-4deg) scale(.96); } 70% { transform: translateY(-3px) rotate(.6deg); } 100% { opacity: 1; transform: none; } }
+@keyframes pop { 0% { transform: scale(1); } 40% { transform: scale(.94); } 100% { transform: scale(1); } }
+@keyframes ripple { from { transform: scale(0); opacity: .35; } to { transform: scale(2.2); opacity: 0; } }
+@keyframes float { 0%, 100% { translate: 0 0; } 50% { translate: 0 -6px; } }
+@keyframes wiggle { 0%, 100% { rotate: 0deg; } 30% { rotate: -9deg; } 65% { rotate: 6deg; } }
+.enter { animation: rise 420ms var(--ease) both; }
+.rip { position: absolute; border-radius: 50%; background: currentColor; pointer-events: none; animation: ripple 600ms ease-out forwards; }
 
 /* header */
-header.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 9; background: var(--paper); border-bottom: 1px solid var(--line); }
-header.top .wrap { display: flex; align-items: center; gap: 20px; padding-block: 12px; }
-.brand { font-family: var(--f-display); font-weight: 800; font-size: var(--s-4); text-decoration: none; white-space: nowrap; }
-.brand small { font-family: var(--f-mono); font-weight: 400; font-size: 0.7rem; color: var(--ink-soft); margin-left: 6px; letter-spacing: 0.06em; }
-nav.menu { display: flex; gap: 4px; overflow-x: auto; margin-left: auto; scrollbar-width: none; }
+header.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 9; background: color-mix(in srgb, var(--paper) 88%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+header.top .wrap { display: flex; align-items: center; gap: 20px; padding-block: 10px; }
+.brand { font-family: var(--f-display); font-weight: 700; font-size: var(--s-4); text-decoration: none; white-space: nowrap; }
+nav.menu { display: flex; gap: 2px; overflow-x: auto; margin-left: auto; scrollbar-width: none; }
 nav.menu::-webkit-scrollbar { display: none; }
-nav.menu a { text-decoration: none; padding: 6px 10px; border-radius: 4px; color: var(--ink-soft); white-space: nowrap; font-weight: 500; }
-nav.menu a:hover { color: var(--ink); background: var(--paper-2); }
-nav.menu a[aria-current="page"] { color: var(--ink); background: var(--paper-2); }
-nav.menu a.cta { color: var(--accent-ink); background: var(--accent); }
-@media (max-width: 640px) { header.top .wrap { flex-direction: column; align-items: stretch; gap: 6px; padding-block: 10px 8px; } nav.menu { margin-left: 0; } }
+nav.menu a { position: relative; text-decoration: none; padding: 8px 12px; color: var(--ink-soft); white-space: nowrap; font-weight: 500; font-size: 0.9375rem; border-radius: 6px; transition: color .2s, background-color .2s; }
+nav.menu a::after { content: ""; position: absolute; left: 12px; right: 12px; bottom: 2px; height: 2px; border-radius: 2px; background: var(--accent); transform: scaleX(0); transition: transform .3s var(--ease); }
+nav.menu a:hover { color: var(--ink); }
+nav.menu a[aria-current="page"] { color: var(--ink); }
+nav.menu a[aria-current="page"]::after { transform: scaleX(1); }
+nav.menu a.cta { color: var(--accent-ink); background: var(--accent); margin-right: 6px; }
+nav.menu a.cta::after { display: none; }
+nav.menu a.cta:hover { background: var(--accent-strong); }
+@media (max-width: 640px) { header.top .wrap { flex-direction: column; align-items: stretch; gap: 4px; padding-block: 10px 6px; } nav.menu { margin-left: 0; } }
 
-main { padding-block: 40px 72px; }
-section + section { margin-top: 72px; }
-.btn { display: inline-flex; align-items: center; gap: 8px; font: inherit; font-weight: 700; border: 0; cursor: pointer; text-decoration: none; padding: 12px 20px; border-radius: 4px; background: var(--accent); color: var(--accent-ink); }
-.btn:hover { filter: brightness(1.08); }
-.btn.ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1px var(--line); }
-.sec-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 20px; }
+main { padding-block: 48px 80px; }
+section + section { margin-top: 80px; }
+
+/* buttons */
+.btn { position: relative; overflow: hidden; display: inline-flex; align-items: center; justify-content: center; gap: 8px; font: inherit; font-weight: 700; border: 0; cursor: pointer; text-decoration: none; padding: 14px 24px; border-radius: 999px; background: var(--accent); color: var(--accent-ink); box-shadow: var(--shadow); transition: transform .18s var(--ease), box-shadow .25s var(--ease), background-color .2s; -webkit-tap-highlight-color: transparent; }
+.btn:hover { background: var(--accent-strong); transform: translateY(-2px); box-shadow: var(--shadow-lift); }
+.btn:active { transform: translateY(1px) scale(.97); box-shadow: var(--shadow); }
+.btn.ghost { background: var(--card); color: var(--ink); box-shadow: inset 0 0 0 1px var(--line); }
+.btn.ghost:hover { box-shadow: inset 0 0 0 1px var(--ink-soft), var(--shadow); }
+.btn .arrow { transition: transform .25s var(--ease); }
+.btn:hover .arrow { transform: translateX(3px); }
+.btn.done { background: var(--accent-weak); color: var(--accent); }
+.link { font-weight: 500; color: var(--ink-soft); text-decoration: none; display: inline-flex; gap: 6px; align-items: center; transition: color .2s; }
+.link:hover { color: var(--accent); }
+.link .arrow { transition: transform .25s var(--ease); }
+.link:hover .arrow { transform: translateX(3px); }
+.sec-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 22px; }
 .sec-head h2 { font-size: var(--s-5); }
-.sec-head a { color: var(--ink-soft); font-weight: 500; }
 
 /* hero */
-.hero { display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; align-items: center; }
+.hero { display: grid; grid-template-columns: 1.15fr 1fr; gap: 48px; align-items: center; }
 .hero > * { min-width: 0; }
-.hero h1 { font-size: var(--s-6); font-weight: 800; margin: 14px 0 20px; }
-.hero p.lead { font-size: var(--s-3); color: var(--ink-soft); max-width: 34em; margin-bottom: 28px; }
-.hero .actions { display: flex; gap: 10px; flex-wrap: wrap; }
-.last { margin-top: 20px; font-size: var(--s-1); color: var(--ink-soft); }
-.fan { position: relative; height: 340px; }
-.fan .tcard { position: absolute; width: 58%; left: 21%; top: 30px; transition: transform .4s ease; }
-@media (prefers-reduced-motion: reduce) { .fan .tcard { transition: none; } }
-@media (max-width: 820px) { .hero { grid-template-columns: 1fr; gap: 24px; } .fan { height: 280px; } }
+.hero h1 { font-size: var(--s-6); margin-bottom: 20px; line-height: 1.3; }
+.hero p.lead { font-size: var(--s-3); color: var(--ink-soft); max-width: 30em; margin-bottom: 30px; }
+.hero .actions { display: flex; gap: 18px; flex-wrap: wrap; align-items: center; }
+.last { margin-top: 22px; font-size: var(--s-1); color: var(--ink-soft); }
+.last b { color: var(--ink); }
+.fan { position: relative; height: 330px; }
+.fan .tcard { position: absolute; width: 58%; left: 21%; top: 34px; transition: transform .6s var(--ease), opacity .5s; }
+.fan .tcard:nth-child(1) { transform: translate(-44px, 14px) rotate(-10deg); }
+.fan .tcard:nth-child(2) { transform: translate(44px, 18px) rotate(9deg); }
+.fan .tcard:nth-child(3) { z-index: 2; animation: float 5s ease-in-out infinite; }
+.fan:hover .tcard:nth-child(1) { transform: translate(-84px, 22px) rotate(-14deg); }
+.fan:hover .tcard:nth-child(2) { transform: translate(84px, 26px) rotate(13deg); }
+.fan .tcard:not(:nth-child(3)) > :not(.swatch) { visibility: hidden; }
+.fan.shuffle .tcard:nth-child(3) { transform: translate(140px, -20px) rotate(18deg); opacity: 0; }
+@media (max-width: 820px) { .hero { grid-template-columns: 1fr; gap: 20px; } .fan { height: 270px; } }
 
-/* catalog card */
-.tcard { background: var(--card); border: 1px solid var(--line); border-radius: 3px; padding: 16px 16px 14px; display: grid; gap: 8px; box-shadow: 0 1px 0 var(--line); text-decoration: none; color: var(--ink); }
-.tcard .row { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
-.tcard .swatch { width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; color: var(--on-swatch); flex: none; }
+/* type card */
+.tcard { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 18px; display: grid; gap: 6px; box-shadow: var(--shadow); text-decoration: none; color: var(--ink); }
+.tcard .swatch { width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; color: var(--on-swatch); margin-bottom: 6px; }
 .tcard .swatch svg { width: 30px; height: 30px; }
 .tcard h3 { font-size: var(--s-4); }
-.tcard .copy { font-size: var(--s-1); color: var(--ink-soft); }
-.tcard .call { border-top: 1px dashed var(--line); padding-top: 8px; display: flex; justify-content: space-between; gap: 8px; color: var(--ink-soft); }
-.types-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
-@media (max-width: 860px) { .types-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-a.tcard:hover { border-color: var(--ink-soft); }
+.tcard .copy { color: var(--ink-soft); font-size: 0.9375rem; line-height: 1.6; }
+.tcard .animal { font-size: var(--s-1); color: var(--ink-soft); margin-top: 4px; }
+a.tcard { transition: transform .3s var(--ease), box-shadow .3s var(--ease), border-color .2s; }
+a.tcard:hover { transform: translateY(-4px); box-shadow: var(--shadow-lift); border-color: transparent; }
+a.tcard:hover .swatch svg { animation: wiggle .6s var(--ease); }
+a.tcard:active { transform: translateY(-1px) scale(.98); }
+.types-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.types-grid > * { animation: rise 500ms var(--ease) both; animation-delay: calc(var(--i, 0) * 45ms); }
+@media (max-width: 860px) { .types-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; } }
 
 /* magazine */
-.issue { display: grid; grid-template-columns: 0.9fr 1.1fr; border: 1px solid var(--line); border-radius: 3px; background: var(--card); overflow: hidden; }
+.issue { display: grid; grid-template-columns: .9fr 1.1fr; border-radius: 16px; background: var(--card); overflow: hidden; box-shadow: var(--shadow); border: 1px solid var(--line); }
 .issue > * { min-width: 0; }
-.issue .cover { background: var(--accent); color: var(--accent-ink); padding: 32px; display: grid; align-content: space-between; gap: 40px; min-height: 280px; }
-.issue .cover h3 { font-size: clamp(1.9rem, 4vw, 2.8rem); font-weight: 800; }
-.issue .toc { padding: 12px 28px; display: grid; }
-.toc-item { display: grid; grid-template-columns: 7.5em 1fr; gap: 12px; padding-block: 16px; border-bottom: 1px solid var(--line); }
+.issue .cover { background: var(--accent); color: var(--accent-ink); padding: 32px; display: grid; align-content: space-between; gap: 36px; min-height: 260px; }
+.issue .cover h3 { font-size: clamp(2rem, 4.2vw, 2.8rem); line-height: 1.25; }
+.issue .cover .vol { font-size: var(--s-1); font-weight: 500; opacity: .85; }
+.issue .toc { padding: 8px 28px; }
+.toc-item { display: grid; grid-template-columns: 6.5em 1fr; gap: 14px; padding-block: 16px; border-bottom: 1px solid var(--line); }
 .toc-item:last-child { border-bottom: 0; }
-.toc-item h4 { margin: 0 0 4px; font-size: var(--s-3); font-family: var(--f-display); }
-.toc-item p { color: var(--ink-soft); font-size: var(--s-2); }
-@media (max-width: 760px) { .issue { grid-template-columns: 1fr; } .issue .cover { min-height: 0; } .toc-item { grid-template-columns: 1fr; gap: 2px; } .issue .toc { padding: 4px 18px; } }
+.toc-item h4 { font-size: var(--s-3); margin-bottom: 2px; }
+.toc-item p { color: var(--ink-soft); font-size: 0.9375rem; }
+@media (max-width: 760px) { .issue { grid-template-columns: 1fr; } .issue .cover { min-height: 0; padding: 26px; } .toc-item { grid-template-columns: 1fr; gap: 0; } .issue .toc { padding: 4px 20px; } }
 
 /* writers */
 .writers { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
 @media (max-width: 900px) { .writers { grid-template-columns: 1fr; } }
-.writer { background: var(--card); border: 1px solid var(--line); border-radius: 3px; padding: 22px; display: grid; gap: 14px; align-content: start; }
-.first { font-family: var(--f-display); font-size: var(--s-3); line-height: 1.85; border-left: 3px solid var(--marker); padding-left: 14px; }
+.writer { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 24px; display: grid; gap: 16px; align-content: start; box-shadow: var(--shadow); transition: transform .3s var(--ease), box-shadow .3s var(--ease); }
+.writer:hover { transform: translateY(-3px); box-shadow: var(--shadow-lift); }
+.first { font-family: var(--f-display); font-size: 1.0625rem; line-height: 1.9; border-left: 3px solid var(--marker); padding-left: 16px; }
 .meta { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; color: var(--ink-soft); font-size: var(--s-1); }
-.chip { display: inline-flex; align-items: center; gap: 6px; padding: 2px 9px; border-radius: 99px; font-size: var(--s-1); font-weight: 500; color: var(--on-swatch); }
-.tag-ex { font-family: var(--f-mono); font-size: 0.72rem; border: 1px solid var(--line); border-radius: 3px; padding: 1px 6px; color: var(--ink-soft); letter-spacing: 0.04em; }
+.chip { display: inline-flex; align-items: center; padding: 2px 10px; border-radius: 99px; font-size: var(--s-1); font-weight: 500; color: var(--on-swatch); }
+.tag-ex { font-size: 0.75rem; border: 1px solid var(--line); border-radius: 99px; padding: 0 8px; color: var(--ink-soft); }
+.writer h3 { font-size: var(--s-3); }
 .writer .buy { border-top: 1px solid var(--line); padding-top: 12px; font-size: var(--s-1); color: var(--ink-soft); }
+.writer .buy b { color: var(--ink); }
 
 /* shops */
 .shops { display: grid; gap: 16px; }
-.shop { display: grid; grid-template-columns: 15em 1fr; gap: 24px; background: var(--card); border: 1px solid var(--line); border-radius: 3px; padding: 22px; }
+.shop { display: grid; grid-template-columns: 15em 1fr; gap: 24px; background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 24px; box-shadow: var(--shadow); }
 .shop > * { min-width: 0; }
-.shop h3 { font-size: var(--s-4); margin-bottom: 4px; }
+.shop h3 { font-size: var(--s-4); margin: 6px 0 4px; }
+.shop .note { color: var(--ink-soft); font-size: 0.9375rem; }
 .shelf { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
-.spine { border: 1px solid var(--line); border-radius: 2px; padding: 12px; background: var(--paper); display: grid; gap: 4px; align-content: start; }
-.spine b { font-family: var(--f-display); font-weight: 600; }
+.spine { border-radius: 10px; padding: 14px; background: var(--paper); display: grid; gap: 2px; align-content: start; transition: transform .25s var(--ease), background-color .2s; }
+.spine:hover { transform: translateY(-3px); background: var(--accent-weak); }
+.spine b { font-family: var(--f-display); font-weight: 700; }
 .spine span { font-size: var(--s-1); color: var(--ink-soft); }
 @media (max-width: 760px) { .shop { grid-template-columns: 1fr; gap: 14px; } .shelf { grid-template-columns: 1fr; } }
 
-/* test */
+/* quiz */
 .quiz { max-width: 640px; margin: 0 auto; }
-.progress { height: 6px; background: var(--paper-2); border-radius: 99px; overflow: hidden; margin: 14px 0 32px; }
-.progress i { display: block; height: 100%; background: var(--accent); transition: width .3s ease; }
-.qnum { display: flex; justify-content: space-between; color: var(--ink-soft); }
-.q { font-size: var(--s-5); margin-bottom: 24px; }
+.quiz.wide { max-width: 1080px; }
+.progress { height: 6px; background: var(--paper-2); border-radius: 99px; overflow: hidden; margin: 10px 0 36px; }
+.progress i { display: block; height: 100%; background: var(--accent); border-radius: 99px; transition: width .45s var(--ease); }
+.qnum { color: var(--ink-soft); font-size: var(--s-1); font-weight: 500; font-variant-numeric: tabular-nums; }
+.qstage.in-right { animation: inRight 380ms var(--ease) both; }
+.qstage.in-left { animation: inLeft 380ms var(--ease) both; }
+.q { font-size: var(--s-5); margin-bottom: 26px; }
 .opts { display: grid; gap: 12px; }
-.opt { text-align: left; font: inherit; font-size: var(--s-3); color: var(--ink); background: var(--card); border: 1px solid var(--line); border-radius: 3px; padding: 18px 20px; cursor: pointer; display: grid; grid-template-columns: 2em 1fr; gap: 8px; align-items: baseline; }
-.opt:hover { border-color: var(--accent); }
-.opt .k { font-family: var(--f-mono); color: var(--ink-soft); }
-.quiz .back { margin-top: 20px; background: none; border: 0; color: var(--ink-soft); font: inherit; cursor: pointer; padding: 4px 0; text-decoration: underline; }
-.intro-list { display: grid; gap: 6px; margin: 20px 0 28px; padding-left: 1.2em; color: var(--ink-soft); }
+.opt { position: relative; overflow: hidden; text-align: left; font: inherit; font-size: var(--s-3); line-height: 1.6; color: var(--ink); background: var(--card); border: 1.5px solid var(--line); border-radius: 14px; padding: 18px 20px; cursor: pointer; display: flex; gap: 14px; align-items: center; transition: border-color .2s, transform .18s var(--ease), box-shadow .25s var(--ease), color .2s; -webkit-tap-highlight-color: transparent; }
+.opt::before { content: ""; position: absolute; inset: 0; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform .3s var(--ease); z-index: 0; }
+.opt > span { position: relative; z-index: 1; }
+.opt > .rip { position: absolute; z-index: 1; }
+.opt .k { flex: none; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; font-size: var(--s-1); font-weight: 700; background: var(--paper-2); color: var(--ink-soft); transition: background-color .2s, color .2s; }
+.opt:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: var(--shadow); }
+.opt:active { transform: scale(.98); }
+.opt.chosen { color: var(--accent-ink); border-color: var(--accent); }
+.opt.chosen::before { transform: scaleX(1); }
+.opt.chosen .k { background: var(--accent-ink); color: var(--accent); }
+.quiz .back { margin-top: 22px; background: none; border: 0; color: var(--ink-soft); font: inherit; font-size: 0.9375rem; cursor: pointer; padding: 6px 0; display: inline-flex; gap: 6px; align-items: center; }
+.quiz .back:hover { color: var(--ink); }
+.intro h1 { font-size: var(--s-6); margin: 6px 0 14px; }
+.intro p { color: var(--ink-soft); font-size: var(--s-3); margin-bottom: 30px; }
+.privacy { font-size: var(--s-1); color: var(--ink-soft); margin-top: 18px; }
 
 /* result */
-.result { display: grid; grid-template-columns: minmax(0, 380px) minmax(0, 1fr); gap: 40px; align-items: start; }
-@media (max-width: 820px) { .result { grid-template-columns: 1fr; } }
-.rcard { border-radius: 4px; padding: 26px; color: var(--on-swatch); display: grid; gap: 14px; aspect-ratio: 9 / 14; max-width: 100%; align-content: space-between; }
+.result { display: grid; grid-template-columns: minmax(0, 380px) minmax(0, 1fr); gap: 44px; align-items: start; }
+@media (max-width: 820px) { .result { grid-template-columns: 1fr; gap: 28px; } }
+.rcard { border-radius: 20px; padding: 28px; color: var(--on-swatch); display: grid; gap: 14px; aspect-ratio: 9 / 14; max-width: 100%; align-content: space-between; box-shadow: var(--shadow-lift); animation: settle 700ms var(--ease) both; }
 .rcard .swatch { width: 84px; height: 84px; border-radius: 50%; background: rgba(255,255,255,.55); display: grid; place-items: center; }
-.rcard .swatch svg { width: 50px; height: 50px; }
-.rcard h2 { font-size: 2.3rem; font-weight: 800; }
-.rcard .copy { font-family: var(--f-display); font-size: var(--s-4); line-height: 1.45; }
-.rcard .foot { display: flex; justify-content: space-between; gap: 8px; border-top: 1px solid rgba(28,36,32,.3); padding-top: 10px; font-family: var(--f-mono); font-size: var(--s-1); }
-.rbody { display: grid; gap: 22px; }
-.rbody .intro { font-size: var(--s-3); }
-.axes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
-.axis { border: 1px solid var(--line); border-radius: 3px; padding: 10px 12px; background: var(--card); }
-.axis b { display: block; font-family: var(--f-display); font-size: var(--s-3); }
+.rcard .swatch svg { width: 48px; height: 48px; animation: wiggle .8s var(--ease) .5s both; }
+.rcard .you { font-size: var(--s-2); }
+.rcard h2 { font-size: 2.3rem; }
+.rcard .copy { font-family: var(--f-display); font-size: var(--s-4); line-height: 1.5; margin-top: 10px; }
+.rcard .foot { display: flex; justify-content: space-between; gap: 8px; border-top: 1px solid rgba(24,32,28,.25); padding-top: 12px; font-size: var(--s-1); font-weight: 500; }
+.rbody { display: grid; gap: 20px; }
+.rbody > * { animation: rise 520ms var(--ease) both; animation-delay: calc(150ms + var(--i, 0) * 80ms); }
+.rbody .intro-text { font-size: var(--s-3); line-height: 1.8; }
+.axes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.axis { border-radius: 12px; padding: 12px 14px; background: var(--card); border: 1px solid var(--line); }
 .axis span { font-size: var(--s-1); color: var(--ink-soft); }
-.pick { border: 1px solid var(--line); background: var(--card); border-radius: 3px; padding: 18px; display: grid; gap: 6px; }
-.pick .label { font-size: var(--s-1); color: var(--ink-soft); font-weight: 500; }
-.pick .title { font-family: var(--f-display); font-size: var(--s-4); font-weight: 600; }
+.axis b { display: block; font-family: var(--f-display); font-size: var(--s-4); line-height: 1.3; }
+.dots { display: flex; gap: 4px; margin-top: 6px; }
+.dots i { width: 8px; height: 8px; border-radius: 50%; background: var(--line); }
+.dots i.on { background: var(--accent); }
+.pick { border-radius: 14px; background: var(--card); border: 1px solid var(--line); padding: 20px; display: grid; gap: 4px; }
+.pick .title { font-family: var(--f-display); font-size: var(--s-4); font-weight: 700; }
+.pick .first { font-size: 0.9375rem; margin-top: 10px; }
 .share-row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
-.toast { font-size: var(--s-1); color: var(--accent); }
+.toast { font-size: var(--s-1); color: var(--ink-soft); }
 
-/* about */
-.about { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
-.about > * { min-width: 0; }
-.about h1 { font-size: var(--s-6); font-weight: 800; }
-.about p { margin-bottom: 14px; max-width: 34em; }
-.steps { display: grid; gap: 14px; counter-reset: s; padding: 0; margin: 0; list-style: none; }
-.steps li { counter-increment: s; display: grid; grid-template-columns: 2.4em 1fr; gap: 10px; background: var(--card); border: 1px solid var(--line); border-radius: 3px; padding: 16px; }
-.steps li::before { content: counter(s); font-family: var(--f-mono); color: var(--accent); font-weight: 500; }
-@media (max-width: 760px) { .about { grid-template-columns: 1fr; } }
-.page-title { font-size: var(--s-6); font-weight: 800; margin: 10px 0 14px; }
-.page-lead { color: var(--ink-soft); font-size: var(--s-3); max-width: 38em; margin-bottom: 32px; }
 /* feedback */
-.fb { border: 1px dashed var(--line); border-radius: 3px; padding: 18px; display: grid; gap: 12px; }
+.fb { border-radius: 14px; background: var(--paper-2); padding: 20px; display: grid; gap: 12px; }
 .fb h3 { font-size: var(--s-3); }
 .fb .row { display: flex; gap: 8px; flex-wrap: wrap; }
-.pill { font: inherit; font-size: var(--s-1); font-weight: 500; color: var(--ink); background: var(--card); border: 1px solid var(--line); border-radius: 99px; padding: 6px 14px; cursor: pointer; }
+.pill { position: relative; overflow: hidden; font: inherit; font-size: 0.9375rem; font-weight: 500; color: var(--ink); background: var(--card); border: 1px solid var(--line); border-radius: 99px; padding: 7px 16px; cursor: pointer; transition: background-color .2s, color .2s, border-color .2s, transform .15s var(--ease); -webkit-tap-highlight-color: transparent; }
 .pill:hover { border-color: var(--accent); }
-.pill[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.pill[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); animation: pop .35s var(--ease); }
 .fb .sub { font-size: var(--s-1); color: var(--ink-soft); }
-.privacy { font-size: var(--s-1); color: var(--ink-soft); margin-top: 14px; }
+.fb .slide { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .35s var(--ease); }
+.fb .slide > div { overflow: hidden; }
+.fb .slide.open { grid-template-rows: 1fr; }
+.fb .slide .sub { margin-bottom: 8px; }
+#fbThanks { color: var(--accent); font-weight: 500; min-height: 1.4em; }
+
+/* page heads */
+.page-title { font-size: var(--s-6); margin-bottom: 10px; }
+.page-lead { color: var(--ink-soft); font-size: var(--s-3); max-width: 34em; margin-bottom: 34px; }
 
 /* stats */
-.kpis { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-bottom: 28px; }
-.kpi { background: var(--card); border: 1px solid var(--line); border-radius: 3px; padding: 16px; }
+.kpis { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-bottom: 24px; }
+.kpi { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 18px; }
 .kpi b { display: block; font-family: var(--f-display); font-size: var(--s-5); font-variant-numeric: tabular-nums; }
 .kpi span { font-size: var(--s-1); color: var(--ink-soft); }
 @media (max-width: 600px) { .kpis { grid-template-columns: 1fr; } }
-.bars { display: grid; gap: 10px; position: relative; }
-.bar { display: grid; grid-template-columns: 6.5em minmax(0, 1fr) 7.5em; gap: 12px; align-items: center; font-size: var(--s-2); }
-.bar .track { position: relative; height: 22px; background: var(--paper-2); border-radius: 2px; }
-.bar .fill { position: absolute; inset: 0 auto 0 0; border-radius: 2px; }
-.bar .limit { position: absolute; top: -4px; bottom: -4px; left: 25%; border-left: 2px dashed var(--ink-soft); }
+.bars { display: grid; gap: 10px; }
+.bar { display: grid; grid-template-columns: 5.5em minmax(0, 1fr) 6.5em; gap: 12px; align-items: center; font-size: 0.9375rem; }
+.bar .track { position: relative; height: 22px; background: var(--paper-2); border-radius: 6px; }
+.bar .fill { position: absolute; inset: 0 auto 0 0; border-radius: 6px; transition: width .6s var(--ease); }
+.bar .limit { position: absolute; top: -4px; bottom: -4px; border-left: 2px dashed var(--ink-soft); }
 .bar .num { font-variant-numeric: tabular-nums; color: var(--ink-soft); font-size: var(--s-1); text-align: right; }
 .bar.over .num { color: var(--ink); font-weight: 700; }
 .note { font-size: var(--s-1); color: var(--ink-soft); margin-top: 10px; }
-.stat-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 28px; align-items: start; }
+.stat-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 24px; align-items: start; }
 .stat-grid > * { min-width: 0; }
 @media (max-width: 820px) { .stat-grid { grid-template-columns: 1fr; } }
-.panel { background: var(--card); border: 1px solid var(--line); border-radius: 3px; padding: 20px; }
+.panel { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 22px; }
 .panel h2 { font-size: var(--s-4); margin-bottom: 14px; }
 .tbl { width: 100%; border-collapse: collapse; font-size: var(--s-1); font-variant-numeric: tabular-nums; }
 .tbl th, .tbl td { text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--line); }
 .tbl td.r, .tbl th.r { text-align: right; }
 
-footer { border-top: 1px solid var(--line); padding-block: 28px; color: var(--ink-soft); font-size: var(--s-1); }
-footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+/* about */
+.about { display: grid; grid-template-columns: 1fr 1.1fr; gap: 48px; }
+.about > * { min-width: 0; }
+.about h1 { font-size: var(--s-6); }
+.about p { margin-bottom: 18px; color: var(--ink-soft); font-size: var(--s-3); }
+.steps { display: grid; gap: 12px; counter-reset: s; padding: 0; margin: 0 0 22px; list-style: none; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 2em 1fr; gap: 10px; background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; }
+.steps li::before { content: counter(s); font-family: var(--f-display); font-weight: 700; color: var(--accent); font-size: var(--s-4); line-height: 1.3; }
+@media (max-width: 760px) { .about { grid-template-columns: 1fr; gap: 24px; } }
+
+footer { border-top: 1px solid var(--line); padding-block: 26px; color: var(--ink-soft); font-size: var(--s-1); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 1ms !important; animation-delay: 0ms !important; transition-duration: 1ms !important; }
+  .fan .tcard:nth-child(3) { animation: none; }
+}
 </style>
 
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="#home">북크북크<small>BOOKK·BOOKK</small></a>
+    <a class="brand" href="#home">북크북크</a>
     <nav class="menu" aria-label="주요 메뉴">
       <a href="#test" class="cta" data-v="test">테스트</a>
       <a href="#magazine" data-v="magazine">매거진</a>
       <a href="#writers" data-v="writers">작가</a>
       <a href="#shops" data-v="shops">서점</a>
-      <a href="#types" data-v="types">8가지 유형</a>
+      <a href="#types" data-v="types">유형</a>
       <a href="#about" data-v="about">소개</a>
       <a href="#stats" data-v="stats" id="statsLink" hidden>응답 통계</a>
     </nav>
@@ -235,16 +313,14 @@ footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wr
 </header>
 
 <main class="wrap">
-  <!-- HOME -->
   <div id="v-home" data-view>
     <section class="hero">
       <div>
-        <p class="eyebrow">독서 성향 매칭 · 웹 매거진</p>
-        <h1>아직 아무도 모르는,<br><span class="hl">나와 같은 결</span>의 문장을 쓰는 작가</h1>
-        <p class="lead">9개 질문에 답하면 당신의 독서 유형을 알려드려요. 익숙한 대표작 한 권, 그리고 같은 결의 신생 작가와 그 책을 파는 독립서점까지 이어드립니다.</p>
+        <h1>아직 아무도 모르는,<br><span class="hl">나와 같은 결</span>의 작가</h1>
+        <p class="lead">9개 질문으로 독서 유형을 알아보고, 같은 결의 신생 작가와 독립서점을 만나보세요.</p>
         <div class="actions">
-          <a class="btn" href="#test">2분 테스트 시작하기</a>
-          <a class="btn ghost" href="#types">8가지 유형 보기</a>
+          <a class="btn" href="#test">테스트 시작하기 <span class="arrow" aria-hidden="true">→</span></a>
+          <a class="link" href="#types">8가지 유형 보기 <span class="arrow" aria-hidden="true">→</span></a>
         </div>
         <p class="last" id="lastResult" hidden></p>
       </div>
@@ -252,92 +328,78 @@ footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wr
     </section>
 
     <section>
-      <div class="sec-head"><h2>이번 달 매거진</h2><a href="#magazine">창간호 전체 보기</a></div>
+      <div class="sec-head"><h2>이번 달 매거진</h2><a class="link" href="#magazine">전체 보기 <span class="arrow" aria-hidden="true">→</span></a></div>
       <div id="issueHome"></div>
     </section>
 
     <section>
-      <div class="sec-head"><h2>첫 문단으로 만나는 작가</h2><a href="#writers">작가 전체 보기</a></div>
+      <div class="sec-head"><h2>첫 문단으로 만나는 작가</h2><a class="link" href="#writers">전체 보기 <span class="arrow" aria-hidden="true">→</span></a></div>
       <div class="writers" id="writersHome"></div>
     </section>
   </div>
 
-  <!-- TEST -->
   <div id="v-test" data-view hidden>
     <div class="quiz" id="quiz"></div>
   </div>
 
-  <!-- TYPES -->
   <div id="v-types" data-view hidden>
-    <p class="eyebrow">읽는 이유 × 온도 × 여운</p>
     <h1 class="page-title">8가지 독서 유형</h1>
-    <p class="page-lead">책을 펴는 이유(쉼·깸), 마음이 열리는 말투(온·냉), 다 읽고 갖고 싶은 것(답·물음). 세 가지를 조합하면 여덟 유형이 나와요. 카드를 누르면 그 유형의 결과를 볼 수 있어요.</p>
+    <p class="page-lead">책을 펴는 이유, 마음이 열리는 말투, 다 읽고 남았으면 하는 것. 이 세 가지로 나눠요.</p>
     <div class="types-grid" id="typesGrid"></div>
   </div>
 
-  <!-- MAGAZINE -->
   <div id="v-magazine" data-view hidden>
-    <p class="eyebrow">월간 · 매달 하나의 테마</p>
     <h1 class="page-title">매거진</h1>
-    <p class="page-lead">매달 하나의 테마로 작가 인터뷰, 서점 탐방, 유형별 큐레이션을 싣습니다.</p>
+    <p class="page-lead">매달 하나의 테마로 작가와 서점 이야기를 전해요.</p>
     <div id="issueFull"></div>
     <section>
-      <div class="sec-head"><h2>다음 호 예고</h2></div>
-      <div class="types-grid" style="grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));">
-        <div class="tcard"><span class="mono">VOL.02</span><h3>겨울을 버티는 문장들</h3><p class="copy">추운 계절, 곁에 두고 싶은 한 문장을 모읍니다.</p></div>
-        <div class="tcard"><span class="mono">VOL.03</span><h3>다시 시작하는 사람에게</h3><p class="copy">새해, 두 번째 시작을 응원하는 책들.</p></div>
+      <div class="sec-head"><h2>다음 호</h2></div>
+      <div class="types-grid" style="grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));">
+        <div class="tcard"><span class="label">2호</span><h3>겨울을 버티는 문장들</h3></div>
+        <div class="tcard"><span class="label">3호</span><h3>다시 시작하는 사람에게</h3></div>
       </div>
     </section>
   </div>
 
-  <!-- WRITERS -->
   <div id="v-writers" data-view hidden>
-    <p class="eyebrow">약력보다 첫 문단</p>
     <h1 class="page-title">작가</h1>
-    <p class="page-lead">신생 작가는 이름보다 글로 먼저 만나는 게 좋다고 믿어요. 첫 문단을 읽고 끌리면, 아래 서점에서 책을 만날 수 있어요.</p>
+    <p class="page-lead">이름보다 첫 문단으로 먼저 만나요.</p>
     <div class="writers" id="writersFull"></div>
   </div>
 
-  <!-- SHOPS -->
   <div id="v-shops" data-view hidden>
-    <p class="eyebrow">책방지기의 서가</p>
     <h1 class="page-title">독립서점</h1>
-    <p class="page-lead">독립서점은 주인의 취향이 곧 정체성이에요. 서점 소개보다 책방지기가 직접 고른 세 권을 먼저 보여드립니다.</p>
+    <p class="page-lead">책방지기가 직접 고른 세 권으로 서점을 소개해요.</p>
     <div class="shops" id="shopsFull"></div>
   </div>
 
-  <!-- STATS (운영자 전용) -->
   <div id="v-stats" data-view hidden>
-    <p class="eyebrow">운영자 전용 · 테스트 검증</p>
     <h1 class="page-title">응답 통계</h1>
-    <p class="page-lead">유형 분포와 결과 피드백을 모아 봅니다. 한 유형이 25%를 넘으면 문항 조정이 필요하다는 신호예요.</p>
+    <p class="page-lead">한 유형이 25%를 넘으면 문항을 점검할 때예요.</p>
     <div id="statsBody"><p class="note">응답을 불러오는 중이에요…</p></div>
   </div>
 
-  <!-- ABOUT -->
   <div id="v-about" data-view hidden>
     <div class="about">
+      <h1>유명하지 않음을<br><span class="hl">발견의 재미</span>로</h1>
       <div>
-        <p class="eyebrow">ABOUT</p>
-        <h1>유명하지 않음을<br>발견의 재미로</h1>
-      </div>
-      <div>
-        <p>북크북크는 독서모임에서 시작해 책 기부와 교환으로 뻗어 나간 사람들이 만드는 플랫폼입니다. 베스트셀러 추천은 어디에나 있으니, 여기서는 아직 알려지지 않은 작가와 동네 독립서점을 소개합니다.</p>
+        <p>북크북크는 독서모임에서 시작해 책 기부와 교환으로 이어진 사람들이 만들어요. 아직 알려지지 않은 작가와 동네 독립서점을 소개합니다.</p>
         <ol class="steps">
-          <li><span><b>테스트로 들어와요.</b> 9개 질문으로 나의 독서 유형을 알아봐요.</span></li>
-          <li><span><b>익숙한 책으로 공감해요.</b> 유형마다 누구나 아는 대표작을 보여드려요.</span></li>
-          <li><span><b>같은 결의 신생 작가를 만나요.</b> 그 책을 파는 독립서점으로 이어드려요.</span></li>
-          <li><span><b>매거진으로 머물러요.</b> 매달 한 가지 테마로 작가와 서점 이야기를 전해요.</span></li>
+          <li><span>테스트로 나의 독서 유형을 알아봐요.</span></li>
+          <li><span>익숙한 대표작으로 내 결을 확인해요.</span></li>
+          <li><span>같은 결의 신생 작가와 서점을 만나요.</span></li>
+          <li><span>매거진으로 매달 새 이야기를 받아봐요.</span></li>
         </ol>
-        <p style="margin-top:20px">입점 문의와 소식은 인스타그램 <b>@bookk__book</b>에서 받고 있어요.</p>
+        <p style="margin-bottom:0">입점 문의 · 인스타그램 <b style="color:var(--ink)">@bookk__book</b></p>
       </div>
     </div>
   </div>
 </main>
 
-<footer><div class="wrap"><span>북크북크 · 신생 작가와 독립서점을 잇는 곳</span><span>작가·서점 정보는 입점 전 예시입니다</span></div></footer>
+<footer><div class="wrap">북크북크 · 작가와 서점 정보는 입점 전 예시예요</div></footer>
 
 <script>
+const REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const ICONS = {
   damyo: '<rect x="8" y="12" width="32" height="22" rx="3"/><path d="M8 20h32M8 27h32M13 34v5M19 34v5M25 34v5M31 34v5M37 34v5"/>',
   pyeonji: '<rect x="6" y="12" width="36" height="24" rx="2"/><path d="M6 14l18 13 18-13"/>',
@@ -353,28 +415,28 @@ const svg = k => `<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" str
 const TYPES = [
   { k:'damyo', name:'담요', animal:'담요를 두른 곰', code:'쉼·온·답', copy:'오늘은 그냥 덮여 있어도 돼',
     intro:'당신은 책에서 쉼을 찾는 사람. 다정한 문장 속에 몸을 묻고, 다 읽고 나면 마음이 한결 정리돼요. 남을 챙기느라 바빴다면, 오늘은 책이 당신을 챙길 차례예요.',
-    line:'따뜻하게 감싸고, 괜찮다고 말해주는 책을 골랐어요.', books:[['불편한 편의점','김호연'],['달러구트 꿈 백화점','이미예'],['나는 나로 살기로 했다','김수현']] },
+    books:[['불편한 편의점','김호연'],['달러구트 꿈 백화점','이미예'],['나는 나로 살기로 했다','김수현']] },
   { k:'pyeonji', name:'손편지', animal:'손편지를 쓰는 사슴', code:'쉼·온·물음', copy:'답장은 천천히 써도 괜찮아',
     intro:'당신은 위로를 받되, 답은 스스로 찾고 싶은 사람. 다정한 문장 끝에 남은 작은 질문을 오래 품고 다녀요. 당신에게 책은 천천히 읽는 편지예요.',
-    line:'따뜻하지만 끝에 조용한 질문을 남기는 책을 골랐어요.', books:[['어린 왕자','생텍쥐페리'],['긴긴밤','루리']] },
+    books:[['어린 왕자','생텍쥐페리'],['긴긴밤','루리']] },
   { k:'memo', name:'메모장', animal:'메모장을 든 다람쥐', code:'쉼·냉·답', copy:'감동보다 정리가 필요한 날',
     intro:'당신은 감성적인 말보다 담백한 정리가 위로가 되는 사람. 복잡한 마음도 몇 줄로 적고 나면 가벼워져요. 겉은 건조해 보여도, 누구보다 자기를 잘 챙길 줄 알아요.',
-    line:'군더더기 없이 핵심을 짚어주는 책을 골랐어요.', books:[['미움받을 용기','기시미 이치로·고가 후미타케'],['명상록','마르쿠스 아우렐리우스']] },
+    books:[['미움받을 용기','기시미 이치로·고가 후미타케'],['명상록','마르쿠스 아우렐리우스']] },
   { k:'window', name:'새벽 창문', animal:'창가에 앉은 고양이', code:'쉼·냉·물음', copy:'조용해야 들리는 생각이 있어',
     intro:'당신은 혼자만의 시간에 충전되는 사람. 담담한 문장을 창밖 풍경처럼 바라보다가, 문득 오래 남는 생각을 만나요. 시끄러운 하루 끝, 당신에게 필요한 건 조용한 한 페이지예요.',
-    line:'담담하게 흘러가다 오래 곱씹게 되는 책을 골랐어요.', books:[['스토너','존 윌리엄스'],['시와 산책','한정원'],['바깥은 여름','김애란']] },
+    books:[['스토너','존 윌리엄스'],['시와 산책','한정원'],['바깥은 여름','김애란']] },
   { k:'compass', name:'나침반', animal:'나침반을 든 강아지', code:'깸·온·답', copy:'길을 잃어도, 방향은 있어',
     intro:'당신은 새로운 자극을 원하지만, 누군가 함께 걸어주길 바라는 사람. 읽고 나면 \'해볼까?\' 하는 마음이 생겨요. 당신은 책에서 다음 걸음을 찾는 독자예요.',
-    line:'다정한 말투로 앞으로 나아갈 힘을 주는 책을 골랐어요.', books:[['연금술사','파울로 코엘료'],['아몬드','손원평']] },
+    books:[['연금술사','파울로 코엘료'],['아몬드','손원평']] },
   { k:'fire', name:'모닥불', animal:'모닥불 앞의 수달', code:'깸·온·물음', copy:'다 읽으면 누군가와 얘기하고 싶어져',
     intro:'당신은 책을 덮자마자 "이거 들어봐!" 하고 싶어지는 사람. 따뜻한 이야기 속 생각할 거리를 함께 나눌 때 독서가 완성돼요. 당신 곁엔 늘 이야기가 모여요.',
-    line:'함께 이야기 나누고 싶어지는 책을 골랐어요.', books:[['우리가 빛의 속도로 갈 수 없다면','김초엽'],['클라라와 태양','가즈오 이시구로'],['페인트','이희영']] },
+    books:[['우리가 빛의 속도로 갈 수 없다면','김초엽'],['클라라와 태양','가즈오 이시구로'],['페인트','이희영']] },
   { k:'lens', name:'돋보기', animal:'돋보기를 든 부엉이', code:'깸·냉·답', copy:'대충 아는 건 모르는 거야',
     intro:'당신은 "근데 왜?"를 멈추지 않는 사람. 감정보다 근거, 막연함보다 명확함을 좋아해요. 다 읽고 세상이 한 칸 더 선명해지는 순간을 즐겨요.',
-    line:'날카롭게 파고들어 확실한 답을 주는 책을 골랐어요.', books:[['사피엔스','유발 하라리'],['총, 균, 쇠','재레드 다이아몬드'],['팩트풀니스','한스 로슬링']] },
+    books:[['사피엔스','유발 하라리'],['총, 균, 쇠','재레드 다이아몬드'],['팩트풀니스','한스 로슬링']] },
   { k:'mirror', name:'거울', animal:'거울을 든 까마귀', code:'깸·냉·물음', copy:'불편한 질문이 나를 바꿔',
     intro:'당신은 편안한 이야기보다 나를 흔드는 글에 끌리는 사람. 차갑게 비친 내 모습이 불편해도, 그 질문 덕분에 한 뼘 자라요. 당신은 책과 정면으로 마주하는 독자예요.',
-    line:'차갑게 비추고 오래 남는 질문을 던지는 책을 골랐어요.', books:[['채식주의자','한강'],['이방인','알베르 카뮈'],['데미안','헤르만 헤세']] }
+    books:[['채식주의자','한강'],['이방인','알베르 카뮈'],['데미안','헤르만 헤세']] }
 ];
 const byKey = Object.fromEntries(TYPES.map(t => [t.k, t]));
 const colorOf = k => `var(--t-${k})`;
@@ -409,100 +471,138 @@ const SHOPS = [
 
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
-function typeCard(t, asLink) {
+function typeCard(t, asLink, i) {
   const tag = asLink ? 'a' : 'div';
-  const href = asLink ? ` href="#types" data-type="${t.k}"` : '';
-  return `<${tag} class="tcard"${href}>
-    <div class="row"><span class="mono">${esc(t.code)}</span><span class="swatch" style="background:${colorOf(t.k)}">${svg(t.k)}</span></div>
+  const attrs = asLink ? ` href="#types" data-type="${t.k}" style="--i:${i || 0}"` : '';
+  return `<${tag} class="tcard"${attrs}>
+    <span class="swatch" style="background:${colorOf(t.k)}">${svg(t.k)}</span>
     <h3>${esc(t.name)}</h3>
     <p class="copy">${esc(t.copy)}</p>
-    <div class="call mono"><span>${esc(t.animal)}</span></div>
+    <p class="animal">${esc(t.animal)}</p>
   </${tag}>`;
 }
-
 function writerCard(w) {
   const t = byKey[w.type];
   return `<article class="writer">
-    <div class="meta"><span class="tag-ex">예시</span><span class="chip" style="background:${colorOf(t.k)}">${esc(t.name)}</span><span>${esc(w.genre)}</span></div>
+    <div class="meta"><span class="chip" style="background:${colorOf(t.k)}">${esc(t.name)}</span><span>${esc(w.genre)}</span><span class="tag-ex">예시</span></div>
     <p class="first">${esc(w.first)}</p>
-    <div><h3 style="font-size:var(--s-3)">『${esc(w.book)}』</h3><p class="meta">${esc(w.name)} 지음</p></div>
-    <p class="buy">이 책을 파는 곳 · <b>${esc(w.shop)}</b></p>
+    <div><h3>『${esc(w.book)}』</h3><p class="meta">${esc(w.name)}</p></div>
+    <p class="buy">파는 곳 · <b>${esc(w.shop)}</b></p>
   </article>`;
 }
-
 function issueBlock() {
   return `<div class="issue">
-    <div class="cover"><span class="mono">VOL.01 · 창간호</span><h3>처음의<br>문장들</h3><span class="mono">첫 책을 낸 작가, 문을 연 지 얼마 안 된 서점, 처음 열리는 플랫폼</span></div>
+    <div class="cover"><span class="vol">창간호</span><h3>처음의<br>문장들</h3></div>
     <div class="toc">
-      <div class="toc-item"><span class="eyebrow">작가 인터뷰</span><div><h4>첫 문장을 어떻게 썼나요?</h4><p>첫 책을 낸 신생 작가에게 묻고, 작가의 독서 유형과 글의 유형을 나란히 비교해요.</p></div></div>
-      <div class="toc-item"><span class="eyebrow">서점 탐방</span><div><h4>처음 들인 세 권</h4><p>책방지기가 서점을 열며 가장 먼저 서가에 꽂은 책 이야기.</p></div></div>
-      <div class="toc-item"><span class="eyebrow">큐레이션</span><div><h4>유형별 첫 책</h4><p>여덟 유형마다, 이 결의 독서를 시작하기 좋은 첫 책 한 권씩.</p></div></div>
-      <div class="toc-item"><span class="eyebrow">독자 참여</span><div><h4>내가 기억하는 첫 문장</h4><p>인스타그램 댓글로 받은 첫 문장을 다음 호에 소개해요.</p></div></div>
+      <div class="toc-item"><span class="label">작가 인터뷰</span><div><h4>첫 문장을 어떻게 썼나요?</h4><p>첫 책을 낸 작가의 독서 유형과 글의 유형을 나란히 봐요.</p></div></div>
+      <div class="toc-item"><span class="label">서점 탐방</span><div><h4>처음 들인 세 권</h4><p>서점을 열며 가장 먼저 꽂은 책 이야기.</p></div></div>
+      <div class="toc-item"><span class="label">큐레이션</span><div><h4>유형별 첫 책</h4><p>여덟 유형마다 시작하기 좋은 한 권씩.</p></div></div>
+      <div class="toc-item"><span class="label">독자 참여</span><div><h4>내가 기억하는 첫 문장</h4><p>인스타그램으로 받아 다음 호에 실어요.</p></div></div>
     </div>
   </div>`;
 }
-
 function shopCard(s) {
   return `<article class="shop">
-    <div><div class="meta" style="margin-bottom:8px"><span class="tag-ex">예시</span><span>${esc(s.area)}</span></div><h3>${esc(s.name)}</h3><p style="color:var(--ink-soft)">${esc(s.note)}</p></div>
-    <div><p class="eyebrow" style="margin-bottom:8px">책방지기가 고른 세 권</p><div class="shelf">${s.picks.map(p => `<div class="spine"><b>『${esc(p[0])}』</b><span>${esc(p[1])}</span></div>`).join('')}</div></div>
+    <div><div class="meta"><span>${esc(s.area)}</span><span class="tag-ex">예시</span></div><h3>${esc(s.name)}</h3><p class="note">${esc(s.note)}</p></div>
+    <div><p class="label" style="margin-bottom:8px">책방지기가 고른 세 권</p><div class="shelf">${s.picks.map(p => `<div class="spine"><b>『${esc(p[0])}』</b><span>${esc(p[1])}</span></div>`).join('')}</div></div>
   </article>`;
 }
 
-// static renders
-const fan = document.getElementById('fan');
-const fanTypes = ['window','damyo','fire'];
-fan.innerHTML = fanTypes.map(k => typeCard(byKey[k], false)).join('');
-const tf = [['-9deg','-30px','8px'],['2deg','0','0'],['11deg','34px','14px']];
-[...fan.children].forEach((c, i) => { c.style.transform = `translate(${tf[i][1]}, ${tf[i][2]}) rotate(${tf[i][0]})`; c.style.zIndex = i === 1 ? 3 : 1; });
+// ===== 버튼 물결 =====
+document.addEventListener('pointerdown', e => {
+  if (REDUCE) return;
+  const el = e.target.closest('.btn, .opt, .pill');
+  if (!el || el.disabled) return;
+  const r = el.getBoundingClientRect(), d = Math.max(r.width, r.height);
+  const s = document.createElement('span');
+  s.className = 'rip';
+  s.style.cssText = `width:${d}px;height:${d}px;left:${e.clientX - r.left - d / 2}px;top:${e.clientY - r.top - d / 2}px`;
+  el.appendChild(s);
+  s.addEventListener('animationend', () => s.remove());
+});
+
+// ===== 정적 영역 =====
 document.getElementById('issueHome').innerHTML = issueBlock();
 document.getElementById('issueFull').innerHTML = issueBlock();
 document.getElementById('writersHome').innerHTML = WRITERS.map(writerCard).join('');
 document.getElementById('writersFull').innerHTML = WRITERS.map(writerCard).join('');
 document.getElementById('shopsFull').innerHTML = SHOPS.map(shopCard).join('');
 const typesGrid = document.getElementById('typesGrid');
-typesGrid.innerHTML = TYPES.map(t => typeCard(t, true)).join('');
+typesGrid.innerHTML = TYPES.map((t, i) => typeCard(t, true, i)).join('');
 typesGrid.addEventListener('click', e => {
   const a = e.target.closest('[data-type]'); if (!a) return;
   e.preventDefault(); showResult(a.dataset.type, null, true); location.hash = 'test';
 });
 
-// quiz
+// 메인 카드 묶음: 몇 초마다 맨 앞 카드가 넘어가며 다음 유형이 나와요
+const fan = document.getElementById('fan');
+let fanIdx = 0, fanTimer = null;
+function drawFan() {
+  const ks = [1, 2, 0].map(o => TYPES[(fanIdx + o) % TYPES.length]);
+  fan.innerHTML = ks.map(t => typeCard(t, false)).join('');
+}
+function startFan() {
+  if (REDUCE || fanTimer) return;
+  fanTimer = setInterval(() => {
+    if (document.hidden) return;
+    fan.classList.add('shuffle');
+    setTimeout(() => { fanIdx = (fanIdx + 1) % TYPES.length; fan.classList.remove('shuffle'); drawFan(); }, 520);
+  }, 3600);
+}
+function stopFan() { clearInterval(fanTimer); fanTimer = null; }
+drawFan();
+
+// ===== 테스트 =====
 const quiz = document.getElementById('quiz');
 let answers = [];
 let pendingResult = null;
+let busy = false;
 
 function renderIntro() {
-  quiz.innerHTML = `<p class="eyebrow">독서 성향테스트 · 9문항 · 약 2분</p>
-    <h1 class="page-title">나는 어떤 결의 독자일까?</h1>
-    <p class="page-lead" style="margin-bottom:0">책을 자주 읽지 않아도 괜찮아요. 일상에서 끌리는 쪽을 고르면 돼요.</p>
-    <ul class="intro-list"><li>책을 펴는 이유: 쉼 또는 깸</li><li>마음이 열리는 말투: 온 또는 냉</li><li>다 읽고 갖고 싶은 것: 답 또는 물음</li></ul>
-    <button class="btn" id="startBtn" type="button">시작하기</button>
-    <p class="privacy">이름 없이 유형과 응답만 익명 통계로 저장돼요. 테스트를 더 정확하게 다듬는 데 써요.</p>`;
-  document.getElementById('startBtn').addEventListener('click', () => { answers = []; renderQ(); });
+  quiz.classList.remove('wide');
+  quiz.innerHTML = `<div class="intro qstage in-right">
+    <p class="label">독서 성향테스트 · 9문항 · 2분</p>
+    <h1>나는 어떤 결의<br>독자일까?</h1>
+    <p>책을 자주 읽지 않아도 괜찮아요. 끌리는 쪽을 고르면 돼요.</p>
+    <button class="btn" id="startBtn" type="button">시작하기 <span class="arrow" aria-hidden="true">→</span></button>
+    <p class="privacy">유형과 응답만 익명으로 저장해 테스트를 다듬는 데 써요.</p>
+  </div>`;
+  document.getElementById('startBtn').addEventListener('click', () => { answers = []; renderQ('right'); });
 }
-function renderQ() {
+function renderQ(dir) {
+  quiz.classList.remove('wide');
   const i = answers.length, Q = QUESTIONS[i];
-  quiz.innerHTML = `<div class="qnum mono"><span>Q${i + 1} / ${QUESTIONS.length}</span><span>${AXES[Q.ax][2]}</span></div>
+  quiz.innerHTML = `<p class="qnum">${i + 1} / ${QUESTIONS.length}</p>
     <div class="progress" aria-hidden="true"><i style="width:${(i / QUESTIONS.length) * 100}%"></i></div>
-    <h2 class="q">${esc(Q.q)}</h2>
-    <div class="opts">
-      <button class="opt" type="button" data-a="A"><span class="k">A</span><span>${esc(Q.a)}</span></button>
-      <button class="opt" type="button" data-a="B"><span class="k">B</span><span>${esc(Q.b)}</span></button>
-    </div>
-    ${i > 0 ? '<button class="back" type="button" id="backBtn">이전 질문</button>' : ''}`;
+    <div class="qstage in-${dir}">
+      <h2 class="q">${esc(Q.q)}</h2>
+      <div class="opts">
+        <button class="opt" type="button" data-a="A"><span class="k">A</span><span>${esc(Q.a)}</span></button>
+        <button class="opt" type="button" data-a="B"><span class="k">B</span><span>${esc(Q.b)}</span></button>
+      </div>
+      ${i > 0 ? '<button class="back" type="button" id="backBtn"><span aria-hidden="true">←</span> 이전 질문</button>' : ''}
+    </div>`;
+  busy = false;
   quiz.querySelectorAll('.opt').forEach(b => b.addEventListener('click', () => {
-    answers.push(b.dataset.a);
-    if (answers.length === QUESTIONS.length) finish(); else renderQ();
+    if (busy) return;
+    busy = true;
+    b.classList.add('chosen');
+    const bar = quiz.querySelector('.progress i');
+    if (bar) bar.style.width = `${((i + 1) / QUESTIONS.length) * 100}%`;
+    setTimeout(() => {
+      answers.push(b.dataset.a);
+      if (answers.length === QUESTIONS.length) finish(); else renderQ('right');
+    }, REDUCE ? 0 : 340);
   }));
   const back = document.getElementById('backBtn');
-  if (back) back.addEventListener('click', () => { answers.pop(); renderQ(); });
-  quiz.querySelector('.opt').focus({ preventScroll: true });
+  if (back) back.addEventListener('click', () => { if (busy) return; answers.pop(); renderQ('left'); });
+  const first = quiz.querySelector('.opt');
+  if (first) first.focus({ preventScroll: true });
 }
 function score(ans) {
-  const cnt = [0,0,0];
+  const cnt = [0, 0, 0];
   ans.forEach((a, i) => { if (a === 'A') cnt[QUESTIONS[i].ax]++; });
-  const code = cnt.map(c => c >= 2 ? 'A' : 'B').join('');
+  const code = cnt.map(c => (c >= 2 ? 'A' : 'B')).join('');
   return { key: LOOKUP[code], cnt };
 }
 function finish() {
@@ -512,49 +612,49 @@ function finish() {
   saveRecord(current);
   showResult(r.key, r.cnt, false);
   updateLast();
-  window.scrollTo(0, 0);
+  window.scrollTo({ top: 0, behavior: REDUCE ? 'auto' : 'smooth' });
 }
 function showResult(key, cnt, fromBrowse) {
   const t = byKey[key];
   const w = WRITERS.find(x => x.type === key);
   const parts = t.code.split('·');
   const axesHtml = AXES.map((ax, i) => {
-    const detail = cnt ? `${cnt[i] >= 2 ? cnt[i] : 3 - cnt[i]} / 3` : '';
-    return `<div class="axis"><span>${ax[2]}</span><b>${parts[i]}</b>${detail ? `<span class="mono">${detail}</span>` : ''}</div>`;
+    const n = cnt ? (cnt[i] >= 2 ? cnt[i] : 3 - cnt[i]) : 0;
+    const dots = cnt ? `<span class="dots" aria-label="3문항 중 ${n}개">${[0, 1, 2].map(d => `<i class="${d < n ? 'on' : ''}"></i>`).join('')}</span>` : '';
+    return `<div class="axis"><span>${ax[2]}</span><b>${parts[i]}</b>${dots}</div>`;
   }).join('');
-  quiz.parentElement.querySelector('.quiz').style.maxWidth = '1080px';
-  quiz.innerHTML = `<p class="eyebrow">${fromBrowse ? '유형 둘러보기' : '테스트 결과'}</p>
-    <div class="result" style="margin-top:14px">
+  let n = 0;
+  const step = () => `style="--i:${n++}"`;
+  quiz.classList.add('wide');
+  quiz.innerHTML = `<div class="result">
       <div class="rcard" style="background:${colorOf(t.k)}">
-        <div style="display:flex;justify-content:space-between;align-items:start;gap:12px"><span class="swatch">${svg(t.k)}</span><span class="mono">${esc(t.code)}</span></div>
-        <div><p class="mono" style="margin-bottom:6px">당신은</p><h2>${esc(t.name)}형 독자</h2><p class="copy" style="margin-top:12px">${esc(t.copy)}</p></div>
+        <div style="display:flex;justify-content:space-between;align-items:start;gap:12px"><span class="swatch">${svg(t.k)}</span><span class="label" style="color:inherit">${esc(t.code)}</span></div>
+        <div><p class="you">당신은</p><h2>${esc(t.name)}형 독자</h2><p class="copy">${esc(t.copy)}</p></div>
         <div class="foot"><span>${esc(t.animal)}</span><span>북크북크</span></div>
       </div>
       <div class="rbody">
-        <p class="intro">${esc(t.intro)}</p>
-        <div class="axes">${axesHtml}</div>
-        <p style="color:var(--ink-soft)">${esc(t.line)}</p>
-        <div class="pick"><span class="label">이 결의 대표작</span><span class="title">『${esc(t.books[0][0])}』</span><span class="meta">${esc(t.books[0][1])}${t.books[1] ? ` · 함께 읽기: 『${esc(t.books[1][0])}』` : ''}</span></div>
-        <div class="pick"><span class="label">이 책을 좋아했다면, 아직 모르는 이 작가를</span>
-          ${w ? `<span class="title">『${esc(w.book)}』 <span class="tag-ex">예시</span></span><span class="meta">${esc(w.name)} · ${esc(w.genre)} · 판매: ${esc(w.shop)}</span><p class="first" style="font-size:var(--s-2);margin-top:6px">${esc(w.first)}</p>`
-              : `<span class="title" style="color:var(--ink-soft)">이 자리에 곧 신생 작가가 소개돼요</span><span class="meta">이 결의 글을 쓰는 작가를 찾고 있어요. 추천은 @bookk__book으로 보내주세요.</span>`}
+        <p class="intro-text" ${step()}>${esc(t.intro)}</p>
+        <div class="axes" ${step()}>${axesHtml}</div>
+        <div class="pick" ${step()}><span class="label">이 결의 대표작</span><span class="title">『${esc(t.books[0][0])}』</span><span class="meta">${esc(t.books[0][1])}${t.books[1] ? ` · 함께 읽기 『${esc(t.books[1][0])}』` : ''}</span></div>
+        <div class="pick" ${step()}><span class="label">이 책을 좋아했다면, 아직 모르는 이 작가를</span>
+          ${w ? `<span class="title">『${esc(w.book)}』</span><span class="meta">${esc(w.name)} · ${esc(w.genre)} · 파는 곳 ${esc(w.shop)} <span class="tag-ex">예시</span></span><p class="first">${esc(w.first)}</p>`
+              : `<span class="title" style="color:var(--ink-soft)">곧 소개할게요</span><span class="meta">이 결의 글을 쓰는 작가를 찾고 있어요. 추천은 @bookk__book으로 보내주세요.</span>`}
         </div>
-        ${fromBrowse ? '' : feedbackBlock(key)}
-        <div class="share-row">
-          <button class="btn" type="button" id="copyBtn">결과 공유 문구 복사</button>
+        ${fromBrowse ? '' : `<div ${step()}>${feedbackBlock(key)}</div>`}
+        <div class="share-row" ${step()}>
+          <button class="btn" type="button" id="copyBtn"><span id="copyLabel">결과 공유하기</span></button>
           <button class="btn ghost" type="button" id="retryBtn">${fromBrowse ? '테스트 해보기' : '다시 하기'}</button>
           <span class="toast" id="toast" role="status"></span>
         </div>
       </div>
     </div>`;
-  document.getElementById('retryBtn').addEventListener('click', () => { answers = []; quiz.style.maxWidth = ''; renderQ(); });
+  document.getElementById('retryBtn').addEventListener('click', () => { answers = []; renderQ('right'); window.scrollTo({ top: 0 }); });
   document.getElementById('copyBtn').addEventListener('click', () => {
     const text = `나는 ${t.name}형 독자! "${t.copy}" 너는 어떤 결의 독자야? 북크북크 독서 성향테스트`;
-    const toast = document.getElementById('toast');
-    const done = () => { toast.textContent = '복사했어요. 친구에게 붙여넣어 보세요.'; };
-    try {
-      navigator.clipboard.writeText(text).then(done, () => { toast.textContent = text; });
-    } catch (e) { toast.textContent = text; }
+    const btn = document.getElementById('copyBtn'), label = document.getElementById('copyLabel'), toast = document.getElementById('toast');
+    const ok = () => { btn.classList.add('done'); label.textContent = '✓ 복사했어요'; setTimeout(() => { btn.classList.remove('done'); label.textContent = '결과 공유하기'; }, 2200); };
+    const fail = () => { toast.textContent = text; };
+    try { navigator.clipboard.writeText(text).then(ok, fail); } catch (e) { fail(); }
   });
   if (fromBrowse) pendingResult = key;
   const fb = document.getElementById('fb');
@@ -568,7 +668,7 @@ function feedbackBlock(key) {
   return `<div class="fb" id="fb">
     <h3>이 결과, 나와 맞나요?</h3>
     <div class="row" data-group="feedback"><button class="pill" type="button" data-v="yes" aria-pressed="false">맞았어요</button><button class="pill" type="button" data-v="no" aria-pressed="false">아니었어요</button></div>
-    <div id="betterBox" hidden><p class="sub" style="margin-bottom:8px">그럼 어느 쪽이 더 나 같아요?</p><div class="row" data-group="better">${others.map(x => `<button class="pill" type="button" data-v="${x.k}" aria-pressed="false">${esc(x.name)}</button>`).join('')}</div></div>
+    <div class="slide" id="betterBox"><div><p class="sub">그럼 어느 쪽이 더 나 같아요?</p><div class="row" data-group="better">${others.map(x => `<button class="pill" type="button" data-v="${x.k}" aria-pressed="false" tabindex="-1">${esc(x.name)}</button>`).join('')}</div></div></div>
     <p class="sub">평소에 책을 얼마나 읽나요?</p>
     <div class="row" data-group="reading">${READING.map((r, i) => `<button class="pill" type="button" data-v="${i}" aria-pressed="false">${esc(r)}</button>`).join('')}</div>
     <p class="sub" id="fbThanks" role="status"></p>
@@ -580,8 +680,10 @@ function onFeedback(e) {
   b.parentElement.querySelectorAll('.pill').forEach(p => p.setAttribute('aria-pressed', String(p === b)));
   if (group === 'feedback') {
     current.feedback = v;
-    document.getElementById('betterBox').hidden = v !== 'no';
-    if (v === 'yes') { current.better = null; current.betterName = null; document.querySelectorAll('[data-group="better"] .pill').forEach(p => p.setAttribute('aria-pressed', 'false')); }
+    const box = document.getElementById('betterBox');
+    box.classList.toggle('open', v === 'no');
+    box.querySelectorAll('.pill').forEach(p => { p.tabIndex = v === 'no' ? 0 : -1; });
+    if (v === 'yes') { current.better = null; current.betterName = null; box.querySelectorAll('.pill').forEach(p => p.setAttribute('aria-pressed', 'false')); }
   } else if (group === 'better') {
     current.better = v; current.betterName = byKey[v].name;
   } else if (group === 'reading') {
@@ -629,24 +731,21 @@ function saveRecord(rec) {
 
 // ===== 운영자 통계 =====
 let statsUnsub = null;
-async function initOwner() {
+async function isOwner() {
   const [, user] = await caps();
-  let owner = false;
-  try { owner = user ? await user.isOwner() : false; } catch (e) {}
-  if (owner) document.getElementById('statsLink').hidden = false;
+  try { return user ? await user.isOwner() : false; } catch (e) { return false; }
 }
+async function initOwner() { if (await isOwner()) document.getElementById('statsLink').hidden = false; }
 async function loadStats() {
   const body = document.getElementById('statsBody');
-  const [db, user] = await caps();
-  let owner = false;
-  try { owner = user ? await user.isOwner() : false; } catch (e) {}
-  if (!db || !owner) {
-    body.innerHTML = `<div class="panel"><p>이 화면은 운영자만 볼 수 있어요.</p><p class="note">공개 사이트에서는 응답이 구글 시트에 쌓이고, 시트의 '요약' 탭에서 같은 통계를 볼 수 있어요.</p></div>`;
+  const [db] = await caps();
+  if (!db || !(await isOwner())) {
+    body.innerHTML = `<div class="panel"><p>운영자만 볼 수 있어요.</p><p class="note">공개 사이트의 응답은 구글 시트 '요약' 탭에서 볼 수 있어요.</p></div>`;
     return;
   }
   if (statsUnsub) return;
   let loaded = false;
-  const timer = setTimeout(() => { if (!loaded) body.innerHTML = '<p class="note">응답을 아직 불러오지 못했어요. 연결이 돌아오면 자동으로 채워져요.</p>'; }, 10000);
+  const timer = setTimeout(() => { if (!loaded) body.innerHTML = '<p class="note">응답을 아직 불러오지 못했어요. 연결되면 자동으로 채워져요.</p>'; }, 10000);
   statsUnsub = db.collection('responses').onSnapshot(snap => {
     if (!snap.metadata.fromCache) { loaded = true; clearTimeout(timer); }
     const runs = [];
@@ -662,7 +761,7 @@ function drawStats(runs, fromCache) {
   const body = document.getElementById('statsBody');
   const N = runs.length;
   if (!N) {
-    body.innerHTML = `<div class="panel"><h2>아직 응답이 없어요</h2><p>테스트를 끝까지 풀면 여기에 첫 응답이 나타나요. 피드백 버튼과 독서량 선택도 함께 모여요.</p></div>`;
+    body.innerHTML = `<div class="panel"><h2>아직 응답이 없어요</h2><p>테스트를 끝까지 풀면 첫 응답이 여기에 나타나요.</p></div>`;
     return;
   }
   const by = {}; TYPES.forEach(t => { by[t.k] = { n: 0, yes: 0, no: 0, better: {} }; });
@@ -698,10 +797,10 @@ function drawStats(runs, fromCache) {
     </div>
     <div class="stat-grid">
       <div class="panel"><h2>유형 분포</h2><div class="bars">${bars}</div>
-        <p class="note">점선은 25% 기준선이에요. 막대 축은 0~${scaleMax}%예요.</p>
-        <p class="note">${over.length ? `<b>${over.map(t => esc(t.name)).join(', ')}</b> 유형이 25%를 넘었어요. 해당 축의 문항을 점검해 보세요.` : (N < 20 ? '응답이 20명을 넘으면 분포를 판단하기 시작해도 좋아요.' : '한쪽으로 크게 쏠린 유형은 없어요.')}</p>
+        <p class="note">점선은 25% 기준선, 막대 축은 0~${scaleMax}%예요.</p>
+        <p class="note">${over.length ? `<b>${over.map(t => esc(t.name)).join(', ')}</b> 유형이 25%를 넘었어요. 해당 축의 문항을 점검해 보세요.` : (N < 20 ? '응답이 20명을 넘으면 분포를 판단해도 좋아요.' : '크게 쏠린 유형은 없어요.')}</p>
       </div>
-      <div style="display:grid;gap:20px;align-content:start">
+      <div style="display:grid;gap:16px;align-content:start">
         <div class="panel"><h2>결과 피드백</h2><div style="overflow-x:auto"><table class="tbl"><thead><tr><th>유형</th><th class="r">맞았어요</th><th class="r">아니었어요</th><th>대신 고른 유형</th></tr></thead><tbody>${rows}</tbody></table></div></div>
         <div class="panel"><h2>평소 독서량</h2><table class="tbl"><tbody>${readRows}</tbody></table></div>
       </div>
@@ -712,21 +811,26 @@ function drawStats(runs, fromCache) {
 function updateLast() {
   let k = null; try { k = localStorage.getItem('bk-last'); } catch (e) {}
   const el = document.getElementById('lastResult');
-  if (k && byKey[k]) { el.hidden = false; el.textContent = `지난번 결과: ${byKey[k].name}형 독자 · ${byKey[k].copy}`; }
+  if (k && byKey[k]) { el.hidden = false; el.innerHTML = `지난번 결과 <b>${esc(byKey[k].name)}형</b> · ${esc(byKey[k].copy)}`; }
 }
 
-// routing
-const VIEWS = ['home','test','types','magazine','writers','shops','about','stats'];
+// ===== 화면 전환 =====
+const VIEWS = ['home', 'test', 'types', 'magazine', 'writers', 'shops', 'about', 'stats'];
 function route() {
   let v = location.hash.replace('#', '');
   if (!VIEWS.includes(v)) v = 'home';
-  document.querySelectorAll('[data-view]').forEach(el => { el.hidden = el.id !== 'v-' + v; });
+  document.querySelectorAll('[data-view]').forEach(el => {
+    const on = el.id === 'v-' + v;
+    el.hidden = !on;
+    if (on && !REDUCE) { el.classList.remove('enter'); void el.offsetWidth; el.classList.add('enter'); }
+  });
   document.querySelectorAll('nav.menu a').forEach(a => { if (a.dataset.v === v) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
   if (v === 'test') {
-    if (pendingResult) { pendingResult = null; }
-    else { quiz.style.maxWidth = ''; renderIntro(); }
+    if (pendingResult) pendingResult = null;
+    else renderIntro();
   }
   if (v === 'stats') loadStats();
+  if (v === 'home') startFan(); else stopFan();
   window.scrollTo(0, 0);
 }
 window.addEventListener('hashchange', route);
