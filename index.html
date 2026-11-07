@@ -5,6 +5,15 @@
 <title>북크북크 · 독서 성향테스트</title>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="description" content="9개 질문으로 나의 독서 유형을 알아보고, 같은 결의 신생 작가와 독립서점을 만나는 곳">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="북크북크">
+<meta property="og:title" content="나는 어떤 결의 독자일까? · 북크북크 독서 성향테스트">
+<meta property="og:description" content="9개 질문으로 나의 독서 유형을 알아보고, 같은 결의 신생 작가와 독립서점을 만나는 곳">
+<meta property="og:url" content="https://rhks12.github.io/bookkbookk/">
+<meta property="og:image" content="https://rhks12.github.io/bookkbookk/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font-size:14px;font-family:system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
 </head>
 <body>
@@ -278,6 +287,17 @@ dialog.book::backdrop { background: rgba(10, 14, 12, .5); backdrop-filter: blur(
 .pick .first { font-size: 0.9375rem; margin-top: 10px; }
 .share-row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
 .toast { font-size: var(--s-1); color: var(--ink-soft); }
+.toast:empty { display: none; }
+.share { border-radius: 14px; border: 1px solid var(--line); background: var(--card); padding: 20px; display: grid; gap: 12px; }
+.share h3 { font-size: var(--s-3); }
+.share-main { display: flex; gap: 10px; flex-wrap: wrap; }
+.share-main .btn { flex: 1 1 150px; }
+.share-sns { display: flex; gap: 8px; flex-wrap: wrap; }
+.sns { position: relative; overflow: hidden; font: inherit; font-size: 0.875rem; font-weight: 500; color: var(--ink); background: var(--paper); border: 1px solid var(--line); border-radius: 99px; padding: 8px 14px; cursor: pointer; text-decoration: none; transition: background-color .2s, border-color .2s, transform .15s var(--ease); -webkit-tap-highlight-color: transparent; }
+.sns:active { transform: scale(.95); }
+@media (hover: hover) { .sns:hover { background: var(--accent-weak); border-color: var(--accent); } }
+.share .toast { color: var(--accent); font-weight: 500; }
+.shared-banner { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; background: var(--accent-weak); border-radius: 14px; padding: 14px 18px; margin-bottom: 22px; font-weight: 500; }
 
 /* feedback */
 .fb { border-radius: 14px; background: var(--paper-2); padding: 20px; display: grid; gap: 12px; }
@@ -414,6 +434,7 @@ footer { border-top: 1px solid var(--line); padding-block: 26px; color: var(--in
   .axes { gap: 6px; }
   .axis { padding: 10px; }
   .share-row .btn { flex: 1 1 auto; }
+  .share-main .btn { flex: 1 1 100%; }
   .book-hook { padding: 12px 14px; }
 }
 
@@ -752,7 +773,7 @@ function renderIssue(id) {
   box.innerHTML = issueHead(iss) + `<div class="reviews">${iss.reviews.map((r, i) => reviewCard(iss, r, i)).join('')}</div>`;
 }
 function renderMagazine() {
-  document.getElementById('issueTabs').innerHTML = ISSUES.map(iss => `<button class="pill" type="button" data-issue="${iss.id}" aria-pressed="false">${esc(iss.month)} · ${esc(iss.theme)}</button>`).join('');
+  document.getElementById('issueTabs').innerHTML = ISSUES.map(iss => `<button class="pill" type="button" data-issue="${iss.id}" aria-pressed="false" title="${esc(iss.theme)}">${esc(iss.month)}</button>`).join('');
   renderIssue(CURRENT_ISSUE);
   document.getElementById('yearList').innerHTML = YEAR.map(([m, th]) => {
     const id = m.replace('.', '-');
@@ -989,7 +1010,7 @@ function finish() {
   updateLast();
   window.scrollTo({ top: 0, behavior: REDUCE ? 'auto' : 'smooth' });
 }
-function showResult(key, cnt, fromBrowse) {
+function showResult(key, cnt, fromBrowse, shared) {
   const t = byKey[key];
   const w = WRITERS.find(x => x.type === key);
   const parts = t.code.split('·');
@@ -1001,7 +1022,7 @@ function showResult(key, cnt, fromBrowse) {
   let n = 0;
   const step = () => `style="--i:${n++}"`;
   quiz.classList.add('wide');
-  quiz.innerHTML = `<div class="result">
+  quiz.innerHTML = `${shared ? `<div class="shared-banner"><span>친구가 공유한 결과예요. 나는 어떤 결일까요?</span><button class="btn" type="button" data-start>나도 테스트하기 <span class="arrow" aria-hidden="true">→</span></button></div>` : ''}<div class="result">
       <div class="rcard" style="background:${colorOf(t.k)}">
         <div style="display:flex;justify-content:space-between;align-items:start;gap:12px"><span class="swatch">${svg(t.k)}</span><span class="label" style="color:inherit">${esc(t.code)}</span></div>
         <div><p class="you">당신은</p><h2>${esc(t.name)}형 독자</h2><p class="copy">${esc(t.copy)}</p></div>
@@ -1016,24 +1037,142 @@ function showResult(key, cnt, fromBrowse) {
               : `<span class="title" style="color:var(--ink-soft)">곧 소개할게요</span><span class="meta">이 결의 글을 쓰는 작가를 찾고 있어요. 추천은 @bookk__book으로 보내주세요.</span>`}
         </div>
         ${fromBrowse ? '' : `<div ${step()}>${feedbackBlock(key)}</div>`}
+        ${fromBrowse ? '' : sharePanel(t, step())}
         <div class="share-row" ${step()}>
-          <button class="btn" type="button" id="copyBtn"><span id="copyLabel">결과 공유하기</span></button>
-          <button class="btn ghost" type="button" id="retryBtn">${fromBrowse ? '테스트 해보기' : '다시 하기'}</button>
-          <span class="toast" id="toast" role="status"></span>
+          <button class="btn ${fromBrowse ? '' : 'ghost'}" type="button" id="retryBtn">${shared ? '나도 테스트하기' : fromBrowse ? '테스트 해보기' : '다시 하기'}</button>
         </div>
       </div>
     </div>`;
   document.getElementById('retryBtn').addEventListener('click', () => { answers = []; renderQ('right'); window.scrollTo({ top: 0 }); });
-  document.getElementById('copyBtn').addEventListener('click', () => {
-    const text = `나는 ${t.name}형 독자! "${t.copy}" 너는 어떤 결의 독자야? 북크북크 독서 성향테스트`;
-    const btn = document.getElementById('copyBtn'), label = document.getElementById('copyLabel'), toast = document.getElementById('toast');
-    const ok = () => { btn.classList.add('done'); label.textContent = '✓ 복사했어요'; setTimeout(() => { btn.classList.remove('done'); label.textContent = '결과 공유하기'; }, 2200); };
-    const fail = () => { toast.textContent = text; };
-    try { navigator.clipboard.writeText(text).then(ok, fail); } catch (e) { fail(); }
-  });
-  if (fromBrowse) pendingResult = key;
+  quiz.querySelectorAll('[data-start]').forEach(b => b.addEventListener('click', () => { answers = []; renderQ('right'); window.scrollTo({ top: 0 }); }));
+  if (!fromBrowse) setupShare(t);
+  if (fromBrowse && !shared) pendingResult = key;
   const fb = document.getElementById('fb');
   if (fb) fb.addEventListener('click', onFeedback);
+}
+
+// ===== 결과 공유 =====
+const SITE_URL = 'https://rhks12.github.io/bookkbookk/';
+const shareUrl = k => SITE_URL + '#r-' + k;
+const shareText = t => `나는 ${t.name}형 독자! "${t.copy}" 너는 어떤 결의 독자야?`;
+let cardImgP = null;
+function sharePanel(t, stepAttr) {
+  const url = shareUrl(t.k), text = shareText(t), enc = encodeURIComponent;
+  const links = [
+    ['X', `https://twitter.com/intent/tweet?text=${enc(text)}&url=${enc(url)}`],
+    ['페이스북', `https://www.facebook.com/sharer/sharer.php?u=${enc(url)}`],
+    ['스레드', `https://www.threads.net/intent/post?text=${enc(text + ' ' + url)}`],
+    ['밴드', `https://band.us/plugin/share?body=${enc(text + '\n' + url)}&route=${enc(SITE_URL)}`]
+  ];
+  return `<div class="share" ${stepAttr}>
+    <h3>결과 공유하기</h3>
+    <div class="share-main">
+      <button class="btn" type="button" id="shareNative">공유하기 <span class="arrow" aria-hidden="true">↗</span></button>
+      <button class="btn ghost" type="button" id="saveImg">이미지 저장</button>
+    </div>
+    <div class="share-sns">${links.map(([n, h]) => `<a class="sns" href="${h}" target="_blank" rel="noopener">${n}</a>`).join('')}<button class="sns" type="button" id="copyLink">링크 복사</button></div>
+    <p class="toast" id="toast" role="status"></p>
+  </div>`;
+}
+function cssVar(n) { return getComputedStyle(document.documentElement).getPropertyValue(n).trim(); }
+function wrapLines(ctx, text, maxW) {
+  const out = []; let line = '';
+  text.split(' ').forEach(word => {
+    const tryLine = line ? line + ' ' + word : word;
+    if (ctx.measureText(tryLine).width <= maxW) { line = tryLine; return; }
+    if (line) out.push(line);
+    line = '';
+    for (const ch of word) {
+      if (ctx.measureText(line + ch).width > maxW && line) { out.push(line); line = ch; } else line += ch;
+    }
+  });
+  if (line) out.push(line);
+  return out;
+}
+async function makeCardImage(t) {
+  const W = 1080, H = 1920, X = 96, MAXW = W - X * 2, INK = '#18201C';
+  const name = `${t.name}형 독자`;
+  try {
+    await Promise.all([
+      document.fonts.load('700 120px "Gowun Batang"', name + '북크'),
+      document.fonts.load('400 64px "Gowun Batang"', t.copy),
+      document.fonts.load('500 40px "Noto Sans KR"', '북크북크 독서 성향테스트 당신은 나도 해보기 ' + t.animal + t.code),
+      document.fonts.load('400 36px "Noto Sans KR"', SITE_URL)
+    ]);
+  } catch (e) {}
+  const c = document.createElement('canvas'); c.width = W; c.height = H;
+  const ctx = c.getContext('2d');
+  ctx.fillStyle = cssVar('--t-' + t.k) || '#E3EFE8'; ctx.fillRect(0, 0, W, H);
+  ctx.fillStyle = INK; ctx.textBaseline = 'alphabetic';
+  ctx.font = '500 38px "Noto Sans KR", sans-serif'; ctx.fillText('북크북크 · 독서 성향테스트', X, 170);
+  ctx.fillStyle = 'rgba(255,255,255,.55)'; ctx.beginPath(); ctx.arc(X + 120, 420, 120, 0, Math.PI * 2); ctx.fill();
+  const icon = new Image();
+  icon.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="300" height="300" fill="none" stroke="${INK}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${ICONS[t.k]}</svg>`);
+  try { await icon.decode(); ctx.drawImage(icon, X + 120 - 72, 420 - 72, 144, 144); } catch (e) {}
+  ctx.fillStyle = INK;
+  ctx.font = '400 48px "Noto Sans KR", sans-serif'; ctx.fillText('당신은', X, 700);
+  let size = 128;
+  do { ctx.font = `700 ${size}px "Gowun Batang", serif`; size -= 6; } while (ctx.measureText(name).width > MAXW && size > 60);
+  ctx.fillText(name, X, 860);
+  ctx.font = '400 66px "Gowun Batang", serif';
+  let y = 1010;
+  wrapLines(ctx, t.copy, MAXW).forEach(l => { ctx.fillText(l, X, y); y += 98; });
+  y += 30;
+  ctx.fillStyle = 'rgba(24,32,28,.3)'; ctx.fillRect(X, y, MAXW, 3); y += 80;
+  ctx.fillStyle = INK;
+  ctx.font = '500 42px "Noto Sans KR", sans-serif'; ctx.fillText(t.animal, X, y);
+  ctx.font = '400 40px "Noto Sans KR", sans-serif'; ctx.fillText(t.code, X, y + 64);
+  ctx.fillStyle = 'rgba(255,255,255,.6)';
+  const by = H - 300; ctx.beginPath(); if (ctx.roundRect) ctx.roundRect(X, by, MAXW, 170, 40); else ctx.rect(X, by, MAXW, 170); ctx.fill();
+  ctx.fillStyle = INK;
+  ctx.font = '700 46px "Noto Sans KR", sans-serif'; ctx.fillText('나도 해보기 →', X + 48, by + 74);
+  ctx.font = '400 36px "Noto Sans KR", sans-serif'; ctx.fillText(SITE_URL.replace('https://', '').replace(/\/$/, ''), X + 48, by + 128);
+  return new Promise(res => c.toBlob(b => res(b), 'image/png'));
+}
+async function saveBlob(blob, filename) {
+  const dl = await getCap('downloads');
+  if (dl) {
+    try { await dl.save({ filename, data: blob }); return 'saved'; }
+    catch (e) { return e && e.code === 'declined' ? 'declined' : 'failed'; }
+  }
+  if (window.claude) return 'failed';
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href = url; a.download = filename;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 4000);
+  return 'saved';
+}
+function setupShare(t) {
+  cardImgP = makeCardImage(t).catch(() => null);
+  const toast = document.getElementById('toast');
+  const say = msg => { toast.textContent = msg; };
+  const url = shareUrl(t.k), text = shareText(t);
+  const copy = (okMsg) => {
+    const full = text + ' ' + url;
+    try { navigator.clipboard.writeText(full).then(() => say(okMsg), () => say(full)); } catch (e) { say(full); }
+  };
+  document.getElementById('copyLink').addEventListener('click', () => copy('링크를 복사했어요. 원하는 곳에 붙여넣어 주세요.'));
+  document.getElementById('shareNative').addEventListener('click', async () => {
+    try {
+      const blob = await cardImgP;
+      if (blob && navigator.canShare) {
+        const file = new File([blob], `bookkbookk-${t.k}.png`, { type: 'image/png' });
+        if (navigator.canShare({ files: [file] })) { await navigator.share({ files: [file], text: text + '\n' + url }); return; }
+      }
+      if (navigator.share) { await navigator.share({ title: '북크북크 독서 성향테스트', text, url }); return; }
+      throw new Error('unsupported');
+    } catch (e) {
+      if (e && e.name === 'AbortError') return;
+      copy('이 화면에서는 공유 창을 열 수 없어 링크를 복사했어요. 원하는 곳에 붙여넣어 주세요.');
+    }
+  });
+  document.getElementById('saveImg').addEventListener('click', async () => {
+    say('이미지를 만드는 중이에요…');
+    const blob = (await cardImgP) || (await makeCardImage(t).catch(() => null));
+    if (!blob) { say('이미지를 만들지 못했어요. 다시 눌러 주세요.'); return; }
+    const r = await saveBlob(blob, `bookkbookk-${t.k}.png`);
+    say(r === 'saved' ? '이미지를 저장했어요. 인스타그램 스토리에 올려 보세요.' : r === 'declined' ? '' : '이 화면에서는 저장할 수 없어요. 공개 사이트에서 저장해 주세요.');
+  });
 }
 
 // ===== 결과 피드백 =====
@@ -1193,6 +1332,9 @@ function updateLast() {
 const VIEWS = ['home', 'test', 'types', 'magazine', 'writers', 'shops', 'about', 'stats'];
 function route() {
   let v = location.hash.replace('#', '');
+  const sharedMatch = v.match(/^r-([a-z]+)$/);
+  const sharedKey = sharedMatch && byKey[sharedMatch[1]] ? sharedMatch[1] : null;
+  if (sharedKey) v = 'test';
   if (!VIEWS.includes(v)) v = 'home';
   document.querySelectorAll('[data-view]').forEach(el => {
     const on = el.id === 'v-' + v;
@@ -1207,7 +1349,8 @@ function route() {
     } else a.removeAttribute('aria-current');
   });
   if (v === 'test') {
-    if (pendingResult) pendingResult = null;
+    if (sharedKey) showResult(sharedKey, null, true, true);
+    else if (pendingResult) pendingResult = null;
     else renderIntro();
   }
   if (v === 'stats') loadStats();
