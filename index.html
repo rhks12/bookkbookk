@@ -14,6 +14,7 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font-size:14px;font-family:system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
 </head>
 <body>
@@ -36,6 +37,8 @@
   --accent-ink: #FFFFFF;
   --marker: #F6DA52;
   --on-swatch: #18201C;
+  --band: #276749;
+  --band-ink: #FFFFFF;
   --shadow: 0 1px 2px rgba(24, 32, 28, .06), 0 6px 18px rgba(24, 32, 28, .06);
   --shadow-lift: 0 2px 4px rgba(24, 32, 28, .08), 0 14px 32px rgba(24, 32, 28, .10);
   --t-damyo: #F1E1BC;
@@ -53,13 +56,13 @@
 }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
   --paper: #121715; --paper-2: #1A211E; --card: #1D2522; --ink: #E9EEEA; --ink-soft: #A9B4AD; --line: #2F3934;
-  --accent: #86CDA8; --accent-strong: #A6DFC1; --accent-weak: #1F3429; --accent-ink: #0E1A14; --marker: #6E5F1C;
+  --accent: #86CDA8; --accent-strong: #A6DFC1; --accent-weak: #1F3429; --accent-ink: #0E1A14; --marker: #6E5F1C; --band: #1E3A2C; --band-ink: #E9EEEA;
   --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 18px rgba(0,0,0,.25); --shadow-lift: 0 2px 4px rgba(0,0,0,.35), 0 14px 32px rgba(0,0,0,.35);
   color-scheme: dark;
 }}
 :root[data-theme="dark"] {
   --paper: #121715; --paper-2: #1A211E; --card: #1D2522; --ink: #E9EEEA; --ink-soft: #A9B4AD; --line: #2F3934;
-  --accent: #86CDA8; --accent-strong: #A6DFC1; --accent-weak: #1F3429; --accent-ink: #0E1A14; --marker: #6E5F1C;
+  --accent: #86CDA8; --accent-strong: #A6DFC1; --accent-weak: #1F3429; --accent-ink: #0E1A14; --marker: #6E5F1C; --band: #1E3A2C; --band-ink: #E9EEEA;
   --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 18px rgba(0,0,0,.25); --shadow-lift: 0 2px 4px rgba(0,0,0,.35), 0 14px 32px rgba(0,0,0,.35);
   color-scheme: dark;
 }
@@ -151,14 +154,14 @@ section + section { margin-top: 80px; }
 .home-shelf { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
 .home-shelf .spine { background: var(--card); border: 1px solid var(--line); padding: 18px; box-shadow: var(--shadow); }
 .spine .from { font-size: var(--s-1); color: var(--accent); font-weight: 500; margin-top: 6px; }
-.join-band { border-radius: 24px; background: var(--accent); color: var(--accent-ink); padding: 36px; display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; align-items: center; }
+.join-band { border-radius: 24px; background: var(--band); color: var(--band-ink); padding: 36px; display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; align-items: center; }
 .join-band h2 { font-size: var(--s-5); margin-bottom: 8px; }
 .join-band p { opacity: .92; max-width: 32em; }
 .join-actions { display: flex; gap: 18px; flex-wrap: wrap; align-items: center; }
-.btn.light { background: var(--accent-ink); color: var(--accent); }
-.btn.light:hover { background: var(--accent-ink); }
-.link.light { color: var(--accent-ink); opacity: .92; }
-.link.light:hover { color: var(--accent-ink); opacity: 1; }
+.btn.light { background: var(--band-ink); color: var(--band); }
+.btn.light:hover { background: var(--band-ink); }
+.link.light { color: var(--band-ink); opacity: .92; }
+.link.light:hover { color: var(--band-ink); opacity: 1; }
 @media (max-width: 760px) {
   .flow, .home-shelf { grid-template-columns: 1fr; }
   .flow a { grid-template-columns: 32px minmax(0, 1fr); column-gap: 12px; padding: 18px; }
@@ -186,7 +189,7 @@ a.tcard:active { transform: translateY(-1px) scale(.98); }
 .issue-tabs { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; margin-bottom: 20px; padding-bottom: 2px; }
 .issue-tabs::-webkit-scrollbar { display: none; }
 .issue-tabs .pill { white-space: nowrap; }
-.issue-head { border-radius: 20px; background: var(--accent); color: var(--accent-ink); padding: 30px 32px; display: grid; gap: 10px; margin-bottom: 18px; }
+.issue-head { border-radius: 20px; background: var(--band); color: var(--band-ink); padding: 30px 32px; display: grid; gap: 10px; margin-bottom: 18px; }
 .issue-head .issue-meta { font-size: var(--s-1); font-weight: 500; opacity: .85; }
 .issue-head h2 { font-size: clamp(1.75rem, 4.4vw, 2.6rem); line-height: 1.3; }
 .issue-head p { max-width: 34em; opacity: .92; }
@@ -228,7 +231,7 @@ a.tcard:active { transform: translateY(-1px) scale(.98); }
 .meta { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; color: var(--ink-soft); font-size: var(--s-1); }
 .chip { display: inline-flex; align-items: center; padding: 2px 10px; border-radius: 99px; font-size: var(--s-1); font-weight: 500; color: var(--on-swatch); }
 .tag-ex { font-size: 0.75rem; border: 1px solid var(--line); border-radius: 99px; padding: 0 8px; color: var(--ink-soft); }
-.writer h3 { font-size: var(--s-3); }
+.writer .wbook { font-size: var(--s-3); }
 .writer .buy { border-top: 1px solid var(--line); padding-top: 12px; font-size: var(--s-1); color: var(--ink-soft); }
 .writer .buy b { color: var(--ink); }
 
@@ -236,7 +239,7 @@ a.tcard:active { transform: translateY(-1px) scale(.98); }
 .shops { display: grid; gap: 16px; }
 .shop { display: grid; grid-template-columns: 15em 1fr; gap: 24px; background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 24px; box-shadow: var(--shadow); }
 .shop > * { min-width: 0; }
-.shop h3 { font-size: var(--s-4); margin: 6px 0 4px; }
+.shop .sname { font-size: var(--s-4); margin: 6px 0 4px; }
 .shop .note { color: var(--ink-soft); font-size: 0.9375rem; }
 .shelf { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
 .spine { position: relative; overflow: hidden; font: inherit; color: var(--ink); text-align: left; border: 0; cursor: pointer; border-radius: 10px; padding: 14px; background: var(--paper); display: grid; gap: 2px; align-content: start; transition: transform .25s var(--ease), background-color .2s, box-shadow .25s var(--ease); -webkit-tap-highlight-color: transparent; }
@@ -337,7 +340,8 @@ button.link { background: none; border: 0; font: inherit; cursor: pointer; paddi
 .rcard .swatch { width: 84px; height: 84px; border-radius: 50%; background: rgba(255,255,255,.55); display: grid; place-items: center; }
 .rcard .swatch svg { width: 48px; height: 48px; animation: wiggle .8s var(--ease) .5s both; }
 .rcard .you { font-size: var(--s-2); }
-.rcard h2 { font-size: 2.3rem; }
+.rcard .rtitle { font-size: 2.3rem; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 .rcard .copy { font-family: var(--f-display); font-size: var(--s-4); line-height: 1.5; margin-top: 10px; }
 .rcard .foot { display: flex; justify-content: space-between; gap: 8px; border-top: 1px solid rgba(24,32,28,.25); padding-top: 12px; font-size: var(--s-1); font-weight: 500; }
 .rbody { display: grid; gap: 20px; }
@@ -357,7 +361,7 @@ button.link { background: none; border: 0; font: inherit; cursor: pointer; paddi
 .toast { font-size: var(--s-1); color: var(--ink-soft); }
 .toast:empty { display: none; }
 .share { border-radius: 14px; border: 1px solid var(--line); background: var(--card); padding: 20px; display: grid; gap: 12px; }
-.share h3 { font-size: var(--s-3); }
+.share h2 { font-size: var(--s-3); }
 .share-main { display: flex; gap: 10px; flex-wrap: wrap; }
 .share-main .btn { flex: 1 1 150px; }
 .share-sns { display: flex; gap: 8px; flex-wrap: wrap; }
@@ -369,7 +373,7 @@ button.link { background: none; border: 0; font: inherit; cursor: pointer; paddi
 
 /* feedback */
 .fb { border-radius: 14px; background: var(--paper-2); padding: 20px; display: grid; gap: 12px; }
-.fb h3 { font-size: var(--s-3); }
+.fb h2 { font-size: var(--s-3); }
 .fb .row { display: flex; gap: 8px; flex-wrap: wrap; }
 .pill { position: relative; overflow: hidden; font: inherit; font-size: 0.9375rem; font-weight: 500; color: var(--ink); background: var(--card); border: 1px solid var(--line); border-radius: 99px; padding: 7px 16px; cursor: pointer; transition: background-color .2s, color .2s, border-color .2s, transform .15s var(--ease); -webkit-tap-highlight-color: transparent; }
 .pill:hover { border-color: var(--accent); }
@@ -430,6 +434,43 @@ dialog.book.art { width: min(660px, calc(100vw - 32px)); }
 }
 @keyframes sheetUp { from { transform: translateY(100%); } to { transform: none; } }
 
+/* type page */
+.type-hero { border-radius: 24px; padding: 32px; color: var(--on-swatch); display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 24px; align-items: center; margin-bottom: 28px; }
+.type-hero .swatch { width: 96px; height: 96px; border-radius: 50%; background: rgba(255,255,255,.55); display: grid; place-items: center; }
+.type-hero .swatch svg { width: 54px; height: 54px; }
+.type-hero h1 { font-size: clamp(2rem, 6vw, 3rem); line-height: 1.25; }
+.type-hero .copy { font-family: var(--f-display); font-size: var(--s-4); margin-top: 6px; }
+.type-hero .meta-line { font-size: var(--s-1); font-weight: 500; margin-top: 10px; }
+.type-body { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 28px; align-items: start; }
+.type-body > * { min-width: 0; }
+.type-intro { font-size: var(--s-3); line-height: 1.85; margin-bottom: 24px; }
+.type-sec { margin-bottom: 28px; }
+.type-sec h2 { font-size: var(--s-4); margin-bottom: 12px; }
+.booklist { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+.booklist li { display: flex; justify-content: space-between; gap: 12px; padding: 12px 16px; border-radius: 12px; background: var(--card); border: 1px solid var(--line); }
+.booklist b { font-family: var(--f-display); }
+.booklist span { color: var(--ink-soft); font-size: var(--s-1); white-space: nowrap; }
+.rel { display: grid; gap: 8px; margin-top: 6px; }
+.rel-item { position: relative; overflow: hidden; font: inherit; color: var(--ink); text-align: left; cursor: pointer; background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; display: grid; gap: 2px; transition: border-color .2s, background-color .2s, transform .15s var(--ease); }
+.rel-item b { font-family: var(--f-display); }
+.rel-item span { font-size: var(--s-1); color: var(--ink-soft); }
+.rel-item:active { transform: scale(.98); }
+@media (hover: hover) { .rel-item:hover { border-color: var(--accent); background: var(--accent-weak); } }
+.other-types { display: flex; flex-wrap: wrap; gap: 8px; }
+.other-types a { text-decoration: none; color: var(--ink); }
+@media (max-width: 760px) {
+  .type-hero { grid-template-columns: 1fr; padding: 24px; gap: 14px; border-radius: 18px; }
+  .type-hero .swatch { width: 72px; height: 72px; }
+  .type-body { grid-template-columns: 1fr; }
+}
+/* privacy */
+.policy { max-width: 42em; display: grid; gap: 22px; }
+.policy h2 { font-size: var(--s-4); margin-bottom: 6px; }
+.policy p, .policy li { color: var(--ink-soft); }
+.policy ul { margin: 0; padding-left: 1.2em; display: grid; gap: 4px; }
+footer .wrap { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+footer a { color: var(--ink-soft); }
+
 /* about */
 .about-hero { display: grid; gap: 16px; max-width: 40em; margin-bottom: 44px; }
 .about-hero h1 { font-size: var(--s-6); line-height: 1.3; }
@@ -475,7 +516,7 @@ footer { border-top: 1px solid var(--line); padding-block: 26px; color: var(--in
 }
 @media (max-width: 820px) {
   .rcard { aspect-ratio: auto; gap: 22px; padding: 24px; }
-  .rcard h2 { font-size: 1.9rem; }
+  .rcard .rtitle { font-size: 1.9rem; }
   .rcard .swatch { width: 68px; height: 68px; }
   .rcard .swatch svg { width: 40px; height: 40px; }
 }
@@ -610,6 +651,21 @@ footer { border-top: 1px solid var(--line); padding-block: 26px; color: var(--in
     <div class="shops" id="shopsFull"></div>
   </div>
 
+  <div id="v-type" data-view hidden></div>
+
+  <div id="v-privacy" data-view hidden>
+    <h1 class="page-title">개인정보 안내</h1>
+    <p class="page-lead">북크북크는 이름이나 연락처처럼 나를 알아볼 수 있는 정보를 받지 않아요.</p>
+    <div class="policy">
+      <div><h2>무엇을 모으나요</h2><ul><li>테스트 결과 유형과 9개 문항에서 고른 답(A 또는 B)</li><li>결과 피드백과 평소 독서량 (직접 고른 경우에만)</li><li>응답한 시각과, 같은 응답을 구분하기 위해 무작위로 만든 번호</li></ul></div>
+      <div><h2>왜 모으나요</h2><p>문항과 책 추천을 더 정확하게 다듬고, 유형 분포 같은 전체 통계를 매거진에 소개하기 위해서예요. 한 사람의 응답을 따로 공개하지 않아요.</p></div>
+      <div><h2>어디에, 얼마나 보관하나요</h2><p>운영진만 볼 수 있는 스프레드시트에 저장하고, 응답한 날로부터 1년이 지나면 지워요.</p></div>
+      <div><h2>내 기기에 남는 것</h2><p>지난 결과는 지금 쓰는 기기의 브라우저에만 저장돼요. 브라우저 기록을 지우면 함께 사라져요.</p></div>
+      <div><h2>문의</h2><p>인스타그램 @bookk__book으로 연락 주세요.</p></div>
+      <p class="note">2026년 11월 8일 기준</p>
+    </div>
+  </div>
+
   <div id="v-stats" data-view hidden>
     <h1 class="page-title">응답 통계</h1>
     <p class="page-lead">한 유형이 25%를 넘으면 문항을 점검할 때예요.</p>
@@ -653,9 +709,10 @@ footer { border-top: 1px solid var(--line); padding-block: 26px; color: var(--in
   </div>
 </main>
 
-<footer><div class="wrap">북크북크 · @bookk__book · 작가와 서점 정보는 입점 전 예시예요</div></footer>
+<footer><div class="wrap"><span>북크북크 · @bookk__book · 작가와 서점 정보는 입점 전 예시예요</span><a href="#privacy">개인정보 안내</a></div></footer>
 
 <script>
+document.documentElement.lang = 'ko';
 const REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const ICONS = {
   damyo: '<rect x="8" y="12" width="32" height="22" rx="3"/><path d="M8 20h32M8 27h32M13 34v5M19 34v5M25 34v5M31 34v5M37 34v5"/>',
@@ -672,28 +729,28 @@ const svg = k => `<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" str
 const TYPES = [
   { k:'damyo', name:'담요', animal:'담요를 두른 곰', code:'쉼·온·답', copy:'오늘은 그냥 덮여 있어도 돼',
     intro:'당신은 책에서 쉼을 찾는 사람. 다정한 문장 속에 몸을 묻고, 다 읽고 나면 마음이 한결 정리돼요. 남을 챙기느라 바빴다면, 오늘은 책이 당신을 챙길 차례예요.',
-    books:[['불편한 편의점','김호연'],['달러구트 꿈 백화점','이미예'],['나는 나로 살기로 했다','김수현']] },
+    books:[['불편한 편의점','김호연'],['달러구트 꿈 백화점','이미예'],['나는 나로 살기로 했다','김수현'],['메리골드 마음 세탁소','윤정은'],['하마터면 열심히 살 뻔했다','하완']] },
   { k:'pyeonji', name:'손편지', animal:'손편지를 쓰는 사슴', code:'쉼·온·물음', copy:'답장은 천천히 써도 괜찮아',
     intro:'당신은 위로를 받되, 답은 스스로 찾고 싶은 사람. 다정한 문장 끝에 남은 작은 질문을 오래 품고 다녀요. 당신에게 책은 천천히 읽는 편지예요.',
-    books:[['어린 왕자','생텍쥐페리'],['긴긴밤','루리']] },
+    books:[['어린 왕자','생텍쥐페리'],['긴긴밤','루리'],['나의 라임오렌지나무','J. M. 바스콘셀로스'],['모모','미하엘 엔데'],['언어의 온도','이기주']] },
   { k:'memo', name:'메모장', animal:'메모장을 든 다람쥐', code:'쉼·냉·답', copy:'감동보다 정리가 필요한 날',
     intro:'당신은 감성적인 말보다 담백한 정리가 위로가 되는 사람. 복잡한 마음도 몇 줄로 적고 나면 가벼워져요. 겉은 건조해 보여도, 누구보다 자기를 잘 챙길 줄 알아요.',
-    books:[['미움받을 용기','기시미 이치로·고가 후미타케'],['명상록','마르쿠스 아우렐리우스']] },
+    books:[['명상록','마르쿠스 아우렐리우스'],['월든','헨리 데이비드 소로'],['달리기를 말할 때 내가 하고 싶은 이야기','무라카미 하루키'],['일의 기쁨과 슬픔','장류진'],['미움받을 용기','기시미 이치로·고가 후미타케']] },
   { k:'window', name:'새벽 창문', animal:'창가에 앉은 고양이', code:'쉼·냉·물음', copy:'조용해야 들리는 생각이 있어',
     intro:'당신은 혼자만의 시간에 충전되는 사람. 담담한 문장을 창밖 풍경처럼 바라보다가, 문득 오래 남는 생각을 만나요. 시끄러운 하루 끝, 당신에게 필요한 건 조용한 한 페이지예요.',
-    books:[['스토너','존 윌리엄스'],['시와 산책','한정원'],['바깥은 여름','김애란']] },
+    books:[['스토너','존 윌리엄스'],['시와 산책','한정원'],['바깥은 여름','김애란'],['여행의 이유','김영하'],['키친','요시모토 바나나']] },
   { k:'compass', name:'나침반', animal:'나침반을 든 강아지', code:'깸·온·답', copy:'길을 잃어도, 방향은 있어',
     intro:'당신은 새로운 자극을 원하지만, 누군가 함께 걸어주길 바라는 사람. 읽고 나면 \'해볼까?\' 하는 마음이 생겨요. 당신은 책에서 다음 걸음을 찾는 독자예요.',
-    books:[['연금술사','파울로 코엘료'],['아몬드','손원평']] },
+    books:[['연금술사','파울로 코엘료'],['아몬드','손원평'],['여덟 단어','박웅현'],['꽃들에게 희망을','트리나 폴러스'],['그릿','앤절라 더크워스']] },
   { k:'fire', name:'모닥불', animal:'모닥불 앞의 수달', code:'깸·온·물음', copy:'다 읽으면 누군가와 얘기하고 싶어져',
     intro:'당신은 책을 덮자마자 "이거 들어봐!" 하고 싶어지는 사람. 따뜻한 이야기 속 생각할 거리를 함께 나눌 때 독서가 완성돼요. 당신 곁엔 늘 이야기가 모여요.',
-    books:[['우리가 빛의 속도로 갈 수 없다면','김초엽'],['클라라와 태양','가즈오 이시구로'],['페인트','이희영']] },
+    books:[['우리가 빛의 속도로 갈 수 없다면','김초엽'],['클라라와 태양','가즈오 이시구로'],['페인트','이희영'],['시선으로부터,','정세랑'],['코스모스','칼 세이건']] },
   { k:'lens', name:'돋보기', animal:'돋보기를 든 부엉이', code:'깸·냉·답', copy:'대충 아는 건 모르는 거야',
     intro:'당신은 "근데 왜?"를 멈추지 않는 사람. 감정보다 근거, 막연함보다 명확함을 좋아해요. 다 읽고 세상이 한 칸 더 선명해지는 순간을 즐겨요.',
-    books:[['사피엔스','유발 하라리'],['총, 균, 쇠','재레드 다이아몬드'],['팩트풀니스','한스 로슬링']] },
+    books:[['사피엔스','유발 하라리'],['총, 균, 쇠','재레드 다이아몬드'],['팩트풀니스','한스 로슬링'],['그리고 아무도 없었다','애거사 크리스티'],['셜록 홈즈의 모험','아서 코난 도일']] },
   { k:'mirror', name:'거울', animal:'거울을 든 까마귀', code:'깸·냉·물음', copy:'불편한 질문이 나를 바꿔',
     intro:'당신은 편안한 이야기보다 나를 흔드는 글에 끌리는 사람. 차갑게 비친 내 모습이 불편해도, 그 질문 덕분에 한 뼘 자라요. 당신은 책과 정면으로 마주하는 독자예요.',
-    books:[['채식주의자','한강'],['이방인','알베르 카뮈'],['데미안','헤르만 헤세']] }
+    books:[['채식주의자','한강'],['이방인','알베르 카뮈'],['데미안','헤르만 헤세'],['인간 실격','다자이 오사무'],['예루살렘의 아이히만','한나 아렌트']] }
 ];
 const byKey = Object.fromEntries(TYPES.map(t => [t.k, t]));
 const colorOf = k => `var(--t-${k})`;
@@ -728,22 +785,22 @@ const SHOPS = [
 
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
-function typeCard(t, asLink, i) {
+function typeCard(t, asLink, i, lvl = 'h3') {
   const tag = asLink ? 'a' : 'div';
-  const attrs = asLink ? ` href="#types" data-type="${t.k}" style="--i:${i || 0}"` : '';
+  const attrs = asLink ? ` href="#type-${t.k}" style="--i:${i || 0}"` : '';
   return `<${tag} class="tcard"${attrs}>
     <span class="swatch" style="background:${colorOf(t.k)}">${svg(t.k)}</span>
-    <h3>${esc(t.name)}</h3>
+    <${lvl}>${esc(t.name)}</${lvl}>
     <p class="copy">${esc(t.copy)}</p>
     <p class="animal">${esc(t.animal)}</p>
   </${tag}>`;
 }
-function writerCard(w) {
+function writerCard(w, lvl = 'h3') {
   const t = byKey[w.type];
   return `<article class="writer">
     <div class="meta"><span class="chip" style="background:${colorOf(t.k)}">${esc(t.name)}</span><span>${esc(w.genre)}</span><span class="tag-ex">예시</span></div>
     <p class="first">${esc(w.first)}</p>
-    <div><h3>『${esc(w.book)}』</h3><p class="meta">${esc(w.name)}</p></div>
+    <div><${lvl} class="wbook">『${esc(w.book)}』</${lvl}><p class="meta">${esc(w.name)}</p></div>
     <p class="buy">파는 곳 · <b>${esc(w.shop)}</b></p>
   </article>`;
 }
@@ -837,7 +894,13 @@ const ISSUES = [
         when: '새로 시작하는 게 두려울 때.' }
     ] }
 ];
-const CURRENT_ISSUE = '2026-11';
+const CURRENT_ISSUE = (() => {
+  const d = new Date();
+  const ym = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+  const ids = ISSUES.map(x => x.id).sort();
+  const past = ids.filter(id => id <= ym);
+  return past.length ? past[past.length - 1] : ids[0];
+})();
 const issueById = id => ISSUES.find(x => x.id === id);
 
 function reviewCard(iss, r, i) {
@@ -878,8 +941,8 @@ function renderMagazine() {
   document.getElementById('issueTabs').innerHTML = ISSUES.map(iss => `<button class="pill" type="button" data-issue="${iss.id}" aria-pressed="false" title="${esc(iss.theme)}">${esc(iss.month)}</button>`).join('');
   document.getElementById('yearList').innerHTML = YEAR.map(([m, th]) => {
     const id = m.replace('.', '-');
-    const state = id === CURRENT_ISSUE ? 'now' : (issueById(id) ? 'ready' : 'later');
-    const tag = state === 'now' ? '이번 달' : state === 'ready' ? '미리 읽기' : '';
+    const state = id === CURRENT_ISSUE ? 'now' : (issueById(id) ? (id < CURRENT_ISSUE ? 'past' : 'ready') : (id < CURRENT_ISSUE ? 'past' : 'later'));
+    const tag = state === 'now' ? '이번 달' : state === 'ready' ? '미리 읽기' : (state === 'past' && issueById(id)) ? '지난 호' : '';
     const [y, mm] = m.split('.');
     return `<li><button class="year-item ${state}" type="button" data-id="${id}"><span class="year-m">${Number(mm)}월<small>${y}</small></span><span class="year-t">${esc(th)}</span>${tag ? `<span class="year-tag">${tag}</span>` : ''}</button></li>`;
   }).join('');
@@ -918,7 +981,7 @@ function openArticle(issueId, idx) {
 }
 artDlg.addEventListener('click', e => { if (e.target === artDlg) artDlg.close(); });
 document.addEventListener('click', e => {
-  const r = e.target.closest('.review'); if (r) { openArticle(r.dataset.issue, Number(r.dataset.idx)); return; }
+  const r = e.target.closest('.review, .rel-item'); if (r) { openArticle(r.dataset.issue, Number(r.dataset.idx)); return; }
   const tab = e.target.closest('#issueTabs .pill'); if (tab) renderIssue(tab.dataset.issue);
   const yr = e.target.closest('#yearList .year-item');
   if (yr) {
@@ -929,7 +992,7 @@ document.addEventListener('click', e => {
 
 function shopCard(s) {
   return `<article class="shop">
-    <div><div class="meta"><span>${esc(s.area)}</span><span class="tag-ex">예시</span></div><h3>${esc(s.name)}</h3><p class="note">${esc(s.note)}</p></div>
+    <div><div class="meta"><span>${esc(s.area)}</span><span class="tag-ex">예시</span></div><h2 class="sname">${esc(s.name)}</h2><p class="note">${esc(s.note)}</p></div>
     <div><p class="label" style="margin-bottom:8px">책방지기가 고른 세 권</p><div class="shelf">${s.picks.map(p => `<button class="spine" type="button" data-book="${esc(p[0])}" data-shop="${esc(s.name)}" aria-haspopup="dialog"><b>『${esc(p[0])}』</b><span>${esc(p[1])}</span><span class="peek">미리 읽기 <i aria-hidden="true">→</i></span></button>`).join('')}</div></div>
   </article>`;
 }
@@ -1022,12 +1085,12 @@ document.addEventListener('pointerdown', e => {
 // ===== 정적 영역 =====
 renderMagazine();
 document.querySelectorAll('.do .swatch').forEach(el => { const k = el.textContent.trim().replace(/^__ICON_|__$/g, ''); if (ICONS[k]) el.innerHTML = svg(k); });
-document.getElementById('writersHome').innerHTML = WRITERS.map(writerCard).join('');
-document.getElementById('writersFull').innerHTML = WRITERS.map(writerCard).join('');
+document.getElementById('writersHome').innerHTML = WRITERS.map(w => writerCard(w)).join('');
+document.getElementById('writersFull').innerHTML = WRITERS.map(w => writerCard(w, 'h2')).join('');
 const shopsFull = document.getElementById('shopsFull');
 shopsFull.innerHTML = SHOPS.map(shopCard).join('');
 const typesGrid = document.getElementById('typesGrid');
-typesGrid.innerHTML = TYPES.map((t, i) => typeCard(t, true, i)).join('');
+typesGrid.innerHTML = TYPES.map((t, i) => typeCard(t, true, i, 'h2')).join('');
 document.getElementById('typeStrip').innerHTML = TYPES.map((t, i) => typeCard(t, true, i)).join('');
 document.getElementById('shelfHome').innerHTML = SHOPS.map(sh => {
   const pk = sh.picks[0];
@@ -1036,8 +1099,6 @@ document.getElementById('shelfHome').innerHTML = SHOPS.map(sh => {
 document.addEventListener('click', e => {
   const sp = e.target.closest('.spine');
   if (sp) { openBook(sp.dataset.book, sp.dataset.shop); return; }
-  const a = e.target.closest('a[data-type]');
-  if (a) { e.preventDefault(); showResult(a.dataset.type, null, true); location.hash = 'test'; }
 });
 
 // 메인 카드 묶음: 몇 초마다 맨 앞 카드가 넘어가며 다음 유형이 나와요
@@ -1087,7 +1148,7 @@ function renderIntro() {
           <button class="btn" id="startBtn" type="button">시작하기 <span class="arrow" aria-hidden="true">→</span></button>
           ${last ? `<button class="link" id="lastBtn" type="button">지난 결과(${esc(byKey[last].name)}형) 다시 보기 <span class="arrow" aria-hidden="true">→</span></button>` : ''}
         </div>
-        <p class="privacy">유형과 응답만 익명으로 저장해 테스트를 다듬는 데 써요.</p>
+        <p class="privacy">${(SHEET_ENDPOINT || window.claude) ? '유형과 응답만 익명으로 저장해 테스트를 다듬는 데 써요.' : '응답은 저장하지 않아요. 지난 결과만 이 기기에 남아요.'} <a href="#privacy">개인정보 안내</a></p>
       </div>
       <div class="intro-sample" aria-hidden="true"><span class="label">결과 카드 예시</span><div class="sample-card" id="sampleCard"></div></div>
     </div>
@@ -1118,7 +1179,7 @@ function renderIntro() {
   }, 2800);
   ['startBtn', 'startBtn2'].forEach(id => document.getElementById(id).addEventListener('click', () => { answers = []; renderQ('right'); window.scrollTo({ top: 0 }); }));
   const lb = document.getElementById('lastBtn');
-  if (lb) lb.addEventListener('click', () => { stopIntro(); showResult(last, null, true); pendingResult = null; window.scrollTo({ top: 0 }); });
+  if (lb) lb.addEventListener('click', () => { location.hash = 'result'; });
 }
 function renderQ(dir) {
   stopIntro();
@@ -1127,7 +1188,7 @@ function renderQ(dir) {
   quiz.innerHTML = `<p class="qnum">${i + 1} / ${QUESTIONS.length}</p>
     <div class="progress" aria-hidden="true"><i style="width:${(i / QUESTIONS.length) * 100}%"></i></div>
     <div class="qstage in-${dir}">
-      <h2 class="q">${esc(Q.q)}</h2>
+      <h1 class="q">${esc(Q.q)}</h1>
       <div class="opts">
         <button class="opt" type="button" data-a="A"><span class="k">A</span><span>${esc(Q.a)}</span></button>
         <button class="opt" type="button" data-a="B"><span class="k">B</span><span>${esc(Q.b)}</span></button>
@@ -1157,12 +1218,19 @@ function score(ans) {
   const code = cnt.map(c => (c >= 2 ? 'A' : 'B')).join('');
   return { key: LOOKUP[code], cnt };
 }
+let justFinished = false;
+function showSavedResult() {
+  let saved = null; try { saved = JSON.parse(localStorage.getItem('bk-last-full') || 'null'); } catch (e) {}
+  if (saved && byKey[saved.key] && Array.isArray(saved.cnt)) showResult(saved.key, saved.cnt, false);
+  else renderIntro();
+}
 function finish() {
   const r = score(answers);
-  try { localStorage.setItem('bk-last', r.key); } catch (e) {}
+  try { localStorage.setItem('bk-last', r.key); localStorage.setItem('bk-last-full', JSON.stringify({ key: r.key, cnt: r.cnt })); } catch (e) {}
   current = makeRecord(r.key, r.cnt);
   saveRecord(current);
   showResult(r.key, r.cnt, false);
+  if (location.hash !== '#result') { justFinished = true; location.hash = 'result'; }
   updateLast();
   window.scrollTo({ top: 0, behavior: REDUCE ? 'auto' : 'smooth' });
 }
@@ -1173,7 +1241,7 @@ function showResult(key, cnt, fromBrowse, shared) {
   const parts = t.code.split('·');
   const axesHtml = AXES.map((ax, i) => {
     const n = cnt ? (cnt[i] >= 2 ? cnt[i] : 3 - cnt[i]) : 0;
-    const dots = cnt ? `<span class="dots" aria-label="3문항 중 ${n}개">${[0, 1, 2].map(d => `<i class="${d < n ? 'on' : ''}"></i>`).join('')}</span>` : '';
+    const dots = cnt ? `<span class="dots" role="img" aria-label="3문항 중 ${n}개">${[0, 1, 2].map(d => `<i class="${d < n ? 'on' : ''}"></i>`).join('')}</span>` : '';
     return `<div class="axis"><span>${ax[2]}</span><b>${parts[i]}</b>${dots}</div>`;
   }).join('');
   let n = 0;
@@ -1182,18 +1250,19 @@ function showResult(key, cnt, fromBrowse, shared) {
   quiz.innerHTML = `${shared ? `<div class="shared-banner"><span>친구가 공유한 결과예요. 나는 어떤 결일까요?</span><button class="btn" type="button" data-start>나도 테스트하기 <span class="arrow" aria-hidden="true">→</span></button></div>` : ''}<div class="result">
       <div class="rcard" style="background:${colorOf(t.k)}">
         <div style="display:flex;justify-content:space-between;align-items:start;gap:12px"><span class="swatch">${svg(t.k)}</span><span class="label" style="color:inherit">${esc(t.code)}</span></div>
-        <div><p class="you">당신은</p><h2>${esc(t.name)}형 독자</h2><p class="copy">${esc(t.copy)}</p></div>
+        <div><p class="you">당신은</p><h1 class="rtitle">${esc(t.name)}형 독자</h1><p class="copy">${esc(t.copy)}</p></div>
         <div class="foot"><span>${esc(t.animal)}</span><span>북크북크</span></div>
       </div>
       <div class="rbody">
         <p class="intro-text" ${step()}>${esc(t.intro)}</p>
         <div class="axes" ${step()}>${axesHtml}</div>
-        <div class="pick" ${step()}><span class="label">이 결의 대표작</span><span class="title">『${esc(t.books[0][0])}』</span><span class="meta">${esc(t.books[0][1])}${t.books[1] ? ` · 함께 읽기 『${esc(t.books[1][0])}』` : ''}</span></div>
+        <div class="pick" ${step()}><span class="label">이 결의 대표작</span><span class="title">『${esc(t.books[0][0])}』</span><span class="meta">${esc(t.books[0][1])} · 함께 읽기 ${t.books.slice(1, 3).map(b => `『${esc(b[0])}』`).join(' ')}</span><a class="link" href="#type-${t.k}" style="margin-top:6px;font-size:var(--s-1)">${esc(t.name)}형 책 더 보기 <span class="arrow" aria-hidden="true">→</span></a></div>
         <div class="pick" ${step()}><span class="label">이 책을 좋아했다면, 아직 모르는 이 작가를</span>
           ${w ? `<span class="title">『${esc(w.book)}』</span><span class="meta">${esc(w.name)} · ${esc(w.genre)} · 파는 곳 ${esc(w.shop)} <span class="tag-ex">예시</span></span><p class="first">${esc(w.first)}</p>`
               : `<span class="title" style="color:var(--ink-soft)">곧 소개할게요</span><span class="meta">이 결의 글을 쓰는 작가를 찾고 있어요. 추천은 @bookk__book으로 보내주세요.</span>`}
         </div>
-        ${fromBrowse ? '' : `<div ${step()}>${feedbackBlock(key)}</div>`}
+        <div class="pick" ${step()}><span class="label">${esc(t.name)}형에게 추천한 매거진 리뷰</span>${relList(t.k)}</div>
+        ${!fromBrowse && current && current.type === key ? `<div ${step()}>${feedbackBlock(key)}</div>` : ''}
         ${fromBrowse ? '' : sharePanel(t, step())}
         <div class="share-row" ${step()}>
           <button class="btn ${fromBrowse ? '' : 'ghost'}" type="button" id="retryBtn">${shared ? '나도 테스트하기' : fromBrowse ? '테스트 해보기' : '다시 하기'}</button>
@@ -1208,9 +1277,43 @@ function showResult(key, cnt, fromBrowse, shared) {
   if (fb) fb.addEventListener('click', onFeedback);
 }
 
+// ===== 유형별 리뷰 · 유형 페이지 =====
+function reviewsFor(k) {
+  const out = [];
+  ISSUES.forEach(iss => iss.reviews.forEach((r, i) => { if (r.type === k) out.push({ iss, r, i }); }));
+  return out;
+}
+function relList(k) {
+  const items = reviewsFor(k);
+  if (!items.length) return '<p class="meta">이 유형에게 추천할 리뷰를 준비하고 있어요.</p>';
+  return `<div class="rel">${items.map(({ iss, r, i }) => `<button class="rel-item" type="button" data-issue="${iss.id}" data-idx="${i}"><b>${esc(r.headline)}</b><span>『${esc(r.book)}』 · ${esc(iss.month)} 매거진</span></button>`).join('')}</div>`;
+}
+function renderType(k) {
+  const t = byKey[k];
+  const ws = WRITERS.filter(w => w.type === k);
+  const others = TYPES.filter(x => x.k !== k);
+  document.getElementById('v-type').innerHTML = `
+    <div class="type-hero" style="background:${colorOf(k)}">
+      <span class="swatch">${svg(k)}</span>
+      <div><h1>${esc(t.name)}형 독자</h1><p class="copy">${esc(t.copy)}</p><p class="meta-line">${esc(t.animal)} · ${esc(t.code)}</p></div>
+    </div>
+    <div class="type-body">
+      <div>
+        <p class="type-intro">${esc(t.intro)}</p>
+        <div class="type-sec"><h2>이 결의 책</h2><ul class="booklist">${t.books.map(b => `<li><b>『${esc(b[0])}』</b><span>${esc(b[1])}</span></li>`).join('')}</ul></div>
+        <div class="type-sec"><h2>${esc(t.name)}형에게 추천한 리뷰</h2>${relList(k)}</div>
+      </div>
+      <div>
+        <div class="type-sec"><h2>같은 결의 작가</h2>${ws.length ? `<div class="writers" style="grid-template-columns:1fr">${ws.map(w => writerCard(w)).join('')}</div>` : '<div class="soon"><h3>곧 소개할게요</h3><p>이 결의 글을 쓰는 신생 작가를 찾고 있어요. 추천은 인스타그램 @bookk__book으로 보내 주세요.</p></div>'}</div>
+        <div class="type-sec"><h2>나도 이 유형일까?</h2><a class="btn" href="#test">테스트로 확인하기 <span class="arrow" aria-hidden="true">→</span></a></div>
+        <div class="type-sec"><h2>다른 유형</h2><div class="other-types">${others.map(x => `<a class="mini" href="#type-${x.k}"><span class="sw" style="background:${colorOf(x.k)}">${svg(x.k)}</span>${esc(x.name)}</a>`).join('')}</div></div>
+      </div>
+    </div>`;
+}
+
 // ===== 결과 공유 =====
 const SITE_URL = 'https://rhks12.github.io/bookkbookk/';
-const shareUrl = k => SITE_URL + '#r-' + k;
+const shareUrl = k => SITE_URL + 'r/' + k + '.html';
 const shareText = t => `나는 ${t.name}형 독자! "${t.copy}" 너는 어떤 결의 독자야?`;
 let cardImgP = null;
 function sharePanel(t, stepAttr) {
@@ -1222,7 +1325,7 @@ function sharePanel(t, stepAttr) {
     ['밴드', `https://band.us/plugin/share?body=${enc(text + '\n' + url)}&route=${enc(SITE_URL)}`]
   ];
   return `<div class="share" ${stepAttr}>
-    <h3>결과 공유하기</h3>
+    <h2>결과 공유하기</h2>
     <div class="share-main">
       <button class="btn" type="button" id="shareNative">공유하기 <span class="arrow" aria-hidden="true">↗</span></button>
       <button class="btn ghost" type="button" id="saveImg">이미지 저장</button>
@@ -1337,7 +1440,7 @@ const READING = ['한 달 1권 이상', '가끔 읽어요', '거의 안 읽어�
 function feedbackBlock(key) {
   const others = TYPES.filter(x => x.k !== key);
   return `<div class="fb" id="fb">
-    <h3>이 결과, 나와 맞나요?</h3>
+    <h2>이 결과, 나와 맞나요?</h2>
     <div class="row" data-group="feedback"><button class="pill" type="button" data-v="yes" aria-pressed="false">맞았어요</button><button class="pill" type="button" data-v="no" aria-pressed="false">아니었어요</button></div>
     <div class="slide" id="betterBox"><div><p class="sub">그럼 어느 쪽이 더 나 같아요?</p><div class="row" data-group="better">${others.map(x => `<button class="pill" type="button" data-v="${x.k}" aria-pressed="false" tabindex="-1">${esc(x.name)}</button>`).join('')}</div></div></div>
     <p class="sub">평소에 책을 얼마나 읽나요?</p>
@@ -1482,17 +1585,21 @@ function drawStats(runs, fromCache) {
 function updateLast() {
   let k = null; try { k = localStorage.getItem('bk-last'); } catch (e) {}
   const el = document.getElementById('lastResult');
-  if (k && byKey[k]) { el.hidden = false; el.innerHTML = `지난번 결과 <b>${esc(byKey[k].name)}형</b> · ${esc(byKey[k].copy)}`; }
+  if (k && byKey[k]) { el.hidden = false; el.innerHTML = `지난번 결과 <a href="#result"><b>${esc(byKey[k].name)}형</b></a> · ${esc(byKey[k].copy)}`; }
 }
 
 // ===== 화면 전환 =====
-const VIEWS = ['home', 'test', 'types', 'magazine', 'writers', 'shops', 'about', 'stats'];
+const VIEWS = ['home', 'test', 'types', 'magazine', 'writers', 'shops', 'about', 'stats', 'type', 'privacy'];
 function route() {
-  let v = location.hash.replace('#', '');
-  const sharedMatch = v.match(/^r-([a-z]+)$/);
-  const sharedKey = sharedMatch && byKey[sharedMatch[1]] ? sharedMatch[1] : null;
-  if (sharedKey) v = 'test';
-  if (!VIEWS.includes(v)) v = 'home';
+  const raw = location.hash.replace('#', '');
+  const sm = raw.match(/^r-([a-z]+)$/);
+  const sharedKey = sm && byKey[sm[1]] ? sm[1] : null;
+  const tm = raw.match(/^type-([a-z]+)$/);
+  const typeKey = tm && byKey[tm[1]] ? tm[1] : null;
+  let v = raw, navKey = raw;
+  if (sharedKey || raw === 'result') { v = 'test'; navKey = 'test'; }
+  if (typeKey) { v = 'type'; navKey = 'types'; }
+  if (!VIEWS.includes(v) || v === 'type' && !typeKey) { v = 'home'; navKey = 'home'; }
   document.querySelectorAll('[data-view]').forEach(el => {
     const on = el.id === 'v-' + v;
     el.hidden = !on;
@@ -1500,16 +1607,18 @@ function route() {
   });
   const nav = document.querySelector('nav.menu');
   document.querySelectorAll('nav.menu a').forEach(a => {
-    if (a.dataset.v === v) {
+    if (a.dataset.v === navKey) {
       a.setAttribute('aria-current', 'page');
       if (nav.scrollWidth > nav.clientWidth) nav.scrollTo({ left: a.offsetLeft - (nav.clientWidth - a.offsetWidth) / 2, behavior: REDUCE ? 'auto' : 'smooth' });
     } else a.removeAttribute('aria-current');
   });
   if (v === 'test') {
     if (sharedKey) showResult(sharedKey, null, true, true);
+    else if (raw === 'result') { if (justFinished) justFinished = false; else showSavedResult(); }
     else if (pendingResult) pendingResult = null;
     else renderIntro();
   }
+  if (v === 'type') renderType(typeKey);
   if (v !== 'test') stopIntro();
   if (v === 'stats') loadStats();
   if (v === 'home') startFan(); else stopFan();
