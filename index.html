@@ -147,6 +147,20 @@ section + section { margin-top: 80px; }
 .hero p.lead { font-size: var(--s-3); color: var(--ink-soft); max-width: 30em; margin-bottom: 30px; }
 .hero .actions { display: flex; gap: 14px 18px; flex-wrap: wrap; align-items: center; justify-content: center; }
 .circ { position: relative; display: inline-block; padding: 0 .12em; }
+.site-intro { display: grid; justify-items: center; text-align: center; gap: 14px; padding-block: clamp(28px, 6vw, 56px) 0; }
+.site-intro .eyebrow { font-size: var(--s-1); font-weight: 500; letter-spacing: .06em; color: var(--accent-text); margin: 0; }
+.site-intro h2 { font-size: clamp(1.5rem, 4.6vw, 2.25rem); line-height: 1.4; text-wrap: balance; }
+.site-intro > p { color: var(--ink-soft); max-width: 34em; font-size: var(--s-2); }
+.intro-pills { list-style: none; padding: 0; margin: 4px 0 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+.intro-pills a { display: inline-block; padding: 7px 14px; border-radius: 99px; border: 1.5px solid var(--ink); background: var(--card); color: var(--ink); text-decoration: none; font-weight: 500; font-size: 0.9375rem; transition: transform .15s var(--ease), background-color .2s; }
+.intro-pills li:nth-child(1) a { background: var(--t-memo); color: #181818; }
+.intro-pills li:nth-child(2) a { background: var(--t-compass); color: #181818; }
+.intro-pills li:nth-child(3) a { background: var(--t-pyeonji); color: #181818; }
+.intro-pills li:nth-child(4) a { background: var(--t-window); color: #181818; }
+.intro-pills a:active { transform: scale(.95); }
+.intro-wave { width: 72px; color: var(--b-sage); margin-top: 18px; }
+.intro-next { font-family: var(--f-display); font-size: var(--s-3); color: var(--ink); }
+.site-intro + .hero { padding-top: 8px; }
 .dd { position: absolute; overflow: visible; fill: none; stroke-linecap: round; stroke-linejoin: round; pointer-events: none; }
 .dd path { stroke-dasharray: 1; stroke-dashoffset: 1; animation: ink .7s var(--ease) both; }
 .d-circle { left: -12%; top: -14%; width: 118%; height: 124%; stroke: var(--b-pink); stroke-width: 5; }
@@ -158,6 +172,7 @@ section + section { margin-top: 80px; }
 .d-under { left: 8%; right: 8%; bottom: 0; width: 84%; height: .34em; stroke: var(--b-sage); stroke-width: 7; }
 .d-under path { animation-delay: 1.1s; }
 @keyframes ink { to { stroke-dashoffset: 0; } }
+.hero.wait .dd path { animation-play-state: paused; }
 @media (hover: hover) { .hero h1.hand:hover .dd path { animation-name: ink-again; } }
 @keyframes ink-again { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
 .last { margin-top: 22px; font-size: var(--s-1); color: var(--ink-soft); }
@@ -604,8 +619,18 @@ footer { border-top: 1px solid var(--line); padding-block: 26px; color: var(--in
 
 <main class="wrap">
   <div id="v-home" data-view>
+    <section class="site-intro">
+      <p class="eyebrow">북크북크는</p>
+      <h2>읽는 사람, 쓰는 사람, 파는 사람을<br>잇는 독서 커뮤니티예요</h2>
+      <p>베스트셀러 목록 밖에서 나와 같은 결의 책을 찾도록, 아직 덜 알려진 신생 작가와 동네 독립서점을 소개해요. 달마다 한 주제로 책을 리뷰하는 매거진도 만들어요.</p>
+      <ul class="intro-pills"><li><a href="#test">독서 성향테스트</a></li><li><a href="#magazine">리뷰 매거진</a></li><li><a href="#writers">신생 작가</a></li><li><a href="#shops">독립서점</a></li></ul>
+      <a class="link" href="#about">북크북크 소개 더 보기 <span class="arrow" aria-hidden="true">→</span></a>
+      <svg class="intro-wave" viewBox="0 0 120 20" fill="none" aria-hidden="true"><path d="M4 12c12-10 22 8 34 0s22-10 34 0 22 8 44-2" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg>
+      <p class="intro-next">먼저, 나의 독서 결부터 알아볼까요?</p>
+    </section>
+
     <section class="hero">
-      <p class="eyebrow">북크북크 · 독서 성향테스트</p>
+      <p class="eyebrow">독서 성향테스트</p>
       <h1 class="hand">
         <span class="ln">당신은 어떤</span>
         <span class="ln"><span class="circ">독자<svg class="dd d-circle" viewBox="0 0 200 110" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M152 16C100 2 22 14 12 54c-8 36 64 52 120 46 52-6 66-38 54-60-10-20-48-30-92-24"/></svg></span>인가요?<svg class="dd d-spark" viewBox="0 0 40 40" aria-hidden="true"><path pathLength="1" d="M10 4l3 9"/><path pathLength="1" d="M24 6l-3 10"/><path pathLength="1" d="M33 18l-9 4"/></svg></span>
@@ -750,6 +775,13 @@ footer { border-top: 1px solid var(--line); padding-block: 26px; color: var(--in
 <script>
 document.documentElement.lang = 'ko';
 const REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+(() => {
+  const h = document.querySelector('#v-home .hero');
+  if (!h || !('IntersectionObserver' in window)) return;
+  h.classList.add('wait');
+  const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { h.classList.remove('wait'); io.disconnect(); } }, { threshold: 0.45 });
+  io.observe(h.querySelector('h1'));
+})();
 const ICONS = {
   damyo: '<rect x="8" y="12" width="32" height="22" rx="3"/><path d="M8 20h32M8 27h32M13 34v5M19 34v5M25 34v5M31 34v5M37 34v5"/>',
   pyeonji: '<rect x="6" y="12" width="36" height="24" rx="2"/><path d="M6 14l18 13 18-13"/>',
