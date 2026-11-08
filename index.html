@@ -491,7 +491,9 @@ dialog.book.art { width: min(660px, calc(100vw - 32px)); }
 .rel-item:active { transform: scale(.98); }
 @media (hover: hover) { .rel-item:hover { border-color: var(--accent); background: var(--accent-weak); } }
 .other-types { display: flex; flex-wrap: wrap; gap: 8px; }
-.other-types a { text-decoration: none; color: var(--ink); }
+.other-types a, .mini-types a { text-decoration: none; color: var(--ink); transition: transform .15s var(--ease), background-color .2s, border-color .2s; }
+.mini-types a:active, .other-types a:active { transform: scale(.95); background: var(--pick); border-color: var(--pick); }
+@media (hover: hover) { .mini-types a:hover, .other-types a:hover { background: var(--accent-weak); border-color: var(--accent-weak); } }
 @media (max-width: 760px) {
   .type-hero { grid-template-columns: 1fr; padding: 24px; gap: 14px; border-radius: 18px; }
   .type-hero .swatch { width: 72px; height: 72px; }
@@ -1199,7 +1201,7 @@ function renderIntro() {
     </div>
     <div class="intro-sec">
       <h2>어떤 유형이 있을까요</h2>
-      <div class="mini-types">${TYPES.map(t => `<span class="mini"><span class="sw" style="background:${colorOf(t.k)}">${svg(t.k)}</span>${esc(t.name)}</span>`).join('')}</div>
+      <div class="mini-types">${TYPES.map(t => `<a class="mini" href="#type-${t.k}"><span class="sw" style="background:${colorOf(t.k)}">${svg(t.k)}</span>${esc(t.name)}</a>`).join('')}</div>
     </div>
     <div class="intro-sec tips">
       <h2>이렇게 답해 주세요</h2>
