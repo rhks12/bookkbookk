@@ -257,13 +257,18 @@ a.tcard:active { transform: translateY(-1px) scale(.98); }
 .year { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); gap: 8px; }
 .year-item { width: 100%; font: inherit; color: var(--ink); text-align: left; cursor: pointer; display: grid; grid-template-columns: 3.6em minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 12px 14px; border-radius: 12px; background: var(--card); border: 1px solid var(--line); transition: background-color .2s, border-color .2s, transform .15s var(--ease); -webkit-tap-highlight-color: transparent; }
 .year-item:active { transform: scale(.98); }
-@media (hover: hover) { .year-item:hover { border-color: var(--accent); } }
-.year-item.sel { background: var(--accent-weak); border-color: var(--accent); }
+@media (hover: hover) { .year-item:hover { border-color: var(--pick); } }
+.year-item.sel { background: var(--accent-weak); border-color: var(--pick); }
 #issueTabs { scroll-margin-top: 96px; }
+.notice { background: var(--band); color: var(--band-ink); border-radius: 18px; padding: 20px 22px; display: grid; gap: 6px; margin-bottom: 24px; }
+.notice-t { font-family: var(--f-display); font-size: var(--s-3); }
+.notice p:not(.notice-t) { font-size: var(--s-1); line-height: 1.7; }
+.pill.pill-soon { color: var(--ink-soft); border-style: dashed !important; }
+.pill-soon small { font-size: .8em; margin-left: 2px; }
 .soon { border-radius: 16px; background: var(--card); border: 1px dashed var(--line); padding: 26px; display: grid; gap: 8px; }
 .soon h3 { font-size: var(--s-4); }
 .soon p { color: var(--ink-soft); }
-.issue-head.later { background: var(--paper-2); color: var(--ink); border-style: dashed; }
+.issue-head.later { background: var(--paper-2); color: var(--ink); border: 1.5px dashed var(--line); }
 .year-m { font-family: var(--f-display); font-weight: 400; font-size: var(--s-3); line-height: 1.2; display: grid; }
 .year-m small { font-family: var(--f-body); font-weight: 400; font-size: 0.6875rem; color: var(--ink-soft); }
 .year-t { font-size: 0.9375rem; }
@@ -340,9 +345,9 @@ dialog.book::backdrop { background: rgba(10, 14, 12, .5); backdrop-filter: blur(
 .opt > span { position: relative; z-index: 1; }
 .opt > .rip { position: absolute; z-index: 1; }
 .opt .k { flex: none; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; font-size: var(--s-1); font-weight: 700; background: var(--paper-2); color: var(--ink-soft); transition: background-color .2s, color .2s; }
-.opt:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: var(--shadow); }
+.opt:hover { border-color: var(--pick); transform: translateY(-2px); box-shadow: var(--shadow); }
 .opt:active { transform: scale(.98); }
-.opt.chosen { color: var(--pick-ink); border-color: var(--ink); }
+.opt.chosen { color: var(--pick-ink); border-color: var(--pick); }
 .opt.chosen::before { transform: scaleX(1); }
 .opt.chosen .k { background: var(--ink); color: var(--paper); }
 .quiz .back { margin-top: 22px; background: none; border: 0; color: var(--ink-soft); font: inherit; font-size: 0.9375rem; cursor: pointer; padding: 6px 0; display: inline-flex; gap: 6px; align-items: center; }
@@ -416,7 +421,7 @@ button.link { background: none; border: 0; font: inherit; cursor: pointer; paddi
 .share-sns { display: flex; gap: 8px; flex-wrap: wrap; }
 .sns { position: relative; overflow: hidden; font: inherit; font-size: 0.875rem; font-weight: 500; color: var(--ink); background: var(--paper); border: 1px solid var(--line); border-radius: 99px; padding: 8px 14px; cursor: pointer; text-decoration: none; transition: background-color .2s, border-color .2s, transform .15s var(--ease); -webkit-tap-highlight-color: transparent; }
 .sns:active { transform: scale(.95); }
-@media (hover: hover) { .sns:hover { background: var(--accent-weak); border-color: var(--accent); } }
+@media (hover: hover) { .sns:hover { background: var(--accent-weak); border-color: var(--pick); } }
 .share .toast { color: var(--accent-text); font-weight: 500; }
 .shared-banner { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; background: var(--accent-weak); border-radius: 14px; padding: 14px 18px; margin-bottom: 22px; font-weight: 500; }
 
@@ -425,8 +430,8 @@ button.link { background: none; border: 0; font: inherit; cursor: pointer; paddi
 .fb h2 { font-size: var(--s-3); }
 .fb .row { display: flex; gap: 8px; flex-wrap: wrap; }
 .pill { position: relative; overflow: hidden; font: inherit; font-size: 0.9375rem; font-weight: 500; color: var(--ink); background: var(--card); border: 1px solid var(--line); border-radius: 99px; padding: 7px 16px; cursor: pointer; transition: background-color .2s, color .2s, border-color .2s, transform .15s var(--ease); -webkit-tap-highlight-color: transparent; }
-.pill:hover { border-color: var(--accent); }
-.pill[aria-pressed="true"] { background: var(--pick); color: var(--pick-ink); border-color: var(--ink); animation: pop .35s var(--ease); }
+.pill:hover { border-color: var(--pick); }
+.pill[aria-pressed="true"] { background: var(--pick); color: var(--pick-ink); border-color: var(--pick); animation: pop .35s var(--ease); }
 .fb .sub { font-size: var(--s-1); color: var(--ink-soft); }
 .fb .slide { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .35s var(--ease); }
 .fb .slide > div { overflow: hidden; }
@@ -504,7 +509,7 @@ dialog.book.art { width: min(660px, calc(100vw - 32px)); }
 .rel-item b { font-family: var(--f-display); }
 .rel-item span { font-size: var(--s-1); color: var(--ink-soft); }
 .rel-item:active { transform: scale(.98); }
-@media (hover: hover) { .rel-item:hover { border-color: var(--accent); background: var(--accent-weak); } }
+@media (hover: hover) { .rel-item:hover { border-color: var(--pick); background: var(--accent-weak); } }
 .other-types { display: flex; flex-wrap: wrap; gap: 8px; }
 .other-types a, .mini-types a { text-decoration: none; color: var(--ink); transition: transform .15s var(--ease), background-color .2s, border-color .2s; }
 .mini-types a:active, .other-types a:active { transform: scale(.95); background: var(--pick); border-color: var(--pick); }
@@ -703,12 +708,14 @@ footer { border-top: 1px solid var(--line); padding-block: 26px; color: var(--in
   <div id="v-writers" data-view hidden>
     <h1 class="page-title">작가</h1>
     <p class="page-lead">이름보다 첫 문단으로 먼저 만나요.</p>
+    <div class="notice"><p class="notice-t">작가님들을 한 분씩 모시는 중이에요</p><p>지금 보이는 작가는 앞으로 어떤 모습으로 소개될지 보여드리는 예시예요. 북크북크와 결이 맞는 신생 작가를 차근차근 채워 나갈 예정이니 많은 관심 부탁드려요! 함께하고 싶은 작가님은 인스타그램 <b>@bookk__book</b>으로 연락 주세요.</p></div>
     <div class="writers" id="writersFull"></div>
   </div>
 
   <div id="v-shops" data-view hidden>
     <h1 class="page-title">독립서점</h1>
     <p class="page-lead">책방지기가 직접 고른 세 권으로 서점을 소개해요.</p>
+    <div class="notice"><p class="notice-t">동네 책방을 하나씩 찾아가는 중이에요</p><p>지금 보이는 서점은 앞으로 어떤 모습으로 소개될지 보여드리는 예시예요. 오래 머물고 싶은 독립서점을 차근차근 채워 나갈 예정이니 많은 관심 부탁드려요! 소개하고 싶은 서점이 있다면 인스타그램 <b>@bookk__book</b>으로 알려 주세요.</p></div>
     <div class="shops" id="shopsFull"></div>
   </div>
 
@@ -888,7 +895,7 @@ const YEAR = [
   ['2027.09', '일하는 사람들'],
   ['2027.10', '오래된 고전, 새로 읽기']
 ];
-const ISSUES = [
+const ALL_ISSUES = [
   { id: '2026-11', month: '11월', vol: '창간호', theme: '천천히 걷는 문장들',
     note: '해가 짧아지는 11월, 빨리 읽으면 아까운 책 네 권을 골랐어요. 하루에 한 꼭지, 한 장씩. 걷듯이 읽어 보세요.',
     reviews: [
@@ -913,7 +920,7 @@ const ISSUES = [
           '분량이 짧아 한자리에서 읽을 수 있어요. 다 읽고 나면 괜히 부엌에 가서 따뜻한 걸 하나 만들고 싶어져요.'],
         when: '누군가를, 혹은 무언가를 떠나보낸 뒤.' }
     ] },
-  { id: '2026-12', month: '12월', vol: '2호', theme: '겨울을 건너는 다정함',
+  { id: '2026-12', draft: true, month: '12월', vol: '2호', theme: '겨울을 건너는 다정함',
     note: '추위가 시작되는 12월엔 마음을 덥혀 줄 이야기가 필요해요. 다정한 사람들이 나오는 책 네 권을 모았어요.',
     reviews: [
       { book: '불편한 편의점', author: '김호연', genre: '소설', type: 'damyo', headline: '불편한데 자꾸 가고 싶은 가게',
@@ -937,7 +944,7 @@ const ISSUES = [
           '가볍게 읽히고 끝맛이 포근해서, 자기 전에 몇 장씩 읽기 좋아요.'],
         when: '잠들기 전, 마음을 편하게 하고 싶을 때.' }
     ] },
-  { id: '2027-01', month: '1월', vol: '3호', theme: '다시 시작하는 사람에게',
+  { id: '2027-01', draft: true, month: '1월', vol: '3호', theme: '다시 시작하는 사람에게',
     note: '새해엔 누구나 한 번쯤 다시 시작해요. 첫걸음을 응원하는 책과, 흔들릴 때 붙잡을 책을 함께 골랐어요.',
     reviews: [
       { book: '연금술사', author: '파울로 코엘료', genre: '소설', type: 'compass', headline: '꿈을 따라 사막을 건너다',
@@ -962,6 +969,8 @@ const ISSUES = [
         when: '새로 시작하는 게 두려울 때.' }
     ] }
 ];
+// draft: true 인 호는 아직 공개하지 않아요. 발행할 때 draft 줄만 지우면 돼요.
+const ISSUES = ALL_ISSUES.filter(x => !x.draft);
 const CURRENT_ISSUE = (() => {
   const d = new Date();
   const ym = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
@@ -993,9 +1002,9 @@ function markYear(id) { document.querySelectorAll('#yearList .year-item').forEac
 function renderComing(id) {
   const row = YEAR.find(([m]) => m.replace('.', '-') === id); if (!row) return;
   const [y, mm] = row[0].split('.');
-  document.querySelectorAll('#issueTabs .pill').forEach(p => p.setAttribute('aria-pressed', 'false'));
+  document.querySelectorAll('#issueTabs .pill').forEach(p => p.setAttribute('aria-pressed', String(p.dataset.coming === id)));
   markYear(id);
-  document.getElementById('issueFull').innerHTML = `<div class="issue-head later"><span class="issue-meta">${y}년 ${Number(mm)}월 · 발행 예정</span><h2>${esc(row[1])}</h2><p>${y}년 ${Number(mm)}월에 이 주제로 책 네 권을 소개할 예정이에요.</p></div>
+  document.getElementById('issueFull').innerHTML = `<div class="issue-head later"><span class="issue-meta">${y}년 ${Number(mm)}월 · 발행 예정</span><h2>${esc(row[1])}</h2><p>${Number(mm)}월호는 지금 준비하고 있어요. 이 주제로 책 네 권을 골라 리뷰할 예정이니 많은 관심 부탁드려요!</p></div>
     <div class="soon"><h3>어떤 책을 다룰지 고르는 중이에요</h3><p>이 주제로 함께 읽고 싶은 책이 있다면 인스타그램 @bookk__book으로 추천해 주세요. 추천받은 책은 리뷰에 소개될 수 있어요.</p></div>`;
 }
 function renderIssue(id) {
@@ -1006,11 +1015,14 @@ function renderIssue(id) {
   box.innerHTML = issueHead(iss) + `<div class="reviews">${iss.reviews.map((r, i) => reviewCard(iss, r, i)).join('')}</div>`;
 }
 function renderMagazine() {
-  document.getElementById('issueTabs').innerHTML = ISSUES.map(iss => `<button class="pill" type="button" data-issue="${iss.id}" aria-pressed="false" title="${esc(iss.theme)}">${esc(iss.month)}</button>`).join('');
+  const lastId = ISSUES.map(x => x.id).sort().pop();
+  const nextUp = YEAR.map(([m, th]) => [m.replace('.', '-'), m, th]).filter(([id]) => id > lastId && !issueById(id)).slice(0, 2);
+  document.getElementById('issueTabs').innerHTML = ISSUES.map(iss => `<button class="pill" type="button" data-issue="${iss.id}" aria-pressed="false" title="${esc(iss.theme)}">${esc(iss.month)}</button>`).join('')
+    + nextUp.map(([id, m, th]) => `<button class="pill pill-soon" type="button" data-coming="${id}" aria-pressed="false" title="${esc(th)} · 발행 예정">${Number(m.split('.')[1])}월 <small>예정</small></button>`).join('');
   document.getElementById('yearList').innerHTML = YEAR.map(([m, th]) => {
     const id = m.replace('.', '-');
     const state = id === CURRENT_ISSUE ? 'now' : (issueById(id) ? (id < CURRENT_ISSUE ? 'past' : 'ready') : (id < CURRENT_ISSUE ? 'past' : 'later'));
-    const tag = state === 'now' ? '이번 달' : state === 'ready' ? '미리 읽기' : (state === 'past' && issueById(id)) ? '지난 호' : '';
+    const tag = state === 'now' ? '이번 달' : state === 'ready' ? '미리 읽기' : (state === 'past' && issueById(id)) ? '지난 호' : state === 'later' ? '예정' : '';
     const [y, mm] = m.split('.');
     return `<li><button class="year-item ${state}" type="button" data-id="${id}"><span class="year-m">${Number(mm)}월<small>${y}</small></span><span class="year-t">${esc(th)}</span>${tag ? `<span class="year-tag">${tag}</span>` : ''}</button></li>`;
   }).join('');
@@ -1050,7 +1062,7 @@ function openArticle(issueId, idx) {
 artDlg.addEventListener('click', e => { if (e.target === artDlg) artDlg.close(); });
 document.addEventListener('click', e => {
   const r = e.target.closest('.review, .rel-item'); if (r) { openArticle(r.dataset.issue, Number(r.dataset.idx)); return; }
-  const tab = e.target.closest('#issueTabs .pill'); if (tab) renderIssue(tab.dataset.issue);
+  const tab = e.target.closest('#issueTabs .pill'); if (tab) { if (tab.dataset.coming) renderComing(tab.dataset.coming); else renderIssue(tab.dataset.issue); }
   const yr = e.target.closest('#yearList .year-item');
   if (yr) {
     if (issueById(yr.dataset.id)) renderIssue(yr.dataset.id); else renderComing(yr.dataset.id);
