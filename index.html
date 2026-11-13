@@ -668,12 +668,12 @@ footer { border-top: 1px solid var(--line); padding-block: 26px; color: var(--in
       <div id="issueHome"></div>
     </section>
 
-    <section>
+    <section id="secShelf">
       <div class="sec-head"><h2>책방지기의 추천</h2><a class="link" href="#shops">서점 전체 보기 <span class="arrow" aria-hidden="true">→</span></a></div>
       <div class="home-shelf" id="shelfHome"></div>
     </section>
 
-    <section>
+    <section id="secWriters">
       <div class="sec-head"><h2>첫 문단으로 만나는 작가</h2><a class="link" href="#writers">작가 전체 보기 <span class="arrow" aria-hidden="true">→</span></a></div>
       <div class="writers" id="writersHome"></div>
     </section>
@@ -708,14 +708,14 @@ footer { border-top: 1px solid var(--line); padding-block: 26px; color: var(--in
   <div id="v-writers" data-view hidden>
     <h1 class="page-title">작가</h1>
     <p class="page-lead">이름보다 첫 문단으로 먼저 만나요.</p>
-    <div class="notice"><p class="notice-t">작가님들을 한 분씩 모시는 중이에요</p><p>지금 보이는 작가는 앞으로 어떤 모습으로 소개될지 보여드리는 예시예요. 북크북크와 결이 맞는 신생 작가를 차근차근 채워 나갈 예정이니 많은 관심 부탁드려요! 함께하고 싶은 작가님은 인스타그램 <b>@bookk__book</b>으로 연락 주세요.</p></div>
+    <div class="notice"><p class="notice-t">작가님들을 한 분씩 모시는 중이에요</p><p>북크북크와 결이 맞는 신생 작가를 한 분씩 모셔서 이곳을 차근차근 채워 나갈 예정이에요. 많은 관심 부탁드려요! 함께하고 싶은 작가님은 인스타그램 <b>@bookk__book</b>으로 연락 주세요.</p></div>
     <div class="writers" id="writersFull"></div>
   </div>
 
   <div id="v-shops" data-view hidden>
     <h1 class="page-title">독립서점</h1>
     <p class="page-lead">책방지기가 직접 고른 세 권으로 서점을 소개해요.</p>
-    <div class="notice"><p class="notice-t">동네 책방을 하나씩 찾아가는 중이에요</p><p>지금 보이는 서점은 앞으로 어떤 모습으로 소개될지 보여드리는 예시예요. 오래 머물고 싶은 독립서점을 차근차근 채워 나갈 예정이니 많은 관심 부탁드려요! 소개하고 싶은 서점이 있다면 인스타그램 <b>@bookk__book</b>으로 알려 주세요.</p></div>
+    <div class="notice"><p class="notice-t">동네 책방을 하나씩 찾아가는 중이에요</p><p>오래 머물고 싶은 동네 독립서점을 직접 찾아가 이곳을 차근차근 채워 나갈 예정이에요. 많은 관심 부탁드려요! 소개하고 싶은 서점이 있다면 인스타그램 <b>@bookk__book</b>으로 알려 주세요.</p></div>
     <div class="shops" id="shopsFull"></div>
   </div>
 
@@ -844,7 +844,8 @@ const QUESTIONS = [
 const AXES = [['쉼','깸','읽는 이유'],['온','냉','온도'],['답','물음','여운']];
 const LOOKUP = { 'AAA':'damyo','AAB':'pyeonji','ABA':'memo','ABB':'window','BAA':'compass','BAB':'fire','BBA':'lens','BBB':'mirror' };
 
-const WRITERS = [
+// 예시 데이터: 실제 작가·서점이 정해지면 WRITERS / SHOPS 에 넣어요
+const EXAMPLE_WRITERS = [
   { name:'한서윤', book:'밤 열한 시의 세탁소', genre:'에세이', type:'window', shop:'책방 모퉁이',
     first:'세탁기가 돌아가는 사십 분 동안 나는 아무것도 하지 않기로 했다. 동전을 넣고, 플라스틱 의자에 앉아, 둥근 창 안에서 엉키는 남의 셔츠를 본다. 이상하게도 그 시간이 하루 중 가장 조용했다.' },
   { name:'도윤재', book:'지도에 없는 길', genre:'소설', type:'fire', shop:'바다서가',
@@ -852,7 +853,7 @@ const WRITERS = [
   { name:'이마루', book:'월급날의 산수', genre:'에세이', type:'memo', shop:'느린 오후',
     first:'통장에 돈이 들어오는 날, 나는 노트를 편다. 고정비, 저축, 나에게 주는 몫. 세 줄을 적고 나면 이번 달이 조금 덜 무섭다.' }
 ];
-const SHOPS = [
+const EXAMPLE_SHOPS = [
   { name:'책방 모퉁이', area:'서울 마포', note:'골목 모퉁이 2층, 창가 자리가 두 개뿐인 작은 서점.', picks:[['시와 산책','한정원'],['스토너','존 윌리엄스'],['밤 열한 시의 세탁소','한서윤']] },
   { name:'바다서가', area:'부산 영도', note:'바다가 보이는 창고를 고친 서점. 여름엔 밤 열 시까지 문을 열어요.', picks:[['연금술사','파울로 코엘료'],['지도에 없는 길','도윤재'],['우리가 빛의 속도로 갈 수 없다면','김초엽']] },
   { name:'느린 오후', area:'전주 서학동', note:'오후 한 시에 문을 여는 서점. 손님 한 명에 차 한 잔을 내어줘요.', picks:[['명상록','마르쿠스 아우렐리우스'],['월급날의 산수','이마루'],['바깥은 여름','김애란']] }
@@ -870,10 +871,12 @@ function typeCard(t, asLink, i, lvl = 'h3') {
     <p class="animal">${esc(t.animal)}</p>
   </${tag}>`;
 }
+const WRITERS = [];
+const SHOPS = [];
 function writerCard(w, lvl = 'h3') {
   const t = byKey[w.type];
   return `<article class="writer">
-    <div class="meta"><span class="chip" style="background:${colorOf(t.k)}">${esc(t.name)}</span><span>${esc(w.genre)}</span><span class="tag-ex">예시</span></div>
+    <div class="meta"><span class="chip" style="background:${colorOf(t.k)}">${esc(t.name)}</span><span>${esc(w.genre)}</span></div>
     <p class="first">${esc(w.first)}</p>
     <div><${lvl} class="wbook">『${esc(w.book)}』</${lvl}><p class="meta">${esc(w.name)}</p></div>
     <p class="buy">파는 곳 · <b>${esc(w.shop)}</b></p>
@@ -1072,7 +1075,7 @@ document.addEventListener('click', e => {
 
 function shopCard(s) {
   return `<article class="shop">
-    <div><div class="meta"><span>${esc(s.area)}</span><span class="tag-ex">예시</span></div><h2 class="sname">${esc(s.name)}</h2><p class="note">${esc(s.note)}</p></div>
+    <div><div class="meta"><span>${esc(s.area)}</span></div><h2 class="sname">${esc(s.name)}</h2><p class="note">${esc(s.note)}</p></div>
     <div><p class="label" style="margin-bottom:8px">책방지기가 고른 세 권</p><div class="shelf">${s.picks.map(p => `<button class="spine" type="button" data-book="${esc(p[0])}" data-shop="${esc(s.name)}" aria-haspopup="dialog"><b>『${esc(p[0])}』</b><span>${esc(p[1])}</span><span class="peek">미리 읽기 <i aria-hidden="true">→</i></span></button>`).join('')}</div></div>
   </article>`;
 }
@@ -1169,6 +1172,8 @@ document.getElementById('writersHome').innerHTML = WRITERS.map(w => writerCard(w
 document.getElementById('writersFull').innerHTML = WRITERS.map(w => writerCard(w, 'h2')).join('');
 const shopsFull = document.getElementById('shopsFull');
 shopsFull.innerHTML = SHOPS.map(shopCard).join('');
+document.getElementById('secShelf').hidden = !SHOPS.length;
+document.getElementById('secWriters').hidden = !WRITERS.length;
 const typesGrid = document.getElementById('typesGrid');
 typesGrid.innerHTML = TYPES.map((t, i) => typeCard(t, true, i, 'h2')).join('');
 document.getElementById('typeStrip').innerHTML = TYPES.map((t, i) => typeCard(t, true, i)).join('');
@@ -1341,7 +1346,7 @@ function showResult(key, cnt, fromBrowse, shared) {
         <div class="axes" ${step()}>${axesHtml}</div>
         <div class="pick" ${step()}><span class="label">이 결의 대표작</span><span class="title">『${esc(t.books[0][0])}』</span><span class="meta">${esc(t.books[0][1])} · 함께 읽기 ${t.books.slice(1, 3).map(b => `『${esc(b[0])}』`).join(' ')}</span><a class="link" href="#type-${t.k}" style="margin-top:6px;font-size:var(--s-1)">${esc(t.name)}형 책 더 보기 <span class="arrow" aria-hidden="true">→</span></a></div>
         <div class="pick" ${step()}><span class="label">이 책을 좋아했다면, 아직 모르는 이 작가를</span>
-          ${w ? `<span class="title">『${esc(w.book)}』</span><span class="meta">${esc(w.name)} · ${esc(w.genre)} · 파는 곳 ${esc(w.shop)} <span class="tag-ex">예시</span></span><p class="first">${esc(w.first)}</p>`
+          ${w ? `<span class="title">『${esc(w.book)}』</span><span class="meta">${esc(w.name)} · ${esc(w.genre)} · 파는 곳 ${esc(w.shop)}</span><p class="first">${esc(w.first)}</p>`
               : `<span class="title" style="color:var(--ink-soft)">곧 소개할게요</span><span class="meta">이 결의 글을 쓰는 작가를 찾고 있어요. 추천은 @bookk__book으로 보내주세요.</span>`}
         </div>
         <div class="pick" ${step()}><span class="label">${esc(t.name)}형에게 추천한 매거진 리뷰</span>${relList(t.k)}</div>
